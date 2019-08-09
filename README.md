@@ -19,7 +19,7 @@
 2. 文件模块:file
 3. 通知模块:notice
 4. 员工信息管理模块:security
-5. 供热收费管理模块:heating
+5. 供热收费管理模块:fee
 6. 投诉模块:complain
 7. 系统操作员管理模块:security
 8. 系统功能配置模块:security
@@ -37,12 +37,12 @@
 供热年度费率表	       |HeatingYear	|HT_HeadtingPrice|
 付款方式表	           |TYPENO 	|HT_PaymentType|
 居民供热记录表	        |FeeNo		|HT_homeFee			|居民表(HomeNo)1:1, 供热年度费率表(HeatingYear)1:1
-住宅供热缴费记录表     |RecordNo	 |HT_HomeFeePayRecord		|居民供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:n
+住宅供热缴费记录表     |RecordNo	 |HT_HomeFeePayRecord		|居民供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:1
 住宅供热退费记录表     |RecordNo	|HT_HomeFeeReturnRecord		|居民表(HomeNo)1:1,付款方式表(TypeNo)1:n
 住宅供热报停表	        |RecordNo		|HT_HomeStopRecord		|居民供热记录表(FeeNo)1:1
 公建供热记录表	        |FeeNo		|HT_PublicHouseFee			|公建表(HouseNo)1:1, 供热年度费率表(HeatingYear)1:1
-公建供热缴费记录表      |RecordNo		|HT_PublicHouseFeePayRecord		|公建供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:n	
-公建供热退费记录	     |RecordNo	|HT_PublicHouseFeeReturnRecord	|公建表(HouseNo)1:1,付款方式表(TypeNo)1:n
+公建供热缴费记录表      |RecordNo		|HT_PublicHouseFeePayRecord		|公建供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:1
+公建供热退费记录	     |RecordNo	|HT_PublicHouseFeeReturnRecord	|公建表(HouseNo)1:1,付款方式表(TypeNo)1:1
 公建供热报停表	        |RecordNo	|HT_PublicHouseStopRecord	|公建供热记录表(FeeNo)1:1
 
 

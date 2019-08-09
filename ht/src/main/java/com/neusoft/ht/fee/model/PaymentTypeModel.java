@@ -1,5 +1,7 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @Alias("PaymentType")
 @Data
-public class PaymentTypeModel {
+public class PaymentTypeModel implements Serializable {
 	
 	private int typeno = 0;
 	private String typename = null;

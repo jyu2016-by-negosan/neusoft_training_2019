@@ -1,5 +1,7 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @Alias("Home")
 @Data
-public class HomeModel {
+public class HomeModel implements Serializable{
   
    private int homeno = 0;
    private String heatingcode = null;

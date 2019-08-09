@@ -11,14 +11,14 @@ spring:
       # 指定静态资源路径
    resources:
         #指定静态资源路径，默认为classpath:[/META-INF/resources/,/resources/, /static/, /public/]以及context:/
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/}
+    static-locations: classpath:/static/
 
       #热部署--静态资源立即生效
    thymeleaf:
     cache: false
     encoding: UTF-8
     mode: LEGACYHTML5
-    prefix: classpath:/templates/
+    prefix: classpath:/static/
     suffix: .html
     check-template-location: true
       #热部署生效

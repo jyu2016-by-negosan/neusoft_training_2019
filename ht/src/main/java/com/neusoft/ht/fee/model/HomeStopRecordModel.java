@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Alias("HomeStopRecord")
 @Data
-public class HomeStopRecordModel {
+public class HomeStopRecordModel  {
  
     private int recordno = 0;
     private HomeFeeModel homeFeeModel = null;

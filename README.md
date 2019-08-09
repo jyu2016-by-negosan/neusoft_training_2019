@@ -3,8 +3,12 @@
 
 团队|姓名|任务分配(暂定，快认领)
 --|:--:|:-
+<<<<<<< HEAD
 组长|黄宇德|供热收费管理模块(基础信息，年份供热价格管理，供热居民管理，住宅供热记录管理，住宅缴费记录管理，住宅供热退费管理，住宅停供记录管理)
-组员|罗妙忠|
+=======
+组长|黄宇德|供热收费管理模块（基础信息（小区的管理，房型的管理，付款类型管理），年份供热价格管理，供热居民管理，住宅供热记录管理，住宅缴费记录管理，住宅供热退费管理，住宅停供记录管理）
+>>>>>>> branch 'master' of git@github.com:jyu2016-by-negosan/neusoft_training_2019.git
+组员|罗妙忠|供热收费管理模块(基础信息，年份供热价格管理，供热居民管理，住宅供热记录管理，住宅缴费记录管理，住宅供热退费管理，住宅停供记录管理)
 组员|吴澍淼|
 组员|张晓龙|供热收费管理模块（公建年度供热费管理，修改公建供热状态，修改公司年度实际供热天数，修改公建供热状态，公建缴费记录管理，公建退费记录管理）
 组员|万俊星|投诉模块、系统操作员管理模块、系统功能配置模块
@@ -38,7 +42,11 @@
 付款方式表	           |TYPENO 	|HT_PaymentType|
 居民供热记录表	        |FeeNo		|HT_homeFee			|居民表(HomeNo)1:1, 供热年度费率表(HeatingYear)1:1
 住宅供热缴费记录表     |RecordNo	 |HT_HomeFeePayRecord		|居民供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:1
+<<<<<<< HEAD
 住宅供热退费记录表     |RecordNo	|HT_HomeFeeReturnRecord		|居民表(HomeNo)1:1,付款方式表(TypeNo)1:1
+=======
+住宅供热退费记录表     |RecordNo	|HT_HomeFeeReturnRecord		|居民表(HomeNo)1:1,付款方式表(TypeNo)1:n
+>>>>>>> branch 'master' of git@github.com:jyu2016-by-negosan/neusoft_training_2019.git
 住宅供热报停表	        |RecordNo		|HT_HomeStopRecord		|居民供热记录表(FeeNo)1:1
 公建供热记录表	        |FeeNo		|HT_PublicHouseFee			|公建表(HouseNo)1:1, 供热年度费率表(HeatingYear)1:1
 公建供热缴费记录表      |RecordNo		|HT_PublicHouseFeePayRecord		|公建供热记录表(FeeNo)1:1,付款方式表(TypeNo)1:1

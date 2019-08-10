@@ -12,7 +12,7 @@ import lombok.Data;
  * @author 黄宇德
  *
  */
-@Alias("Neighbourhood")
+@Alias("NeighbourHood")
 @Data
 public class NeighbourHoodModel implements Serializable {
 	

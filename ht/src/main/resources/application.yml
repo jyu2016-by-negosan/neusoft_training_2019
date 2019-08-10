@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://negosan0104.mysql.rds.aliyuncs.com:3306/htdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: negosan
-    password: #Nogosan
+    password: '#Nogosan'
  
       
       # 指定静态资源路径
@@ -37,8 +37,10 @@ spring:
 mybatis:
   mapper-locations:
   #- classpath*:/mappers/**/*Mapper.xml
+  - classpath*:/mappers/fee/*Mapper.xml
   type-aliases-package:
-    #com.neusoft.ht
+    #com.neusoft.ht.*.model
+    com.neusoft.ht.fee.model
 
   
 #showSql

@@ -2,16 +2,26 @@ package com.neusoft.ht.fee.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.neusoft.ht.fee.model.NeighbourHoodModel;
+
 
 public interface INeighbourHoodMapper {
 	//C
-	public void create(NeighbourHoodModel neighbourHoodModel) throws Exception;
+	public void insert(NeighbourHoodModel neighbourHoodModel) throws Exception;
 	//U
 	public void update(NeighbourHoodModel neighbourHoodModel) throws Exception;
 	//R
 	public List<NeighbourHoodModel> selectListByAll() throws Exception;
+	//R2
+	public NeighbourHoodModel selectByNo(int hoodno) throws Exception;
+	//R3
+	public List<NeighbourHoodModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
+	//R4
+	public int selectCountByAll() throws Exception;
 	//D
 	public void delete(NeighbourHoodModel neighbourHoodModel) throws Exception;
+
 }
 	

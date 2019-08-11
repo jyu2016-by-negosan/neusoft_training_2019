@@ -30,7 +30,7 @@
    select * from HT_Neighbourhood
   </select>
 
-  <select id="selectListByNo" resultMap="NeighbourHoodResultMap">
+  <select id="selectByNo" resultMap="NeighbourHoodResultMap">
    select * from HT_Neighbourhood where HOODNO=#{hoodno}
   </select>
   

@@ -46,7 +46,7 @@ mybatis:
 #showSql
 logging:
   level:
-    com.neusoft.ht.*.mapper: debug
+    com.neusoft.ht.fee.mapper: debug
 
 
 

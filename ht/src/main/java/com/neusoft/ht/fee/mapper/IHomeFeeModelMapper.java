@@ -6,7 +6,7 @@ import com.neusoft.ht.fee.model.HomeFeeModel;
 
 public interface IHomeFeeModelMapper {
 	//C
-	public void create(HomeFeeModel homeFeeModel) throws Exception;
+	public void insert(HomeFeeModel homeFeeModel) throws Exception;
 	//U
 	public void update(HomeFeeModel homeFeeModel) throws Exception;
 	//R

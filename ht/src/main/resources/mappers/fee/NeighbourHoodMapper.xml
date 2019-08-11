@@ -41,8 +41,6 @@
   <!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(HOODNO), 0) from HT_Neighbourhood
-  </select>
-  
-   
+  </select>  
 </mapper>
  

@@ -12,7 +12,7 @@ public interface IHeatingPriceMapper {
 	//U
 	public void update(HeatingPriceModel heatingPriceModel) throws Exception;
 	//R
-	public List<HeatingPriceModel> selectListByAll() throws Exception;
+	public List<HeatingPriceModel> selectListByAllWithPriceAndDay() throws Exception;
 	//R2
 	public HeatingPriceModel selectByYear(String heatingyear) throws Exception;
 	//R3

@@ -5,7 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.HeatingPriceModel;
-
+/**模块：供热缴费管理
+ * 年份供热价格管理的Mapper接口
+ * @author 黄宇德
+ *
+ */
 public interface IHeatingPriceMapper {
 	//C
 	public void insert(HeatingPriceModel heatingPriceModel) throws Exception;

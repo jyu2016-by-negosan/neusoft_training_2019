@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.neusoft.ht.fee.model.HouseTypeModel;
 import com.neusoft.ht.fee.service.IHouseTypeService;
 import com.neusoft.ht.message.ResultMessage;
-
+/**模块：供热缴费管理
+ * 房屋类型管理的控制类
+ * @author 黄宇德
+ *
+ */
 @RestController
 @RequestMapping(value="/housetype")
 public class HouseTypeController {

@@ -13,7 +13,11 @@ import com.neusoft.ht.fee.model.NeighbourHoodModel;
 import com.neusoft.ht.fee.service.INeighbourHoodService;
 import com.neusoft.ht.message.ResultMessage;
 
-
+/**模块：供热缴费管理
+ * 小区管理管理的控制类
+ * @author 黄宇德
+ *
+ */
 @RestController
 @RequestMapping(value="/neighbourhood")
 public class NeighbourHoodController {

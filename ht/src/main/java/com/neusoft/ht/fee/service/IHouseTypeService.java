@@ -3,7 +3,11 @@ package com.neusoft.ht.fee.service;
 import java.util.List;
 
 import com.neusoft.ht.fee.model.HouseTypeModel;
-
+/**模块：供热缴费管理
+ * 房型管理的Service接口
+ * @author 黄宇德
+ *
+ */
 public interface IHouseTypeService {
 
 	//增加

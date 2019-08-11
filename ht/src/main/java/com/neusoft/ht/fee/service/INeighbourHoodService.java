@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.neusoft.ht.fee.model.NeighbourHoodModel;
 
-
+/**模块：供热缴费管理
+ * 小区管理的Service接口
+ * @author 黄宇德
+ *
+ */
 public interface INeighbourHoodService {
 	//增加
 	public void add(NeighbourHoodModel neighbourHoodModel) throws Exception;

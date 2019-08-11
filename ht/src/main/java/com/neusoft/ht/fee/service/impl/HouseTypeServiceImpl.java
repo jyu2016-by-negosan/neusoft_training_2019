@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.ht.fee.mapper.IHouseTypeMapper;
 import com.neusoft.ht.fee.model.HouseTypeModel;
 import com.neusoft.ht.fee.service.IHouseTypeService;
-
+/**模块：供热缴费管理
+ * 房型管理的Service实现类
+ * @author 黄宇德
+ *
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class HouseTypeServiceImpl implements IHouseTypeService {

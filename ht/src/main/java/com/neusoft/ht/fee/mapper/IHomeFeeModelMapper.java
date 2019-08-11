@@ -3,7 +3,11 @@ package com.neusoft.ht.fee.mapper;
 import java.util.List;
 
 import com.neusoft.ht.fee.model.HomeFeeModel;
-
+/**模块：供热缴费管理
+ * 住宅供热记录管理的Mapper接口
+ * @author 黄宇德
+ *
+ */
 public interface IHomeFeeModelMapper {
 	//C
 	public void insert(HomeFeeModel homeFeeModel) throws Exception;

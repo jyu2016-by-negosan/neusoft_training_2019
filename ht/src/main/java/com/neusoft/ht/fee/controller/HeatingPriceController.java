@@ -13,6 +13,11 @@ import com.neusoft.ht.fee.model.HeatingPriceModel;
 import com.neusoft.ht.fee.service.IHeatingPriceService;
 import com.neusoft.ht.message.ResultMessage;
 
+/**模块：供热缴费管理
+ * 年份供热价格管理的控制类
+ * @author 黄宇德
+ *
+ */
 @RestController
 @RequestMapping(value="/heatingprice")
 public class HeatingPriceController {

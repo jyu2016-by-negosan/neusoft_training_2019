@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.ht.fee.mapper.IPaymentTypeMapper;
 import com.neusoft.ht.fee.model.PaymentTypeModel;
 import com.neusoft.ht.fee.service.IPaymentTypeService;
-
+/**模块：供热缴费管理
+ * 付款类型管理的Service实现类
+ * @author 黄宇德
+ *
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class PaymentTypeServiceImpl implements IPaymentTypeService {

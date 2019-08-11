@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.NeighbourHoodModel;
 
-
+/**模块：供热缴费管理
+ * 小区管理的Mapper接口
+ * @author 黄宇德
+ *
+ */
 public interface INeighbourHoodMapper {
 	//C
 	public void insert(NeighbourHoodModel neighbourHoodModel) throws Exception;

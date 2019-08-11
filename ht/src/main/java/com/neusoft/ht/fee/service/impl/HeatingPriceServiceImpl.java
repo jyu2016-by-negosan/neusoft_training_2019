@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.ht.fee.mapper.IHeatingPriceMapper;
 import com.neusoft.ht.fee.model.HeatingPriceModel;
 import com.neusoft.ht.fee.service.IHeatingPriceService;
-
+/**模块：供热缴费管理
+ * 年份供热价格管理的Service实现类
+ * @author 黄宇德
+ *
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class HeatingPriceServiceImpl implements IHeatingPriceService {

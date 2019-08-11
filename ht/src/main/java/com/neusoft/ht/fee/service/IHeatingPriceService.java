@@ -3,7 +3,11 @@ package com.neusoft.ht.fee.service;
 import java.util.List;
 
 import com.neusoft.ht.fee.model.HeatingPriceModel;
-
+/**模块：供热缴费管理
+ * 年份供热价格管理的Service接口
+ * @author 黄宇德
+ *
+ */
 public interface IHeatingPriceService {
 	//增加
 	public void add(HeatingPriceModel heatingPriceModel) throws Exception;

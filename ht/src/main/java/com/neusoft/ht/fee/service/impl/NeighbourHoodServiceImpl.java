@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.ht.fee.mapper.INeighbourHoodMapper;
 import com.neusoft.ht.fee.model.NeighbourHoodModel;
 import com.neusoft.ht.fee.service.INeighbourHoodService;
-
+/**模块：供热缴费管理
+ * 小区管理的Service实现类
+ * @author 黄宇德
+ *
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class NeighbourHoodServiceImpl implements INeighbourHoodService {

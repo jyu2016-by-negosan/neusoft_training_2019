@@ -5,7 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.HomeModel;
-
+/**模块：供热缴费管理
+ * 供热居民管理的Mapper接口
+ * @author 黄宇德
+ *
+ */
 public interface IHomeMapper {
 	//C
 	public void insert(HomeModel homeModel) throws Exception;

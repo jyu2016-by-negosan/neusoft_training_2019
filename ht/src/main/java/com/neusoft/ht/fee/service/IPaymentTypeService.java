@@ -3,7 +3,11 @@ package com.neusoft.ht.fee.service;
 import java.util.List;
 
 import com.neusoft.ht.fee.model.PaymentTypeModel;
-
+/**模块：供热缴费管理
+ * 付款类型管理的Service接口
+ * @author 黄宇德
+ *
+ */
 public interface IPaymentTypeService {
 	//增加
 	public void add(PaymentTypeModel paymentTypeModel ) throws Exception;

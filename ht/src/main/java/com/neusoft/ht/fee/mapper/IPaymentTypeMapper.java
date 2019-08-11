@@ -5,7 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.PaymentTypeModel;
-
+/**模块：供热缴费管理
+ * 付款类型管理的Mapper接口
+ * @author 黄宇德
+ *
+ */
 public interface IPaymentTypeMapper {
 	//C
 	public void insert(PaymentTypeModel paymentTypeModel) throws Exception;

@@ -1,5 +1,7 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -10,9 +12,9 @@ import lombok.Data;
  * @author 黄宇德
  *
  */
-@Alias("Neighbourhood")
+@Alias("NeighbourHood")
 @Data
-public class NeighbourHoodModel {
+public class NeighbourHoodModel implements Serializable {
 	
 	private int hoodno = 0;
 	private String hoodname = null;

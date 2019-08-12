@@ -8,7 +8,7 @@ import lombok.Data;
  * 	供热收费管理模块的公建供热记录类
  * @author 黄宇德
  */
-@Alias("PublicHouse")
+@Alias("PublicHouseFee")
 @Data
 public class PublicHouseFeeModel {
 

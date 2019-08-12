@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ht.complain.model.HomePayRecordModel">
+ 
+  <!-- 启用全局缓存 -->
+  <cache/>
+  
+  <!-- 无关联属性的结果映射 -->
+  <reusltMap id="HomePayRecordResultMap" type="homePayRecord">
+	<id property="recordNo" column="RecordNo"/>
+	<result property="feeNo" column="FeeNo"/>
+	<result property="paymentTypeNo" column="PaymentTypeNo"/>
+	<result property="payAmount" column="PayAmount"/>
+	<result property="payDate" column="PayDate"/>
+	<result property="checkCode" column="CheckCode"/>
+	<result property="payPerson" column="PayPerson"/>
+	<result property="invoiceCode" column="InvoiceCode"/>
+	<result property="payDesc" column="PayDesc"/>
+	<result property="recordStatus" column="RecordStatus"/>
+  </reusltMap>
+  
+  <insert id="insert" keyProperty="recordNo" keyColumn="RecordNo" useGeneratedKeys="true">
+  	insert into ht_homefeepayrecord values(#{recordNo},#{feeNO},#{paymentTypeNo},#{payAmount}
+  	#{payDate},#{checkCode},#{payPerson},#{invoiceCode},#{payDesc},#{recordStatus})
+  </insert>
+  
+  <delete id="delete">
+  	 delete from ht_homefeepayrecord where id=#{recordNo}
+  </delete>
+ 
+ <update id="update">
+ 	update ht_homefeepayrecord set feeNo=#{feeNO},paymentTypeNo=#{paymentTypeNo},
+ 	payAmount=#{payAmount},payDate=#{payDate},checkCode=#{checkCode},payPerson=#{payPerson},
+ 	invoiceCode=#{invoiceCode},payDesc=#{payDesc},recordStatus=#{recordStatus} where recordNo=#{recordNo}
+ </update>
+ 
+ <select id="selectById" resultMap="HomePayRecordResultMap">
+ 	select * from ht_homefeepayrecord where recordNo=#{recordNo}
+ </select>
+ 
+ <select id="selectByAllList" resultMap="HomePayRecordResultMap">
+ 	select * from ht_homefeepayrecord
+ </select>
+ 
+
+</mapper>

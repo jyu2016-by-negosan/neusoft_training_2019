@@ -1,5 +1,6 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Alias("PublicHouseFeePayRecord")
 @Data
-public class PublicHouseFeePayRecordModel {
+public class PublicHouseFeePayRecordModel implements Serializable {
 
 	private int recordno = 0;
 	private int feeno = 0;

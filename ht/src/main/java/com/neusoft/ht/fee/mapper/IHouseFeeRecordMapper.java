@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.neusoft.ht.complain.model.HomePayRecordModel;
+import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 
 /**模块：供热缴费管理
  * 住宅供热缴费记录--Mapper接口
@@ -14,19 +14,19 @@ import com.neusoft.ht.complain.model.HomePayRecordModel;
 @Mapper
 public interface IHouseFeeRecordMapper {
 	//增加住宅缴费记录
-	public void insert(HomePayRecordModel payRecordModel);
+	public void insert( HomeFeePayRecordModel payRecordModel);
 	
 	//删除住宅缴费记录
-	public void delete(HomePayRecordModel payRecordModel);
+	public void delete( HomeFeePayRecordModel payRecordModel);
 	
 	//更改住宅缴费记录
-	public void update(HomePayRecordModel payRecordModel);
+	public void update( HomeFeePayRecordModel payRecordModel);
 	
 	//根据居民缴费序号查找缴费记录
-	public List<HomePayRecordModel> selectById(int recordNo);
+	public List< HomeFeePayRecordModel> selectById(int recordNo);
 	
 	//查找所有住宅缴费记录
-	public List<HomePayRecordModel> selectByAllList();
+	public List< HomeFeePayRecordModel> selectByAllList();
 	
 	
 }

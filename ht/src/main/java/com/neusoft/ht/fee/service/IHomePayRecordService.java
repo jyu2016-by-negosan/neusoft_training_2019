@@ -1,7 +1,7 @@
 package com.neusoft.ht.fee.service;
 
 import java.util.List;
-import com.neusoft.ht.complain.model.HomePayRecordModel;
+import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 
 /**模块：供热缴费管理
  * 住宅供热缴费记录--Service
@@ -10,17 +10,17 @@ import com.neusoft.ht.complain.model.HomePayRecordModel;
  */
 public interface IHomePayRecordService {
 		//增加住宅缴费记录
-		public void add(HomePayRecordModel payRecordModel);
+		public void add(HomeFeePayRecordModel payRecordModel);
 		
 		//删除住宅缴费记录
-		public void delete(HomePayRecordModel payRecordModel);
+		public void delete(HomeFeePayRecordModel payRecordModel);
 		
 		//更改住宅缴费记录
-		public void modify(HomePayRecordModel payRecordModel);
+		public void modify(HomeFeePayRecordModel payRecordModel);
 		
 		//根据居民缴费序号查找缴费记录
-		public List<HomePayRecordModel> getById(int recordNo);
+		public List<HomeFeePayRecordModel> getById(int recordno);
 		
 		//查找所有住宅缴费记录
-		public List<HomePayRecordModel> getByAllList();
+		public List<HomeFeePayRecordModel> getByAllList();
 }

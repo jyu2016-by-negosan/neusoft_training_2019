@@ -47,6 +47,7 @@ mybatis:
 logging:
   level:
     com.neusoft.ht.fee.mapper: debug
+   
 
 
 

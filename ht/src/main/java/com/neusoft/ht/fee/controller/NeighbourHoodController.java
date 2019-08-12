@@ -19,7 +19,7 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping(value="/neighbourhood")
+@RequestMapping(value="/fee/neighbourhood")
 public class NeighbourHoodController {
 
 	@Autowired

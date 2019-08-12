@@ -19,7 +19,7 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping(value="/heatingprice")
+@RequestMapping(value="/fee/heatingprice")
 public class HeatingPriceController {
 	@Autowired
 	private IHeatingPriceService heatingPriceService = null;

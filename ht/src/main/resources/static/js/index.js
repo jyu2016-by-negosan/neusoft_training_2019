@@ -14,5 +14,5 @@ $(function(){
 		event.preventDefault();  //停止对象的默认行为。
 
 	});
-})
+});
 

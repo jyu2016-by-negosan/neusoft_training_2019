@@ -2762,8 +2762,8 @@ tbody tr td:last-child {
   }
 }
 .table td,
-.table th 
-  padding:0.55rem;
+.table th {
+  padding: 0.55rem;
 }
 .table .round-img img {
   width: 38px;

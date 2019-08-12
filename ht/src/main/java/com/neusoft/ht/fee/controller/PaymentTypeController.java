@@ -18,7 +18,7 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping(value = "paymenttype")
+@RequestMapping(value = "/fee/paymenttype")
 public class PaymentTypeController {
 
 	@Autowired

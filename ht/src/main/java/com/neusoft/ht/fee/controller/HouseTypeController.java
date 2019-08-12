@@ -18,7 +18,7 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping(value="/housetype")
+@RequestMapping(value="/fee/housetype")
 public class HouseTypeController {
 
 	@Autowired

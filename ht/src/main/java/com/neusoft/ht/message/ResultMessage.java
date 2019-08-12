@@ -31,4 +31,10 @@ public class ResultMessage<T> implements Serializable {
 		this.status=status;
 		this.message=message;
 	}
+	
+	public ResultMessage(List<T>list,String status,String message) {
+		this.list = list;
+		this.status=status;
+		this.message=message;
+	}
 }

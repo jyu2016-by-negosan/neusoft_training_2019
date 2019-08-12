@@ -18,8 +18,8 @@ public class HomeModel implements Serializable{
   
    private int homeno = 0;
    private String heatingcode = null;
-   private HouseTypeModel houseTypeModel = null;
-   private NeighbourHoodModel neighbourHoodModel = null;
+   private HouseTypeModel housetype = null;
+   private NeighbourHoodModel neighbourhood = null;
    private String homename = null;
    private String buildingcode = null;
    private String departmentcode = null;

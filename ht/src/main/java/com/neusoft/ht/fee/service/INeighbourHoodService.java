@@ -27,4 +27,5 @@ public interface INeighbourHoodService {
 	public int getCountByAll() throws Exception;
 	//取得小区页数
 	public int getPagaCountByAll(int rows) throws Exception;
+
 }

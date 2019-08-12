@@ -1,4 +1,5 @@
 /**
+ * 模块：供热缴费管理
  * 小区管理的前端控制JS
  * 作者：黄宇德
  * 
@@ -8,7 +9,7 @@ $(function(){
 	var rows=5;
 	var page=1;
 	var pageCount=0;
-	var hoodno=0; //选择的小区编号
+	var no=0; //选择的小区编号
 
 	function getListInfo(){
 		//取得列表，分页模式
@@ -20,11 +21,16 @@ $(function(){
 				//显示列表
 				$("table#NeighbourHoodTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
-					var tr="<tr><td>"+data.list[i].hoodno+"</td><td>"+data.list[i].hoodname+"</td>"
-					+"<td>"+data.list[i].address+"</td></tr>";
+					var tr="<tr id='"+data.list[i].hoodno+"'><td>"+data.list[i].hoodno
+							+"</td><td>"+data.list[i].hoodname+"</td><td>"+data.list[i].address+"</td></tr>";
 					$("table#NeighbourHoodTable tbody").append(tr);
 				}
-	
+				//定义表格行的点击时间，取得选择的小区号
+				$("table#NeighbourHoodTable tbody tr").on("click",function(){
+					no=$(this).attr("id");
+					$("table#NeighbourHoodTable tbody tr").css("background-color","#FFFFFF");
+					$(this).css("background-color","#6495ED");
+				});
 		 });
 			
 	}	
@@ -73,8 +79,6 @@ $(function(){
 				if(result.status=="OK"){
 					getListInfo(); 
 				}
-				//alert(result.message);
-				//BootstrapDialog.alert(result.message);
 				BootstrapDialog.show({
 		            title: '小区操作信息',
 		            message:result.message
@@ -95,52 +99,51 @@ $(function(){
 	});
 	
 	//点击修改按钮事件处理
-	$("a#DepartmentModifyLink").off().on("click",function(event){
-		if(departmentNo==0){
+	$("a#NeighbourHoodModifyLink").off().on("click",function(event){
+		if(no==0){
 			BootstrapDialog.show({
-	            title: '部门操作信息',
-	            message:"请选择要修改的部门"
+	            title: '小区操作信息',
+	            message:"请选择要修改的小区"
 	        });
 		}
 		else {
-			$("div#DepartmentDialogArea").load("department/modify.html",function(){
+			$("div#NeighbourHoodDialogArea").load("fee/neighbourhood/modify.html",function(){
 				//取得选择的部门
-				$.getJSON("department/get",{no:departmentNo},function(data){
+				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:no},function(data){
 					if(data.status=="OK"){
-						$("input[name='no']").val(departmentNo);
-						$("input[name='code']").val(data.model.code);
-						$("input[name='name']").val(data.model.name);
-						
+						$("input[name='hoodno']").val(no);
+						$("input[name='hoodname']").val(data.model.hoodname);
+						$("input[name='address']").val(data.model.address);
 					}
 				});
 				
-				$("div#DepartmentDialogArea" ).dialog({
-					title:"部门修改",
+				$("div#NeighbourHoodDialogArea" ).dialog({
+					title:"小区修改",
 					width:600
 				});
 				//拦截表单提交
-				$("form#DepartmentModifyForm").ajaxForm(function(result){
+				$("form#NeighbourHoodModifyForm").ajaxForm(function(result){
+					
 					if(result.status=="OK"){
 						getListInfo(); 
 					}
-					//alert(result.message);
-					//BootstrapDialog.alert(result.message);
+
 					BootstrapDialog.show({
-			            title: '部门操作信息',
+			            title: '小区操作信息',
 			            message:result.message
 			        });
-					$("div#DepartmentDialogArea" ).dialog( "close" );
-					$("div#DepartmentDialogArea" ).dialog( "destroy" );
-					$("div#DepartmentDialogArea").html("");
+					$("div#NeighbourHoodDialogArea" ).dialog( "close" );
+					$("div#NeighbourHoodDialogArea" ).dialog( "destroy" );
+					$("div#NeighbourHoodDialogArea").html("");
 					
 				});
 				
 				
 				//点击取消按钮处理
 				$("input[value='取消']").on("click",function(){
-					$( "div#DepartmentDialogArea" ).dialog( "close" );
-					$( "div#DepartmentDialogArea" ).dialog( "destroy" );
-					$("div#DepartmentDialogArea").html("");
+					$( "div#NeighbourHoodDialogArea" ).dialog( "close" );
+					$( "div#NeighbourHoodDialogArea" ).dialog( "destroy" );
+					$("div#NeighbourHoodDialogArea").html("");
 				});
 			});
 			
@@ -150,39 +153,31 @@ $(function(){
 	});
 	
 	//点击删除按钮事件处理
-	$("a#DepartmentDelteLink").off().on("click",function(event){
+	$("a#NeighbourHoodDeleteLink").off().on("click",function(event){
 		
-		if(departmentNo==0){
+		if(no==0){
 			BootstrapDialog.show({
-	            title: '部门操作信息',
-	            message:"请选择要删除的部门"
+	            title: '小区操作信息',
+	            message:"请选择要删除的小区"
 	        });
 		}
 		else {
-			//先检查此部门能否被删除
-			$.getJSON("department/checkDelete",{no:departmentNo},function(data){
-				if(data.status!="OK"){
-					BootstrapDialog.show({
-			            title: '部门操作信息',
-			            message:data.message
-			        });
-				}
-				else{
-					BootstrapDialog.confirm('确认删除此部门么?', function(result){
-			            if(result) {
-			                $.post("department/delete",{no:departmentNo},function(result){
-			                	if(result.status=="OK"){
-									getListInfo(); 
-								}
-								BootstrapDialog.show({
-						            title: '部门操作信息',
-						            message:result.message
-						        });
-			                });
-			            }
-			        });
+		
+			BootstrapDialog.confirm('确认删除小区么?', function(result){
+				if(result) {
+					$.post("http://127.0.0.1:8080/fee/neighbourhood/delete",{hoodno:no},function(result){
+						if(result.status=="OK"){
+							getListInfo(); 
+						}
+						BootstrapDialog.show({
+							title: '小区操作信息',
+							message:result.message
+						});
+					});
 				}
 			});
+				
+	
 			
 		}
 		
@@ -191,7 +186,7 @@ $(function(){
 	//点击查看详细按钮事件处理
 	$("a#NeighbourHoodDetailLink").off().on("click",function(event){
 		
-		if(hoodno==0){
+		if(no==0){
 			BootstrapDialog.show({
 	            title: '小区操作信息',
 	            message:"请选择要查看的小区"
@@ -200,7 +195,7 @@ $(function(){
 		else{
 			$("div#NeighbourHoodDialogArea").load("fee/neighbourhood/detail.html",function(){
 				//取得选择的部门
-				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:hoodno},function(data){
+				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:no},function(data){
 					if(data.status=="OK"){
 						$("span#hoodname").html(data.model.hoodname);
 						$("span#address").html(data.model.address);

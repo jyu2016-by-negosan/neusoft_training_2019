@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+  /**
+  	* 模块：供热缴费管理
+  	* 公建供热费的Mapper接口映射
+  	* 表：公建供热记录表 HT_PublicHouseFee
+  	*
+  	* @author 张晓龙
+  	*/
+   -->
+  
+<mapper namespace = "com.neusoft.ht.fee.mapper.IPublicHouseFeeMapper">
+	<!-- 启动此映射的全局缓存 -->
+	<cache/>
+	
+	<!-- 无关联属性的结果映射 -->
+	<resultMap id = "PublicHouseFeeResultMap" type = "PublicHouseFee">
+		<id property = "feeno" column = "FeeNo" />
+		<result property = "heatarea" column = "HeatArea" />
+		<result property = "agreefee" column = "AgreeFee" />
+		<result property = "actualfee" column = "ActualFee" />
+		<result property = "debtfee" column = "DebtFee" />
+		<result property = "feedesc" column = "FeeDesc" />
+		<result property = "feestatus" column = "FeeStatus" />
+		<result property = "heatingdays" column = "heatingdays" />
+	</resultMap>
+	
+	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKey = "true" flushCache = "true">
+		insert into HT_PublicHouseFee (
+			HeatArea, AgreeFee, ActualFee, DebtFee, 
+			FeeDesc, FeeStatus, heatingdays 
+		) value (
+			#{heatarea}, #{agreefee}, #{actualfee}, #{debtfee}, 
+			#{feedesc}, #{feestatus}, #{heatingdays} 
+		)
+	</insert>
+	
+	<update id = "update" flushCache = "true">
+		update HT_PublicHouseFee 
+		<set>
+			<if test = "HeatArea != null">HeatArea = #{heatarea}, </if>
+			<if test = "AgreeFee != null">AgreeFee = #{agreefee}, </if>
+			<if test = "ActualFee != null">ActualFee = #{actualfee}, </if>
+			<if test = "DebtFee != null">DebtFee = #{debtfee}, </if>
+			<if test = "FeeDesc != null">FeeDesc = #{feedesc}, </if>
+			<if test = "FeeStatus != null">FeeStatus = #{feestatus}, </if>
+			<if test = "heatingdays != null">heatingdays = #{heatingdays} </if>
+		</set> 
+		where 
+			FeeNo = #{feeno}
+	</update>
+	
+	<delete id = "delete" flushCache = "true">
+		delete from HT_PublicHouseFee where FeeNo = #{feeno}
+	</delete>
+	
+	<select id = "selectListByAll" resultMap = "PublicHouseFeeResultMap">
+		select * from HT_PublicHouseFee
+	</select>
+	
+	<select id = "selectByNo" resultMap = "PublicHouseFeeResultMap">
+		select * from HT_PublicHouseFee where FeeNo = #{feeno}
+	</select>
+	
+	<select id = "selectListByAllWithPage" resultMap = "PublicHouseFeeResultMap">
+		select * from HT_PublicHouseFee limit #{start}, #{rows}
+	</select>
+	
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+	<select id = "selectCountByAll" resultType = "int">
+		select IFNULL(count(FeeNo), 0) from HT_PublicHouseFee
+	</select>
+</mapper>

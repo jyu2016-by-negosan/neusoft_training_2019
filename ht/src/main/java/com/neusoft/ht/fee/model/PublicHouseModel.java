@@ -23,7 +23,7 @@ public class PublicHouseModel implements Serializable {
 	  private String building = null;
 	  private float housearea = 0;
 	  private float housecode = 0;
-	  private String adress = null;  
+	  private String address = null;  
 	  private String postcode = null;
 	  private String contactname = null;
 	  private String tel = null;

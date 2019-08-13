@@ -5,7 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.neusoft.ht.fee.mapper"})
+@MapperScan(basePackages = { "com.neusoft.ht.fee.mapper" })
+@MapperScan(basePackages = { "com.neusoft.ht.complain.mapper" })
 public class HtApplication {
 
 	public static void main(String[] args) {

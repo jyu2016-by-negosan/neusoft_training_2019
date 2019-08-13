@@ -24,7 +24,7 @@ public interface IPublicHouseFeeMapper {
 	//R1
 	public List<PublicHouseFeeModel> selectListByAll() throws Exception;
 	//R2
-	public PublicHouseFeeModel selectByNo(int houseno) throws Exception;
+	public PublicHouseFeeModel selectByNo(int feeno) throws Exception;
 	//R3
 	public List<PublicHouseFeeModel> selectListByAllWithPage(@Param("start") int start, @Param("rows") int rows) throws Exception;
 	

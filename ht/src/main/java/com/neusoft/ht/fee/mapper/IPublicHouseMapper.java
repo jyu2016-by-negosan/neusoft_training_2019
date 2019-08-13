@@ -2,14 +2,16 @@ package com.neusoft.ht.fee.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.PublicHouseModel;
 /**模块：供热缴费管理
- * 供热公建管理的Mapper接口
- * @author 黄宇德
+ * 供热公建表管理
+ * @author 罗妙忠
  *
  */
+@Mapper
 public interface IPublicHouseMapper {
 	//C
 	public void insert(PublicHouseModel publicHouseModel) throws Exception;

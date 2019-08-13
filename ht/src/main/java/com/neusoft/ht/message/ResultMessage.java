@@ -37,4 +37,16 @@ public class ResultMessage<T> implements Serializable {
 		this.status=status;
 		this.message=message;
 	}
+	
+	public ResultMessage(T model,String status,String message) {
+		this.model = model;
+		this.status=status;
+		this.message=message;
+	}
+	
+	public ResultMessage(int count,String status,String message) {
+		this.count = count;
+		this.status=status;
+		this.message=message;
+	}
 }

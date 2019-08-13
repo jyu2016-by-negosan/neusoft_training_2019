@@ -20,9 +20,9 @@ import lombok.Data;
 @Data
 public class HomeComplainModel {
 
-	private Long complainno;
-	private HomeModel homes;
-	private ComplainTypeModel compliantypes;
+	private int complainno;
+	private HomeModel home;
+	private ComplainTypeModel compliantype;
 	private String complaintitle;
 	private String complaincontent;
 	private String requestcontent;
@@ -36,7 +36,7 @@ public class HomeComplainModel {
 	private Date serviceenddate;
 	private String servicecontext;
 	private String serviceperson;
-	private Date feedBackdate;
+	private Date feedbackdate;
 	private String homecomment;
 	private Date assurancedate;
 	private BigDecimal assurancefee;

@@ -38,15 +38,18 @@ mybatis:
   mapper-locations:
   #- classpath*:/mappers/**/*Mapper.xml
   - classpath*:/mappers/fee/*Mapper.xml
+  - classpath*:/mappers/complain/*Mapper.xml
   type-aliases-package:
     #com.neusoft.ht.*.model
     com.neusoft.ht.fee.model
+    com.neusoft.ht.complain.model
 
   
 #showSql
 logging:
   level:
     com.neusoft.ht.fee.mapper: debug
+    com.neusoft.ht.complain.mapper: debug
 
 
 

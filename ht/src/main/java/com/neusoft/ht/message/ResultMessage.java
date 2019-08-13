@@ -27,8 +27,10 @@ public class ResultMessage<T> implements Serializable {
 	public ResultMessage() {
 		
 	}
+	
 	public ResultMessage(String status,String message) {
 		this.status=status;
 		this.message=message;
 	}
+	
 }

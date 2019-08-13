@@ -3,6 +3,113 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.neusoft.ht.complain.mapper.IHomeComplainMapper">
+<mapper
+	namespace="com.neusoft.ht.complain.mapper.IHomeComplainMapper">
 
+	<!-- 启用此映射的全局缓存 -->
+	<cache />
+
+	<!-- 无关联属性的结果映射 -->
+	<resultMap id="HomeComplainResultMap" type="HomeComplain">
+		<id property="complainno" column="ComplainNo" />
+		<result property="complaintitle" column="ComplainTitle" />
+		<result property="complaincontent" column="ComplainContent" />
+		<result property="requestcontent" column="RequestContent" />
+		<result property="complaindate" column="ComplainDate" />
+		<result property="contactperson" column="ContactPerson" />
+		<result property="tel" column="Tel" />
+		<result property="mobile" column="Mobile" />
+		<result property="mail" column="Mail" />
+		<result property="qq" column="QQ" />
+		<result property="servicestartdate" column="ServiceStartDate" />
+		<result property="serviceenddate" column="ServiceEndDate" />
+		<result property="servicecontext" column="ServiceContext" />
+		<result property="serviceperson" column="ServicePerson" />
+		<result property="feedbackdate" column="FeedbackDate" />
+		<result property="homecomment" column="HomeComment" />
+		<result property="assurancedate" column="AssuranceDate" />
+		<result property="assurancefee" column="AssuranceFee" />
+		<result property="assurancepaydate" column="AssurancePayDate" />
+		<result property="complainstatus" column="ComplainStatus" />
+	</resultMap>
+
+	<!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
+	<resultMap id="HomeComplainResultMapWithComplainType"
+		type="HomeComplain" extends="HomeComplainResultMap">
+		<association property="complaintypes"
+			resultMap="com.neusoft.ht.complain.mapper.IComplainTypeMapper.ComplainTypeResultMap" />
+	</resultMap>
+
+	<resultMap id="HomeComplainResultMapWithHome"
+		type="HomeComplain" extends="HomeComplainResultMap">
+		<association property="homes"
+			resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMap" />
+	</resultMap>
+
+	<insert id="create" keyProperty="complainno"
+		keyColumn="ComplainNo" useGeneratedKeys="true" flushCache="true">
+		insert into
+		ht_homecomplain
+
+		(ComplainTitle,ComplainContent,RequestContent,ComplainDate,ContactPerson,
+		Tel,Mobile,Mail,QQ,ServiceStartDate,
+		ServiceEndDate,ServiceContent,ServicePerson,FeedBackDate,HomeComment,
+		AssuranceDate,AssuranceFee,AssurancePayDate,ComplainStatus)
+
+		values
+
+		(#{complaintitle},#{complaincontent},#{requestcontent},#{complaindate},#{contactperson},
+		#{tel},#{mobile},#{mail},#{qq},#{servicestartdate},
+		#{serviceenddate},#{servicecontext},#{serviceperson},#{feedbackdate},
+		#{homecomment},#{assurancedate},#{assurancefee},#{assurancepaydate},#{complainstatus})
+	</insert>
+
+
+	<delete id="delete" flushCache="true">
+		delete from ht_homecomplain where
+		ComplainNo=#{complainno}
+	</delete>
+
+
+
+	<update id="update" flushCache="true">
+		update ht_homecomplain set
+		<set>
+			<if test="complaintitle != null">ComplainTitle=#{complaintitle}</if>
+			<if test="complaincontent != null">ComplainContent=#{complaincontent}</if>
+			<if test="requestcontent != null">RequestContent=#{requestcontent}</if>
+			<if test="complaindate != null">ComplainDate=#{complaindate}</if>
+			<if test="contactperson != null">ContactPerson=#{contactperson}</if>
+			<if test="tel != null">Tel=#{tel}</if>
+			<if test="mobile != null">Mobile=#{mobile}</if>
+			<if test="mail != null">Mail=#{mail}</if>
+			<if test="qq != null">QQ=#{qq}</if>
+			<if test="servicestartdate != null">ServiceStartDate=#{servicestartdate}</if>
+			<if test="serviceenddate != null">ServiceEndDate=#{serviceenddate}</if>
+			<if test="servicecontent != null">ServiceContent=#{servicecontent}</if>
+			<if test="serviceperson != null">ServicePerson=#{serviceperson}</if>
+			<if test="feedbackdate != null">FeedBackDate=#{feedbackdate}</if>
+			<if test="homecomment != null">HomeComment=#{homecomment}</if>
+			<if test="assurancedate != null">AssuranceDate=#{assurancedate}</if>
+			<if test="assurancefee != null">AssuranceFee=#{assurancefee}</if>
+			<if test="assurancepaydate != null">AssurancePayDate=#{assurancepaydate}</if>
+			<if test="complainstatus != null">ComplainStatus=#{complainstatus}</if>
+		</set>
+		where ComplainNo=#{complainno}
+	</update>
+
+	<!-- 无关联查询 -->
+	<select id="selectHomeComplainModelByAll"
+		resultMap="HomeComplainResultMap">
+		select *
+		from
+		ht_homecomplain
+	</select>
+
+	<!-- 通过投诉序号无关联查询 -->
+	<select id="selectHomeComplainModelByComplainNo"
+		resultMap="HomeComplainResultMap">
+		select * from
+		ht_homecomplain where ComplainNo=#{complainno}
+	</select>
 </mapper>

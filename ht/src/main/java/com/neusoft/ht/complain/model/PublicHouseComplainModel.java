@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import com.neusoft.ht.fee.model.PublicHouseModel;
+
 import lombok.Data;
 
 /**
@@ -16,11 +18,11 @@ import lombok.Data;
  */
 @Alias("HouseComplain")
 @Data
-public class HouseComplainModel {
+public class PublicHouseComplainModel {
 
-	private Long complainNo;
-	//private HouseModel houses;
-	private ComplainTypeModel compliantypes;
+	private int complainNo;
+	private PublicHouseModel house;
+	private ComplainTypeModel compliantype;
 	private String complaintitle;
 	private String complaincontent;
 	private String requestcontent;

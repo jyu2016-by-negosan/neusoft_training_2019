@@ -8,7 +8,7 @@ import com.neusoft.ht.fee.model.HomeFeeModel;
  * @author 黄宇德
  *
  */
-public interface IHomeFeeModelMapper {
+public interface IHomeFeeMapper {
 	//C
 	public void insert(HomeFeeModel homeFeeModel) throws Exception;
 	//U

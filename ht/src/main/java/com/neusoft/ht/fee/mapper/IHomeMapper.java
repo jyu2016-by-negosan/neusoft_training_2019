@@ -25,4 +25,6 @@ public interface IHomeMapper {
 	public void delete(HomeModel homeModel) throws Exception;
 	//取得对象的个数
 	public int selectCountByAll() throws Exception;
+	//根据综合检索条件取得居民列表，取得关联的小区和户型，分页模式
+	public List<HomeModel> selectListByConditionWithHoodNoAndHouseTypeNoWithPage(@Param("hoodno") int hoodno,@Param("housetypeno") int housetypeno,@Param("start") int start,@Param("rows") int rows) throws Exception;
 }

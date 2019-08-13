@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.ht.fee.model.HeatingPriceModel;
+import com.neusoft.ht.fee.model.HouseTypeModel;
 import com.neusoft.ht.fee.service.IHeatingPriceService;
 import com.neusoft.ht.message.ResultMessage;
 
@@ -53,8 +54,10 @@ public class HeatingPriceController {
 
 	//取得指定的年度供热价格信息
 	@GetMapping("/get")
-	public HeatingPriceModel getByYear(String heatingyear) throws Exception{
-		return heatingPriceService.getByYear(heatingyear);
+	public ResultMessage<HeatingPriceModel> getByYear(String heatingyear) throws Exception{
+		ResultMessage<HeatingPriceModel> result = new ResultMessage<HeatingPriceModel>("OK","修改年份供热价格成功");
+		result.setModel(heatingPriceService.getByYear(heatingyear));
+		return result;
 	}
 		
 	//取得所有列表，有分页

@@ -47,8 +47,11 @@ public class PaymentTypeController {
 
 	//取得指定的付款类型
 	@GetMapping("/get")
-	public PaymentTypeModel getByNo(int typeno) throws Exception{
-		return paymentTypeService.getByNo(typeno);
+	public ResultMessage<PaymentTypeModel> getByNo(int typeno) throws Exception{
+		
+		ResultMessage<PaymentTypeModel> result = new ResultMessage<PaymentTypeModel>("OK","修改付款方式成功");
+		result.setModel(paymentTypeService.getByNo(typeno));
+		return result;
 	}
 		
 	//取得所有小区列表，有分页

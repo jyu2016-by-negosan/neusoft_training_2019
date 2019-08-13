@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ht.fee.mapper.IHomeStopRecordMapper">
+
+  <!-- 启用全局缓存 -->
+  <cache/>
+  
+  <resultMap id="HomeStopRecordResultMap" type="HomeStopRecord">
+  	<id property="recordno" column="recordno"/>
+  	<result property="stoparea" column="stoparea"/>
+  	<result property="stopdate" column="stopdate"/>
+  	<result property="stopreason" column="stopreason"/>
+    <result property="stopperson" column="stopperson"/>
+    <result property="stopdesc" column="stopdesc"/>
+    <result property="stopstatus" column="stopstatus"/>
+  </resultMap>
+  
+  <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
+  		insert into HT_HomeStopRecord (recordno,stoparea,stopdate,stopreason,
+  		stopperson,stopdesc,stopstatus) values(#{recordno},#{stopdate},#{stoparea},#{stopreason},
+  		#{stopperson},#{stopdesc},#{stopstatus})	
+  </insert>
+  
+  <delete id="delete">
+  	delete from HT_HomeStopRecord recordno=#{recordno}
+  </delete>
+
+  <update id="update">
+  	update HT_HomeStopRecord <set>
+  	<if test="stoparea!=null">stoparea=#{stoparea},</if>
+  	<if test="stopdate!=null">stopdate=#{stopdate},</if>
+  	<if test="stopreason!=null">stopreason=#{stopreason},</if>
+  	<if test="stopperson!=null">stopperson=#{stopperson},</if>
+  	<if test="stopdesc!=null">stopdesc=#{stodesc},</if>
+  	<if test="stopstatus!=null">stopstatus=#{stopstatus}</if>
+	</set>
+	where recordno = #{recordno}
+  </update>
+  
+  <select id="selectById" resultMap="HomeStopRecordResultMap">
+  	select * from HT_HomeStopRecord where recordno=#{recordno}
+  </select>
+  
+  <select id="selectAllByList" resultMap="HomeStopRecordResultMap">
+  	select * from HT_HomeStopRecord 
+  </select>
+  
+   <select id="selectAllByListWithPages" resultMap="HomeStopRecordResultMap">
+  	select * from HT_HomeStopRecord limit #{start},#{rows}
+  </select>
+  
+  
+</mapper>

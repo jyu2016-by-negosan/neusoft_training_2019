@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ht.fee.mapper.IHomeFeeReturnRecordMapper">
+
+  <!-- 启用全局缓存 -->
+  <cache/>
+  
+  <resultMap id="HomeFeeReturnRecordResultMap" type="HomeFeeReturnRecord">
+  	<id property="recordno" column="recordno"/>
+  	<result property="amount" column="amount"/>
+  	<result property="returndate" column="returndate"/>
+  	<result property="person" column="person"/>
+    <result property="checkcode" column="checkcode"/>
+    <result property="invoicecode" column="invoicecode"/>
+    <result property="recorddesc" column="recorddesc"/>
+    <result property="recordstatus" column="recordstatus"/>
+  </resultMap>
+  
+  <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
+  		insert into HT_HomeFeeReturnRecord (recordno,amount,returndate,person,
+  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{amount},#{returndate},
+  		#{person},#{checkcode},#{invoicecode},#{recorddesc},#{recordstatus})
+  </insert>
+  
+  <delete id="delete">
+  		delete from HT_HomeFeeReturnRecord where recordno=#{recordno}
+  </delete>
+  
+  <update id="update">
+  		update HT_HomeFeeReturnRecord <set>
+  			<if test="amount!=null">amount=#{amount}</if>
+  			<if test="returndate!=null">returndate=#{returndate}</if>
+  		    <if test="person!=null">person=#{person}</if>
+  		    <if test="returndate!=null">returndate=#{returndate}</if>
+  			<if test="checkcode!=null">checkcode=#{checkcode}</if>
+  			<if test="invoicecode!=null">invoicecode=#{invoicecode}</if>
+  			<if test="recorddesc!=null">recorddesc=#{recorddesc}</if>
+  			<if test="recordstatus!=null">recordstatus=#{recordstatus}</if>
+  		</set>
+  		where recordno = #{recordno}
+  </update>
+  
+  <select id="selectById" resultMap="HomeFeeReturnRecordResultMap">
+  	select * from HT_HomeFeeReturnRecord where recordno = #{recordno}
+  </select>
+  
+   <select id="selectAllByList" resultMap="HomeFeeReturnRecordResultMap">
+	select * from HT_HomeFeeReturnRecord
+   </select>
+  
+   <select id="selectAllByListWithPages" resultMap="HomeFeeReturnRecordResultMap">
+	select * from HT_HomeFeeReturnRecord limit #{start},#{rows}
+   </select>
+  
+  
+  
+</mapper>

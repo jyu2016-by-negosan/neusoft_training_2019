@@ -1,5 +1,7 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.Data;
  */
 @Alias("PublicHouseFee")
 @Data
-public class PublicHouseFeeModel {
+public class PublicHouseFeeModel implements Serializable {
 
 	private int feeno = 0;
 	private int houseno = 0;

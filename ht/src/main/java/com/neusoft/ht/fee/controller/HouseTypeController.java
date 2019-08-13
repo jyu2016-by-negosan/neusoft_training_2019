@@ -18,7 +18,7 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping(value="/housetype")
+@RequestMapping(value="/fee/housetype")
 public class HouseTypeController {
 
 	@Autowired
@@ -47,8 +47,11 @@ public class HouseTypeController {
 
 	//取得指定的房屋类型
 	@GetMapping("/get")
-	public HouseTypeModel getByNo(int typeno) throws Exception{
-		return houseTypeService.getByNo(typeno);
+	public ResultMessage<HouseTypeModel> getByNo(int typeno) throws Exception{
+		
+		ResultMessage<HouseTypeModel> result = new ResultMessage<HouseTypeModel>("OK","修改户型成功");
+		result.setModel(houseTypeService.getByNo(typeno));
+		return result;
 	}
 		
 	//取得所有小区列表，有分页

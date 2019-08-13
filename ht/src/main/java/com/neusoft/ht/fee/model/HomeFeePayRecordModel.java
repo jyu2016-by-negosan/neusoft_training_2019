@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -13,16 +14,18 @@ import lombok.Data;
  */
 @Alias("HomeFeePayRecord")
 @Data
+
 public class HomeFeePayRecordModel implements Serializable {
 
 	private int recordno = 0;
 	private HomeFeeModel homeFeeModel = null;
 	private PaymentTypeModel paymentTypeModel = null;
 	private float payamount = 0;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date paydate = null;
 	private String payperson = null;
 	private String checkcode = null;
 	private String invoicecode = null;
 	private String paydesc = null;
-	private String recordestatus = null;
+	private String recordstatus = null;
 }

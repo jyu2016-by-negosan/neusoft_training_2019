@@ -13,13 +13,14 @@ import com.neusoft.ht.fee.model.NeighbourHoodModel;
 import com.neusoft.ht.fee.service.INeighbourHoodService;
 import com.neusoft.ht.message.ResultMessage;
 
+
 /**模块：供热缴费管理
  * 小区管理管理的控制类
  * @author 黄宇德
  *
  */
 @RestController
-@RequestMapping(value="/neighbourhood")
+@RequestMapping(value="/fee/neighbourhood")
 public class NeighbourHoodController {
 
 	@Autowired
@@ -45,8 +46,10 @@ public class NeighbourHoodController {
 	}
 	//取得指定的小区
 	@GetMapping("/get")
-	public NeighbourHoodModel getByNo(int hoodno) throws Exception{
-		return neighbourHoodService.getByNo(hoodno);
+	public ResultMessage<NeighbourHoodModel> getByNo(int hoodno) throws Exception{
+		ResultMessage<NeighbourHoodModel> result=new ResultMessage<NeighbourHoodModel>("OK","取得小区成功");
+		result.setModel(neighbourHoodService.getByNo(hoodno));
+		return result;
 	}
 	
 	//取得所有小区列表，有分页

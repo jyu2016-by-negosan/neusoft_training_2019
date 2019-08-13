@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class PublicHouseFeeReturnRecordModel implements Serializable {
 	
-	private int recordnno = 0;
+	private int recordno = 0;
 	private PublicHouseFeeModel publicHouseFeeModel = null;	
 	private PaymentTypeModel paymentTypeModel = null;
 	private float amount = 0;

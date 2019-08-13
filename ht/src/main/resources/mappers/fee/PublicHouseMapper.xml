@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ht.fee.mapper.IPublicHouseMapper">
+
+  <!-- 启用全局缓存 -->
+  <cache/>
+  
+   <!-- 无关联属性的结果映射 -->
+  <resultMap id="PublicHouseResultMap" type="PublicHouse">
+	<id property="houseno" column="houseno"/>
+	<result property="heatingecode" column="heatingecode"/>
+	<result property="housename" column="housename"/>
+	<result property="building" column="building"/>
+	<result property="housearea" column="housearea"/>
+	<result property="housecode" column="housecode"/>
+	<result property="address" column="address"/>
+	<result property="postcode" column="postcode"/>
+	<result property="contactname" column="contactname"/>
+	<result property="tel" column="tel"/>
+	<result property="mobile" column="mobile"/>
+	<result property="mail" column="mail"/>
+	<result property="qq" column="qq"/>
+	<result property="heatingstatus" column="heatingstatus"/>
+	<result property="departmentcode" column="departmentcode"/>
+	<result property="floorcode" column="floorcode"/>
+	<result property="heatingarea" column="heatingarea"/>
+  </resultMap>
+  
+   <select id="selectByNo" resultMap="PublicHouseResultMap">
+   		select * from ht_publichouse where houseno=#{houseno}
+   </select>
+   
+    <select id="selectListByAll" resultMap="PublicHouseResultMap">
+   		select * from ht_publichouse
+   </select>
+   
+   <select id="selectListByAllWithPage" resultMap="PublicHouseResultMap">
+   		select * from ht_publichouse limit #{start},#{rows}
+   </select>
+   
+     <select id="selectCountByAll" resultType="int">
+   		select IFNULL(count(houseno), 0) from ht_publichouse
+    </select>
+
+  <insert id="insert" keyProperty="houseno" keyColumn="houseno" useGeneratedKeys="true">
+  		insert into ht_publichouse (HOUSENO,HeatingECODE,HouseName,HOUSECODE,Building,HouseArea,
+		Address,POSTCODE,ContactName,Tel,Mobile,Mail,QQ,HeatingStatus,DepartmentCode,FloorCode,HeatingArea) values
+		(#{houseno},#{heatingecode},#{housename},#{housecode},#{building},#{housearea},#{address},
+		#{postcode},#{contactname},#{tel},#{mobile},#{mail},#{qq},#{heatingstatus},#{departmentcode},#{floorcode},#{heatingarea})
+  </insert>
+  
+  <delete id="delete">
+  		delete from ht_publichouse where houseno=#{houseno}
+  </delete>
+  
+  <update id="update">
+  	update 
+  	ht_publichouse <set>
+  	 	<if test="heatingecode!=null">heatingecode=#{heatingecode},</if>
+  	 	<if test="housename!=null">housename=#{housename},</if>
+  	 	<if test="building!=null">building=#{building},</if>
+  	 	<if test="housearea!=null">housearea=#{housearea},</if>
+  	 	<if test="housecode!=null">housecode=#{housecode},</if>
+  	 	<if test="address!=null">address=#{address},</if>
+  	 	<if test="postcode!=null">postcode=#{postcode},</if>
+  	 	<if test="contactname!=null">contactname=#{contactname},</if>
+  	 	<if test="tel!=null">tel=#{tel},</if>
+  	 	<if test="mobile!=null">mobile=#{mobile},</if>
+  	 	<if test="mail!=null">mail=#{mail},</if>
+  	 	<if test="qq!=null">qq=#{qq},</if>
+  	 	<if test="heatingstatus!=null">heatingstatus=#{heatingstatus},</if>
+  	 	<if test="departmentcode!=null">departmentcode=#{departmentcode}</if>
+  	 	<if test="floorcode!=null">floorcode=#{floorcode}</if>
+  	 	<if test="heatingarea!=null">heatingarea=#{heatingarea}</if>
+  	</set>
+  	where houseno = #{houseno}
+  </update>
+
+</mapper>

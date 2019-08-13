@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 居民Mapper接口Mapping映射 -->   
+<mapper namespace="com.neusoft.ht.fee.mapper.IHomeMapper">
+  <!-- 启用此映射的全局缓存 -->
+  <cache/>
+  <!-- 无关联属性的结果映射 -->
+  <resultMap id="HomeResultMap" type="Home" >
+  	<id property="homeno" column="HOMENO" />
+  	<result property="heatingcode" column="HeatingCode" />
+  	<result property="homename" column="HomeName" />
+  	<result property="buildingcode" column="BuildingCODE" />
+  	<result property="departmentcode" column="DepartmentCode" />
+  	<result property="floorcode" column="FloorCode" />
+  	<result property="housecode" column="HouseCode" />
+  	<result property="homearea" column="HomeArea" />
+  	<result property="direaction" column="Direction" />
+  	<result property="tel" column="Tel" />
+  	<result property="mobile" column="Mobile" />
+  	<result property="mail" column="Mail" />
+  	<result property="qq" column="QQ" />
+  	<result property="heatingstatus" column="HeatingStatus" />
+  	<result property="heatingarea" column="HeatingArea" />
+  </resultMap>
+
+  <!-- 使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
+  <resultMap id="HomeResultMapWithHoodAndType" type="Home" extends="HomeResultMap">
+  	<association property="neighbourhood" resultMap="com.neusoft.ht.fee.mapper.INeighbourHoodMapper"/>
+  	<association property="housetype" resultMap="com.neusoft.ht.fee.mapper.IHouseTypeMapper"/>
+  </resultMap>
+
+  
+  <insert id="insert"  parameterType="Home" keyProperty="homeno"  keyColumn="HOMENO" useGeneratedKeys="true" flushCache="true" >
+   insert into HT_HOME (HeatingCode,HOODNO,HOUSETYPENO,HomeName,BuildingCODE,DepartmentCode,FloorCode,HouseCode,HomeArea,Direction,Tel,Mobile,QQ,HeatingStatus,HeatingArea) 
+   values (#{heatingcode},#{neibourhood.hoodno},#{housetype.typeno},#{homename},#{buildingcode},#{departmentcode},#{floorcode},#{housecode},#{homearea},#{direaction},#{tel},#{mobile},#{mail},#{qq},#{heatingstatus},#{heatingarea})
+  </insert>
+ 
+  
+  <update id="update" flushCache="true">
+   update HT_HOME 
+   set HeatingCode={heatingcode},HOODNO=#{neibourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode={housecode},
+   HomeArea=#{homearea},Direction=#{direction},Tel={tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
+   where HOME=#{homeno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from HT_HOME where HOME=#{homeno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="HomeResultMapWithHoodAndType">
+   select * from HT_HOME 
+  </select>
+
+  <select id="selectByNo" resultMap="HomeResultMapWithHoodAndType">
+   select * from HT_HOME  
+   where  HOME=#{homeno}
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="HomeResultMapWithHoodAndType">
+   select * from  HT_HOME  
+   limit #{start},#{rows}
+  </select>
+
+<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(HOEMNO), 0) from HT_HOME
+  </select>
+</mapper>

@@ -6,10 +6,11 @@ $(function(){
 	var typeno=0;
 	var typename=null;
 	//设置系统页面标题
-	$("span#mainpagetille").html("户型管理");
+	$("span#mainpagetille").html("供热收费模块");
+	$("span#mainservicetille").html("户型管理");
 	//设置日期的格式和选择
 	
-	//显示员工列表
+	//显示户型列表
 	$("table#HouseTypeGrid").jqGrid({
 		url: 'http://127.0.0.1:8080/fee/housetype/list/all/page',
 		datatype: "json",
@@ -20,7 +21,7 @@ $(function(){
 		],
 		viewrecords: true, 
 		autowidth: true,
-		height: 120,
+		height: 200,
 		rowNum: 5,
 
 		jsonReader : { 
@@ -34,12 +35,175 @@ $(function(){
 		
 	});
 	//更新jQGrid的列表显示
-	function reloadEmployeeList()
+	function reloadList()
 	{
-		$("table#HouseTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,tyepname:typenmae}}).trigger("reloadGrid");
-		
-	}
+		$("table#HouseTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,tyepname:typename}}).trigger("reloadGrid");
 
+	}
 	
+	//点击增加链接处理，嵌入add.html
+	$("a#HouseTypeAddLink").off().on("click",function(event){
+				
+		$("div#HouseTypeDialogArea").load("fee/housetype/add.html",function(){
+			$("div#HouseTypeDialogArea" ).dialog({
+				title:"增加户型",
+				width:600
+			});
+			
+			$("form#HouseTypeAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadList();
+				}
+				BootstrapDialog.show({
+		            title: '户型操作信息',
+		            message:result.message
+		        });
+				$("div#HouseTypeDialogArea" ).dialog( "close" );
+				$("div#HouseTypeDialogArea" ).dialog( "destroy" );
+				$("div#HouseTypeDialogArea").html("");
+				
+			});
+			
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$( "div#HouseTypeDialogArea" ).dialog( "close" );
+				$( "div#HouseTypeDialogArea" ).dialog( "destroy" );
+				$("div#HouseTypeDialogArea").html("");
+			});		
+		});		
+	});
 	
+	//点击修改按钮事件处理
+	$("a#HouseTypeModifyLink").off().on("click",function(event){
+		
+		//定义表格行的点击事件，取得选择的户型编号
+		$("table#HouseTypeGrid tbody tr").on("click",function(){
+			typeno=$(this).attr("id");
+			
+		});
+		if(typeno==0){
+			BootstrapDialog.show({
+	            title: '户型操作信息',
+	            message:"请选择要修改的户型"
+	        });
+		}
+		else {
+			$("div#HouseTypeDialogArea").load("fee/housetype/modify.html",function(){
+				
+				$.getJSON("http://127.0.0.1:8080/fee/housetype/get",{typeno:typeno},function(data){
+					if(data.status=="OK"){
+						$("input[name='typeno']").val(typeno);
+						$("input[name='typename']").val(data.model.typename);
+					}
+				});
+				
+				$("div#HouseTypeDialogArea" ).dialog({
+					title:"户型修改",
+					width:600
+				});
+				//拦截表单提交
+				$("form#HouseTypeModifyForm").ajaxForm(function(result){
+					
+					if(result.status=="OK"){
+						reloadList();
+					}
+	
+					BootstrapDialog.show({
+			            title: '户型操作信息',
+			            message:result.message
+			        });
+					$("div#HouseTypeDialogArea" ).dialog( "close" );
+					$("div#HouseTypeDialogArea" ).dialog( "destroy" );
+					$("div#HouseTypeDialogArea").html("");
+					
+				});
+				
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#HouseTypeDialogArea" ).dialog( "close" );
+					$( "div#HouseTypeDialogArea" ).dialog( "destroy" );
+					$("div#HouseTypeDialogArea").html("");
+				});
+			});
+			
+		}
+		
+		
+	});
+	
+	//点击删除按钮事件处理
+	$("a#HouseTypeDeleteLink").off().on("click",function(event){
+		
+		//定义表格行的点击事件，取得选择的户型编号
+		$("table#HouseTypeGrid tbody tr").on("click",function(){
+			typeno=$(this).attr("id");
+			
+		});
+		if(typeno==0){
+			BootstrapDialog.show({
+	            title: '户型操作信息',
+	            message:"请选择要删除的户型"
+	        });
+		}
+		else {
+		
+			BootstrapDialog.confirm('确认删除户型么?', function(result){
+				if(result) {
+					$.post("http://127.0.0.1:8080/fee/housetype/delete",{typeno:typeno},function(result){
+						if(result.status=="OK"){
+							reloadList(); 
+						}
+						BootstrapDialog.show({
+							title: '户型操作信息',
+							message:result.message
+						});
+					});
+				}
+			});
+				
+	
+			
+		}
+		
+	});
+	
+	//点击查看详细按钮事件处理
+	$("a#HouseTypeDetailLink").off().on("click",function(event){
+		//定义表格行的点击事件，取得选择的户型编号
+		$("table#HouseTypeGrid tbody tr").on("click",function(){
+			typeno=$(this).attr("id");
+			
+		});
+		if(typeno==0){
+			BootstrapDialog.show({
+	            title: '户型操作信息',
+	            message:"请选择要查看的户型"
+	        });
+		}
+		else{
+			$("div#HouseTypeDialogArea").load("fee/housetype/detail.html",function(){
+				//取得选择的户型
+				$.getJSON("http://127.0.0.1:8080/fee/housetype/get",{typeno:typeno},function(data){
+					if(data.status=="OK"){
+						$("span#typename").html(data.model.typename);
+					
+						
+					}
+				});
+				$("div#HouseTypeDialogArea" ).dialog({
+					title:"户型详细",
+					width:600
+				});
+			
+			
+				//点击取消按钮处理
+				$("input[value='返回']").on("click",function(){
+					$( "div#HouseTypeDialogArea" ).dialog( "close" );
+					$( "div#HouseTypeDialogArea" ).dialog( "destroy" );
+					$("div#HouseTypeDialogArea").html("");
+				});
+			});
+		}
+	});
 });

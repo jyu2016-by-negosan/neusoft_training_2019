@@ -49,16 +49,16 @@
    delete from HT_HOME where HOME=#{homeno}
   </delete>
   
-  <select id="selectListByAll" resultMap="HomeResultMapWithHoodAndType">
+  <select id="selectListByAll" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from HT_HOME 
   </select>
 
-  <select id="selectByNo" resultMap="HomeResultMapWithHoodAndType">
+  <select id="selectByNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from HT_HOME  
    where  HOME=#{homeno}
   </select>
   
-  <select id="selectListByAllWithPage" resultMap="HomeResultMapWithHoodAndType">
+  <select id="selectListByAllWithPage" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from  HT_HOME  
    limit #{start},#{rows}
   </select>

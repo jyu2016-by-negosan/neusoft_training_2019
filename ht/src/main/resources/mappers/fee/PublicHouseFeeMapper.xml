@@ -29,7 +29,7 @@
 		<result property = "heatingdays" column = "heatingdays" />
 	</resultMap>
 	
-	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKey = "true" flushCache = "true">
+	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKeys = "true" flushCache = "true">
 		insert into HT_PublicHouseFee (
 			HeatArea, AgreeFee, ActualFee, DebtFee, 
 			FeeDesc, FeeStatus, heatingdays 

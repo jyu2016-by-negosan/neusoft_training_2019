@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 
-/**模块：供热缴费管理
- * 住宅供热缴费记录--Mapper接口
+/**模块：供热缴费管理 
+ * 
  * @author 罗妙忠
  *
  */

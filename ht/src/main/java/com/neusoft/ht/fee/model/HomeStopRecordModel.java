@@ -1,8 +1,10 @@
 package com.neusoft.ht.fee.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -12,15 +14,16 @@ import lombok.Data;
  */
 @Alias("HomeStopRecord")
 @Data
-public class HomeStopRecordModel  {
+public class HomeStopRecordModel implements Serializable{
  
     private int recordno = 0;
     private HomeFeeModel homeFeeModel = null;
     private float stoparea = 0;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date stopdate =null;
     private String stopreason = null;
     private String stopperson = null;
     private String stopdesc = null;
-    private String stopstuatus = null;
+    private String stopstatus = null;
  
 }

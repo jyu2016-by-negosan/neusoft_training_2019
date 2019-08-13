@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.PublicHouseModel;
-/**模块：供热缴费管理
- * 供热公建表管理
+/**
+ * 模块：供热公建表管理 --Mapper
  * @author 罗妙忠
  *
  */

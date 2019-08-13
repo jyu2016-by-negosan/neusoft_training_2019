@@ -15,6 +15,10 @@ import lombok.Data;
 @Data
 public class PublicHouseStopRecordModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	
 	private int recordno = 0;
     private PublicHouseFeeModel publicHouseFeeModel = null;
     private float stoparea = 0;

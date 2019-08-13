@@ -11,7 +11,7 @@ import com.neusoft.ht.fee.service.IHomePayRecordService;
 import com.neusoft.ht.message.ResultMessage;
 
 /**
- * 模块：供热缴费管理 住宅供热缴费记录--controller
+ * 模块：居民供热缴费记录--controller
  * 
  * @author 罗妙忠
  *

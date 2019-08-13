@@ -10,7 +10,7 @@ $(function(){
 	var page=1;
 	var pageCount=0;
 	var no=0; //选择的小区编号
-
+	$("span#mainpagetille").html("小区管理");
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/list/all/page",{page:page,rows:rows},function(data){

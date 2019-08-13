@@ -1,13 +1,15 @@
 /**
-*
+ * 模块：供热缴费管理
+ * 户型管理的前端控制JS
+ * 作者：黄宇德
  * 
  */
 $(function(){
 	var typeno=0;
 	var typename=null;
 	//设置系统页面标题
-	$("span#mainpagetille").html("供热收费模块");
-	$("span#mainservicetille").html("户型管理");
+	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>户型管理</span></li>");
 	//设置日期的格式和选择
 	
 	//显示户型列表

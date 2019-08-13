@@ -11,8 +11,9 @@ $(function(){
 	var pageCount=0;
 	var no=0; //选择的小区编号
 	
-	$("span#mainpagetille").html("供热收费模块");
-	$("span#mainservicetille").html("小区管理");
+	//设置系统页面标题
+	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>小区管理</span></li>");
 	
 	function getListInfo(){
 		//取得列表，分页模式

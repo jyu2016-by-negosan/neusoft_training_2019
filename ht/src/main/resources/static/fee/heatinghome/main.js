@@ -1,6 +1,6 @@
 /**
- * 付款类型管理JS
- * 作者：黄宇德
+*
+ * 
  */
 $(function(){
 	var typeno=0;
@@ -191,7 +191,7 @@ $(function(){
 					}
 				});
 				$("div#PaymentTypeDialogArea" ).dialog({
-					title:"付款类型详细",
+					title:"户型详细",
 					width:600
 				});
 			

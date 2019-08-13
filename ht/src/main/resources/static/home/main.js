@@ -1,0 +1,4 @@
+$(function(){
+	$("ol.breadcrumb").html("")
+	}
+);

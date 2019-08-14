@@ -1,4 +1,7 @@
 /**
+ * 
+ */
+/**
 *
  * 
  */
@@ -7,7 +10,7 @@ $(function(){
 	var typename=null;
 	//设置系统页面标题
 	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>");
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>付款类型管理</span></li>");
 
 	//显示列表
 	$("table#PaymentTypeGrid").jqGrid({
@@ -36,15 +39,16 @@ $(function(){
 	//更新jQGrid的列表显示
 	function reloadList()
 	{
-		$("table#PaymentTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,typename:typename}}).trigger("reloadGrid");
+		$("table#PaymentTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,tyepname:typename}}).trigger("reloadGrid");
+
 	}
 	
 	//点击增加链接处理，嵌入add.html
-	$("a#ComplainTypeAddLink").off().on("click",function(event){
+	$("a#PaymentTypeAddLink").off().on("click",function(event){
 				
 		$("div#PaymentTypeDialogArea").load("fee/paymenttype/add.html",function(){
 			$("div#PaymentTypeDialogArea" ).dialog({
-				title:"增加投诉类型",
+				title:"增加付款类型",
 				width:600
 			});
 			
@@ -53,7 +57,7 @@ $(function(){
 					reloadList();
 				}
 				BootstrapDialog.show({
-		            title: '投诉付款类型操作信息',
+		            title: '付款类型操作信息',
 		            message:result.message
 		        });
 				$("div#PaymentTypeDialogArea" ).dialog( "close" );
@@ -81,8 +85,8 @@ $(function(){
 		});
 		if(typeno==0){
 			BootstrapDialog.show({
-	            title: '投诉类型操作信息',
-	            message:"请选择要修改的投诉类型"
+	            title: '付款类型操作信息',
+	            message:"请选择要修改的付款类型"
 	        });
 		}
 		else {

@@ -3,6 +3,8 @@ package com.neusoft.ht.complain.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,18 +14,13 @@ import com.neusoft.ht.complain.service.IComplainTypeService;
 import com.neusoft.ht.message.ResultMessage;
 
 @RestController
-@RequestMapping("/complaintype")
+@RequestMapping("complain/complaintype")
 public class ComplainTypeController {
 
 	@Autowired
 	private IComplainTypeService complainTypeService;
 
-	@RequestMapping("/list")
-	public List<ComplainTypeModel> getComplainTypeList() throws Exception {
-		return complainTypeService.getListByAll();
-	}
-
-	@RequestMapping("/add")
+	@GetMapping("/add")
 	public ResultMessage<ComplainTypeModel> addComplainType(ComplainTypeModel complainType) {
 		if (complainType != null) {
 
@@ -38,7 +35,7 @@ public class ComplainTypeController {
 		}
 	}
 
-	@RequestMapping("/delete")
+	@PostMapping("/delete")
 	public ResultMessage<ComplainTypeModel> deleteComplainType(ComplainTypeModel complainType) throws Exception {
 		if (complainType != null) {
 
@@ -53,7 +50,7 @@ public class ComplainTypeController {
 		}
 	}
 
-	@RequestMapping("/modify")
+	@PostMapping("/modify")
 	public ResultMessage<ComplainTypeModel> modifyComplainType(ComplainTypeModel complainType) throws Exception {
 		if (complainType != null) {
 
@@ -68,21 +65,24 @@ public class ComplainTypeController {
 		}
 	}
 
-	@RequestMapping("/getBytypeNo")
-	public ComplainTypeModel getComplainType() throws Exception {
-		return complainTypeService.getComplainTypeBytypeNo(1);
+	@GetMapping("/list/all")
+	public List<ComplainTypeModel> getComplainTypeList() throws Exception {
+		return complainTypeService.getListByAll();
+	}
+	
+	@GetMapping("/get")
+	public ComplainTypeModel getComplainType(@RequestParam(required = true) int complainno) throws Exception {
+		return complainTypeService.getComplainTypeBytypeNo(complainno);
 	}
 
-	@RequestMapping("/getCountByAll")
-	public int getAllCount() throws Exception {
-		return complainTypeService.getCountByAll();
+	@GetMapping("/list/all/page")
+	public ResultMessage<ComplainTypeModel> getListWithPage(@RequestParam(required = false, defaultValue = "2") int rows,
+			@RequestParam(required = false, defaultValue = "1") int pages) throws Exception {
+		
+		int pageCount = complainTypeService.getPageCountByAll(rows);
+		int count = complainTypeService.getCountByAll();
+		List<ComplainTypeModel> list = complainTypeService.getListByAllWithPage(rows, pages);
+		return new ResultMessage<ComplainTypeModel>(list,rows,pages,count,pageCount,"OK","查询成功");
 	}
-	
-	@RequestMapping("/listwithpage")
-	public List<ComplainTypeModel> getListWithPage(@RequestParam(required = false,defaultValue ="2")int rows,@RequestParam(required = false,defaultValue ="1")int pages) throws Exception{
-		return complainTypeService.selectListByAllWithPage(rows, pages);
-	} 
-	
-	
 
 }

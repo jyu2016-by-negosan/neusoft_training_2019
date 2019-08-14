@@ -51,4 +51,14 @@ public class ResultMessage<T> implements Serializable {
 		this.status=status;
 		this.message=message;
 	}
+	
+	public ResultMessage(List<T>list,int rows,int page,int count,int pageCount,String status,String message) {
+		this.list = list;
+		this.rows = rows;
+		this.page = page;
+		this.count = count;
+		this.pageCount = pageCount;
+		this.status = status;
+		this.message = message;
+	}
 }

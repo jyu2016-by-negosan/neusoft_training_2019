@@ -22,7 +22,4 @@ public class ComplainTypeModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int typeno;
 	private String typename;
-	private List<HomeComplainModel> homes;
-	private List<PublicHouseComplainModel> houses;
-
 }

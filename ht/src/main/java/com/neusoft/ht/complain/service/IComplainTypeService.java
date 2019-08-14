@@ -26,6 +26,8 @@ public interface IComplainTypeService {
 	public int getCountByAll() throws Exception;
 
 	//查询所有对象（分页）
-	public List<ComplainTypeModel> selectListByAllWithPage(int rows, int pages) throws Exception;
+	public List<ComplainTypeModel> getListByAllWithPage(int rows, int pages) throws Exception;
+	
+	public int getPageCountByAll(int rows) throws Exception;
 
 }

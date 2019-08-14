@@ -11,11 +11,11 @@ $(function(){
 
 	//显示列表
 	$("table#PaymentTypeGrid").jqGrid({
-		url: 'http://127.0.0.1:8080/fee/paymenttype/list/all/page',
+		url: host+'fee/paymenttype/list/all/page',
 		datatype: "json",
 		colModel: [
-			{ label: '方式编号', name: 'typeno', width: 75 },
-			{ label: '方式名称', name: 'typename', width: 90, align: 'left' },
+			{ label: '方式编号', name: 'typeno'  },
+			{ label: '方式名称', name: 'typename'},
 		          
 		],
 		viewrecords: true, 
@@ -89,7 +89,7 @@ $(function(){
 		else {
 			$("div#PaymentTypeDialogArea").load("fee/paymenttype/modify.html",function(){
 				
-				$.getJSON("http://127.0.0.1:8080/fee/paymenttype/get",{typeno:typeno},function(data){
+				$.getJSON(host+"fee/paymenttype/get",{typeno:typeno},function(data){
 					if(data.status=="OK"){
 						$("input[name='typeno']").val(typeno);
 						$("input[name='typename']").val(data.model.typename);
@@ -149,7 +149,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除付款类型么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/paymenttype/delete",{typeno:typeno},function(result){
+					$.post(host+"fee/paymenttype/delete",{typeno:typeno},function(result){
 						if(result.status=="OK"){
 							reloadList(); 
 						}
@@ -183,7 +183,7 @@ $(function(){
 		else{
 			$("div#PaymentTypeDialogArea").load("fee/paymenttype/detail.html",function(){
 				//取得选择的付款类型
-				$.getJSON("http://127.0.0.1:8080/fee/paymenttype/get",{typeno:typeno},function(data){
+				$.getJSON(host+"fee/paymenttype/get",{typeno:typeno},function(data){
 					if(data.status=="OK"){
 						$("span#typename").html(data.model.typename);
 					

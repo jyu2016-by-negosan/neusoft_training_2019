@@ -12,13 +12,13 @@
                 	<div class="col-md-6">
 						<div class="form-group">
 		                  <label>选择小区</label>
-		                  <select name="neighbourhood.hoodno" class="form-control" id="NeighbourHoodSelection" style="height: 33px;" >
-							 <option value="0">请选择</option>
+		                  <select  class="form-control" id="NeighbourHoodSelection" style="height: 33px;" >
+							 <option value="false" name="neighbourhood">请选择</option>
 						  </select>
 		                </div>
 						<div class="form-group">
 		                  <label >选择户型</label>
-		                  <select name="housetype.typeno" class="form-control" id="HouseTypeSelection" style="height: 33px;">
+		                  <select name="housetype" class="form-control" id="HouseTypeSelection" style="height: 33px;">
 							  <option value="0">请选择</option>
 		                  </select>
 		                </div>
@@ -82,8 +82,8 @@
 						</div>
 						 <div class="form-group" >
 							<label >供热状态</label>
-							<input type="checkbox" name="heatingstatus" value="正常" />正常
-							<input type="checkbox" name="heatingstatus" value="停供" />停供
+							<input type="radio" name="heatingstatus" value="正常" checked="true" />正常
+							<input type="radio" name="heatingstatus" value="停供" />停供
 						</div>
 					</div>
 				</div>

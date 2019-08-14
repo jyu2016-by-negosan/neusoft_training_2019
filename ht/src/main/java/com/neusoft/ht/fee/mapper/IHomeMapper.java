@@ -19,6 +19,8 @@ public interface IHomeMapper {
 	public List<HomeModel> selectListByAll() throws Exception;
 	//R2
 	public HomeModel selectByNo(int homeno) throws Exception;
+	//取关联小区和户型的特定居民
+	public HomeModel selectByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception;
 	//R3
 	public List<HomeModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//D

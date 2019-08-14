@@ -20,6 +20,8 @@ public interface IHomeService {
 	public void delete(HomeModel homeModel) throws Exception;
 	//取得单个居民
 	public HomeModel  getByNo(int homeno) throws Exception;
+	//取关联小区和户型的特定居民
+	public HomeModel  getByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception;
 	//取得所有居民
 	public List<HomeModel> getListByAll() throws Exception;
 	

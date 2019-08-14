@@ -47,14 +47,22 @@ public class HomeController {
 		return new ResultMessage<HomeModel>("OK","删除居民信息成功");
 	}
 
-	//取得指定的居民信息
+	//取得指定序号的居民信息
 	@GetMapping("/get")
 	public ResultMessage<HomeModel> getByNo(int homeno) throws Exception{
 		ResultMessage<HomeModel> result = new ResultMessage<HomeModel>("OK","取得居民信息成功");
 		result.setModel(homeService.getByNo(homeno));
 		return result;
 	}
-			
+		
+	//取关联小区和户型的特定居民
+	@GetMapping("/get/detail")
+	public ResultMessage<HomeModel> getByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception{
+		ResultMessage<HomeModel> result = new ResultMessage<HomeModel>("OK","取得带关联的居民信息成功");
+		result.setModel(homeService.getByNoWithHoodNoAndHouseTypeNo(homeno));
+		return result;
+	}
+	
 	//取得所有列表，有分页
 	@GetMapping(value="/list/all/page")
 	public ResultMessage<HomeModel> getListByAllWitPage(@RequestParam(required = false,defaultValue ="4") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{

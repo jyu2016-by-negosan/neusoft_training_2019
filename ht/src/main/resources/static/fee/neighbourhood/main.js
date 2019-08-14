@@ -17,7 +17,7 @@ $(function(){
 	
 	function getListInfo(){
 		//取得列表，分页模式
-		$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/list/all/page",{page:page,rows:rows},function(data){
+		$.getJSON(host+"fee/neighbourhood/list/all/page",{page:page,rows:rows},function(data){
 				//显示个数和页数
 				$("span#count").html(data.count);
 				$("span#pagecount").html(data.page+"/"+data.pageCount);
@@ -113,7 +113,7 @@ $(function(){
 		else {
 			$("div#NeighbourHoodDialogArea").load("fee/neighbourhood/modify.html",function(){
 				//取得选择的部门
-				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:no},function(data){
+				$.getJSON(host+"fee/neighbourhood/get",{hoodno:no},function(data){
 					if(data.status=="OK"){
 						$("input[name='hoodno']").val(no);
 						$("input[name='hoodname']").val(data.model.hoodname);
@@ -169,7 +169,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除小区么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/neighbourhood/delete",{hoodno:no},function(result){
+					$.post(host+"fee/neighbourhood/delete",{hoodno:no},function(result){
 						if(result.status=="OK"){
 							getListInfo(); 
 						}
@@ -199,7 +199,7 @@ $(function(){
 		else{
 			$("div#NeighbourHoodDialogArea").load("fee/neighbourhood/detail.html",function(){
 				//取得选择的部门
-				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:no},function(data){
+				$.getJSON(host+"fee/neighbourhood/get",{hoodno:no},function(data){
 					if(data.status=="OK"){
 						$("span#hoodname").html(data.model.hoodname);
 						$("span#address").html(data.model.address);

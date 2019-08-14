@@ -16,7 +16,7 @@
   	<result property="floorcode" column="FloorCode" />
   	<result property="housecode" column="HouseCode" />
   	<result property="homearea" column="HomeArea" />
-  	<result property="direaction" column="Direction" />
+  	<result property="direction" column="Direction" />
   	<result property="tel" column="Tel" />
   	<result property="mobile" column="Mobile" />
   	<result property="mail" column="Mail" />
@@ -33,8 +33,16 @@
 
   
   <insert id="insert"  parameterType="Home" keyProperty="homeno"  keyColumn="HOMENO" useGeneratedKeys="true" flushCache="true" >
-   insert into HT_HOME (HeatingCode,HOODNO,HOUSETYPENO,HomeName,BuildingCODE,DepartmentCode,FloorCode,HouseCode,HomeArea,Direction,Tel,Mobile,QQ,HeatingStatus,HeatingArea) 
-   values (#{heatingcode},#{neibourhood.hoodno},#{housetype.typeno},#{homename},#{buildingcode},#{departmentcode},#{floorcode},#{housecode},#{homearea},#{direaction},#{tel},#{mobile},#{mail},#{qq},#{heatingstatus},#{heatingarea})
+   insert into HT_HOME 
+   (HeatingCode,HOODNO,HOUSETYPENO,HomeName,
+   BuildingCODE,DepartmentCode,FloorCode,
+   HouseCode,HomeArea,Direction,Tel,Mobile,Mail,
+   QQ,HeatingStatus,HeatingArea) 
+   values 
+   (#{heatingcode},#{neighbourhood.hoodno},#{housetype.typeno},
+   #{homename},#{buildingcode},#{departmentcode},#{floorcode},
+   #{housecode},#{homearea},#{direction},#{tel},#{mobile},
+   #{mail},#{qq},#{heatingstatus},#{heatingarea})
   </insert>
  
   
@@ -42,7 +50,7 @@
    update HT_HOME 
    set HeatingCode={heatingcode},HOODNO=#{neibourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode={housecode},
    HomeArea=#{homearea},Direction=#{direction},Tel={tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
-   where HOME=#{homeno}
+   where HOMENO=#{homeno}
   </update>
   
   <delete id="delete" flushCache="true">
@@ -55,7 +63,7 @@
 
   <select id="selectByNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from HT_HOME  
-   where  HOME=#{homeno}
+   where  HOMENO=#{homeno}
   </select>
   
   <select id="selectListByAllWithPage" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
@@ -65,7 +73,7 @@
 
 <!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
-   select IFNULL(count(HOEMNO), 0) from HT_HOME
+   select IFNULL(count(HOMENO), 0) from HT_HOME
   </select>
   
   <!-- 根据综合检索条件取得居民列表，取得关联 的小区和户型，分页模式 -->

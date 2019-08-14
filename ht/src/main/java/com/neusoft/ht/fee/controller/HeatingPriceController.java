@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.ht.fee.model.HeatingPriceModel;
-import com.neusoft.ht.fee.model.HouseTypeModel;
 import com.neusoft.ht.fee.service.IHeatingPriceService;
 import com.neusoft.ht.message.ResultMessage;
 

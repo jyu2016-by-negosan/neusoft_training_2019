@@ -81,4 +81,13 @@ public class HeatingPriceServiceImpl implements IHeatingPriceService {
 		return pageCount;
 	}
 
+	//检查年份是否已存在
+	@Override
+	public int getCountByYear(String heatingyear) throws Exception {
+		
+		return heatingPriceMapper.selectCountByYear(heatingyear);
+	}
+
+
+
 }

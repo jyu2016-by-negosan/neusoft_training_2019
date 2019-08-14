@@ -78,4 +78,14 @@ public class HeatingPriceController {
 	public List<HeatingPriceModel> getListByAllWithPriceAndDay() throws Exception{
 		return heatingPriceService.getListByAllWithPriceAndDay();
 	}
+	
+	//检查年份是否已存在
+	@GetMapping(value="/checkyear")
+	public boolean CheckYear(String heatingyear) throws Exception{
+		boolean result = true;
+		if(heatingPriceService.getCountByYear(heatingyear)==1) {
+			result = false;
+		}
+		return result;
+	}
 }

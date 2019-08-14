@@ -23,7 +23,7 @@ public interface IPublicHouseService {
 		//R2
 		public PublicHouseModel getByNo(int houseno) throws Exception;
 		//R3
-		public List<PublicHouseModel> getListByAllWithPage(int start,int rows) throws Exception;
+		public List<PublicHouseModel> getListByAllWithPage(int rows,int page) throws Exception;
 		//D
 		public void delete(PublicHouseModel publicHouseModel) throws Exception;
 		//取得对象的个数(可选）

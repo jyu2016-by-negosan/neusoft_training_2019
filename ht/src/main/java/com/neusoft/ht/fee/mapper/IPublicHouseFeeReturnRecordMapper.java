@@ -13,7 +13,7 @@ import com.neusoft.ht.fee.model.PublicHouseFeeReturnRecordModel;
  * @author 张晓龙
  * */
 
-public interface IPublicHouseReturnFeeMapper {
+public interface IPublicHouseFeeReturnRecordMapper {
 
 	//C
 	public void create(PublicHouseFeeReturnRecordModel publicHouseFeeReturnRecordModel) throws Exception;

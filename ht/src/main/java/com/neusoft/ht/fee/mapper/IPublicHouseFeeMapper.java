@@ -8,7 +8,7 @@ import com.neusoft.ht.fee.model.PublicHouseFeeModel;
 
 /**
  * 模块：供热缴费管理
- * 公建供热费管理的Mapper接口
+ * 公建供热记录管理的Mapper接口
  * 
  * @author 张晓龙
  * */

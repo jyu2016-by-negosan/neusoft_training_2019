@@ -3,7 +3,8 @@
  * 系统主管理JS
  * 作者：黄宇德
  */
-
+$.jgrid.defaults.styleUI = 'Bootstrap';
+var host="http://localhost:8080/";
 $(function(){
 	
 	//点击左面功能菜单处理

@@ -87,7 +87,11 @@ public class HeatingPriceServiceImpl implements IHeatingPriceService {
 		
 		return heatingPriceMapper.selectCountByYear(heatingyear);
 	}
-
-
+	
+	//修改实际供热天数
+	@Override
+	public void ChangeHeatingdays(String heatingyear) {
+		heatingPriceMapper.ChangeHeatingdays(heatingyear);	
+	}
 
 }

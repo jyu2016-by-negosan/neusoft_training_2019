@@ -29,4 +29,6 @@ public interface IHomeMapper {
 	public int selectCountByAll() throws Exception;
 	//根据综合检索条件取得居民列表，取得关联的小区和户型，分页模式
 	public List<HomeModel> selectListByConditionWithHoodNoAndHouseTypeNoWithPage(@Param("hoodno") int hoodno,@Param("housetypeno") int housetypeno,@Param("start") int start,@Param("rows") int rows) throws Exception;
+	//修改供热状态
+	public void ChangeHeatingStatus(int homeno) throws Exception;
 }

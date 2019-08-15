@@ -16,14 +16,14 @@ import lombok.Data;
 public class HomeFeeModel implements Serializable {
 	
 	private int feeno = 0;
-	private HomeModel homeModel = null;
-	private HeatingPriceModel heatingPriceModel = null;
-	private float heatarea = 0;
+	private HomeModel home = null;
+	private HeatingPriceModel heatingprice = null;
+	private float agreefee = 0;
 	private float actualfee = 0;
 	private float debtfee = 0;
 	private String feedesc = null;
 	private String feestatus = null;
-	private int heatingdays = 0;
+
     
     
 }

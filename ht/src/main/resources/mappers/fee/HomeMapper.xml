@@ -100,4 +100,11 @@
     limit #{start},#{rows}
   </select>
   
+  <!-- 修改供热状态 -->
+  <update id="ChangeHeatingStatus" flushCache="true">
+   update HT_HOME 
+   set HeatingStatus=#{heatingstatus}
+   where HOMENO=#{homeno}
+  </update>
+  
 </mapper>

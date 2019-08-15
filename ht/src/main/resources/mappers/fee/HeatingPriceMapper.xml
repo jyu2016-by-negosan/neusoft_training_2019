@@ -60,4 +60,12 @@
    select IFNULL(count(HeatingYear), 0) from HT_HeatingPrice
    where HeatingYear=#{heatingyear}
   </select>
+  
+  <!-- 修改实际供热天数 -->
+  <update id="ChangeHeatingdays" flushCache="true">
+   update HT_HeatingPrice 
+   set heatingdays=#{heatingdays}
+   where HeatingYear=#{heatingyear}
+  </update>
+
 </mapper>

@@ -112,27 +112,50 @@ $(function(){
 			$.getJSON(host+"fee/housetype/list/all",function(housetypeList){
 				if(housetypeList){
 					$.each(housetypeList,function(index,housetype){
-						$("select#HouseTypeSelection").append("<option value="+housetype.typeno+"'>"+housetype.typename+"</option>");
+						$("select#HouseTypeSelection").append("<option value='"+housetype.typeno+"'>"+housetype.typename+"</option>");
 						
 					});
 				}
 			});
 			//验证添加的信息是否已合法
-			$("form#HeatingPriceAddForm").validate({
+			$("form#HeatingHomeAddForm").validate({
 				rules: {
 					neighbourhood: {
 						required: true,			  
 					},
-					heatingdays: {
+					heatingcode: {
 						required: true,
 					},
-					homeprice: {
+					homearea: {
+						required: true,
+					},	
+					heatingarea:{
 						required: true,
 					},
-					publichouseprice: {
+					homename: {
 						required: true,
 					},
-					heatingmemo: {
+					mail:{
+				    	required:true,
+				    	email: true
+				    },
+				    mobile:{
+				    	required:true,
+				    	mobile:true
+				    },
+					qq: {
+						required: true,
+					},
+					buildingcode: {
+						required: true,
+					},
+					departmentcode: {
+						required: true,
+					},
+					floorcode: {
+						required: true,
+					},
+					housecode: {
 						required: true,
 					}
 				},
@@ -140,18 +163,9 @@ $(function(){
 					neighbourhood: {
 						required: "必须选择小区!",
 					},
-					heatingdays: {
-						required: "天数不能为空!",
-					},
-					homeprice: {
-						required: "价格不能为空!",
-					},
-					publichouseprice: {
-						required: "价格不能为空!",
-					},
-					heatingmemo: {
-						required: "备注信息不能为空!",
-					}
+					homename: {
+						required: "姓名不能为空!",
+					},			
 				}
 				
 			});			

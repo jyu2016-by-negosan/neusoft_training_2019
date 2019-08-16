@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.neusoft.ht.fee.mapper.IHouseFeePayRecordMapper;
+import com.neusoft.ht.fee.mapper.IHomeFeePayRecordMapper;
 import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 import com.neusoft.ht.fee.service.IHomeFeePayRecordService;
 /**模块：供热缴费管理
@@ -16,7 +16,7 @@ import com.neusoft.ht.fee.service.IHomeFeePayRecordService;
 public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 	
 	@Autowired
-	private IHouseFeePayRecordMapper houseFeePayRecordMapper;
+	private IHomeFeePayRecordMapper houseFeePayRecordMapper;
 	
 	//增加住宅缴费记录
 	public void add(HomeFeePayRecordModel payRecordModel) {
@@ -34,7 +34,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 	}
 			
 	//根据居民缴费序号查找缴费记录
-	public List<HomeFeePayRecordModel> getById(int recordNo) {
+	public HomeFeePayRecordModel getById(int recordNo) {
 		return houseFeePayRecordMapper.selectById(recordNo);
 		
 	}

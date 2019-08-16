@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.ht.fee.mapper.IHouseFeePayRecordMapper">
+<mapper namespace="com.neusoft.ht.fee.mapper.IHomeFeePayRecordMapper">
 
   <!-- 启用全局缓存 -->
   <cache/>
@@ -26,7 +26,7 @@
   </insert>
   
   <delete id="delete">
-  	 delete from ht_homefeepayrecord where id=#{recordno}
+  	 delete from ht_homefeepayrecord where recordno=#{recordno}
   </delete>
  
  <update id="update">

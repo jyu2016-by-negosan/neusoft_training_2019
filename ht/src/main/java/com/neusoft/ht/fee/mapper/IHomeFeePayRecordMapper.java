@@ -13,7 +13,7 @@ import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
  *
  */
 @Mapper
-public interface IHouseFeePayRecordMapper {
+public interface IHomeFeePayRecordMapper {
 	//增加住宅缴费记录
 	public void insert( HomeFeePayRecordModel payRecordModel);
 	
@@ -24,7 +24,7 @@ public interface IHouseFeePayRecordMapper {
 	public void update( HomeFeePayRecordModel payRecordModel);
 	
 	//根据居民缴费序号查找缴费记录
-	public List< HomeFeePayRecordModel> selectById(int recordNo);
+	public HomeFeePayRecordModel selectById(int recordNo);
 	
 	//查找所有住宅缴费记录
 	public List< HomeFeePayRecordModel> selectAllByList();

@@ -9,11 +9,11 @@ $(function(){
 	var rows=5;		  //每页多少条数据
 	var page=1;       //当前页数
 	var pageCount=0;  //缴费总页数
-	var no=-1; //居民缴费编号，默认未选中
-	
+	var no =-1;
+	var recordno =-1;
 	//设置系统页面标题
 	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>小区管理</span></li>");
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民缴费管理</span></li>");
 	
 	function getListInfo(){
 		//取得列表，分页模式
@@ -31,7 +31,7 @@ $(function(){
 									
 					$("table#HomeFeePayRecordTable tbody").append(tr);
 				}
-				//定义表格行的点击时间，取得选择的小区号
+				//定义表格行的点击时间，取得选择的缴费记录ID
 				$("table#HomeFeePayRecordTable tbody tr").on("click",function(){
 					no=$(this).attr("id");
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
@@ -100,8 +100,8 @@ $(function(){
 	$("a#PayRecordModifyLink").off().on("click",function(event){
 		if(no==-1){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要修改的小区"
+	            title: '缴费操作信息',
+	            message:"请选择要修改的缴费记录"
 	        });
 		}
 		else {
@@ -110,7 +110,7 @@ $(function(){
 				$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getById",{recordno:no},function(data){
 					if(data.status=="OK"){
 						$("input[name='recordno']").val(no);
-						$("input[name='paymount']").val(data.model.paymount);
+						$("input[name='payamount']").val(data.model.payamount);
 						$("input[name='paydate']").val(data.model.paydate);
 						$("input[name='payperson']").val(data.model.payperson);
 						$("input[name='invoicecode']").val(data.model.invoicecode);
@@ -131,22 +131,23 @@ $(function(){
 					}
 
 					BootstrapDialog.show({
-			            title: '修改居民缴费记录操作信息',
+			            title: '记录操作信息',
 			            message:result.message
 			        });
-					$("div#NeighbourHoodDialogArea" ).dialog( "close" );
-					$("div#NeighbourHoodDialogArea" ).dialog( "destroy" );
-					$("div#NeighbourHoodDialogArea").html("");
+					$("div#PayRecordDialogArea" ).dialog( "close" );
+					$("div#PayRecordDialogArea" ).dialog( "destroy" );
+					$("div#PayRecordDialogArea").html("");
 					
 				});
 				
 				
-//				//点击取消按钮处理
-//				$("input[value='取消']").on("click",function(){
-//					$( "div#NeighbourHoodDialogArea" ).dialog( "close" );
-//					$( "div#NeighbourHoodDialogArea" ).dialog( "destroy" );
-//					$("div#NeighbourHoodDialogArea").html("");
-//				});
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#PayRecordDialogArea" ).dialog( "close" );
+					$( "div#PayRecordDialogArea" ).dialog( "destroy" );
+					$("div#PayRecordDialogArea").html("");
+				});
 			});
 			
 		}
@@ -155,24 +156,24 @@ $(function(){
 	});
 	
 	//点击删除按钮事件处理
-	$("a#NeighbourHoodDeleteLink").off().on("click",function(event){
+	$("a#PayRecordDeleteLink").off().on("click",function(event){
 		
-		if(no==0){
+		if(no==-1){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要删除的小区"
+	            title: '记录操作信息',
+	            message:"请选择要删除的缴费记录"
 	        });
 		}
 		else {
 		
-			BootstrapDialog.confirm('确认删除小区么?', function(result){
+			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/neighbourhood/delete",{hoodno:no},function(result){
+					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no},function(result){
 						if(result.status=="OK"){
 							getListInfo(); 
 						}
 						BootstrapDialog.show({
-							title: '小区操作信息',
+							title: '记录操作信息',
 							message:result.message
 						});
 					});
@@ -186,35 +187,38 @@ $(function(){
 	});
 	
 	//点击查看详细按钮事件处理
-	$("a#NeighbourHoodDetailLink").off().on("click",function(event){
+	$("a#PayRecordSelectLink").off().on("click",function(event){
 		
-		if(no==0){
+		if(no==-1){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要查看的小区"
+	            title: '记录操作信息',
+	            message:"请选择要查看的缴费记录"
 	        });
 		}
 		else{
-			$("div#NeighbourHoodDialogArea").load("fee/neighbourhood/detail.html",function(){
+			$("div#PayRecordDialogArea").load("fee/homefeepayrecord/detail.html",function(){
 				//取得选择的部门
-				$.getJSON("http://127.0.0.1:8080/fee/neighbourhood/get",{hoodno:no},function(data){
+				$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getById",{recordno:no},function(data){
 					if(data.status=="OK"){
-						$("span#hoodname").html(data.model.hoodname);
-						$("span#address").html(data.model.address);
-						
+						$("span#recordno").html(data.model.recordno);
+						$("span#payamount").html(data.model.payamount);
+						$("span#paydate").html(data.model.paydate);
+						$("span#payperson").html(data.model.payperson);
+						$("span#invoicecode").html(data.model.invoicecode);
+						$("span#paydesc").html(data.model.paydesc);
+						$("span#recordstatus").html(data.model.recordstatus);
 					}
 				});
-				$("div#NeighbourHoodDialogArea" ).dialog({
-					title:"小区详细",
-					width:600
+				$("div#PayRecordDialogArea" ).dialog({
+					
 				});
 			
 			
 				//点击取消按钮处理
 				$("input[value='返回']").on("click",function(){
-					$( "div#NeighbourHoodDialogArea" ).dialog( "close" );
-					$( "div#NeighbourHoodDialogArea" ).dialog( "destroy" );
-					$("div#NeighbourHoodDialogArea").html("");
+					$( "div#PayRecordDialogArea" ).dialog( "close" );
+					$( "div#PayRecordDialogArea" ).dialog( "destroy" );
+					$("div#PayRecordDialogArea").html("");
 				});
 			});
 		}

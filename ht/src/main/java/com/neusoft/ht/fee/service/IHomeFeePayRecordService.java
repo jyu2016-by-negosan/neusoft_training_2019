@@ -19,7 +19,7 @@ public interface IHomeFeePayRecordService {
 		public void modify(HomeFeePayRecordModel payRecordModel);
 		
 		//根据居民缴费序号查找缴费记录
-		public List<HomeFeePayRecordModel> getById(int recordno);
+		public HomeFeePayRecordModel getById(int recordno);
 		
 		//查找所有住宅缴费记录
 		public List<HomeFeePayRecordModel> getAllByList();

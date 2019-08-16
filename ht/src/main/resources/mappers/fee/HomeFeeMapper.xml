@@ -93,6 +93,17 @@
 	  	(select home.HOMENO,neighbourhood.HOODNAME 
 		from HT_HOME home
 	  	inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO) e
+	  	<where>
+	     <if test="homeno!=0">
+	      	and a.HOMENO=#{homeno}
+	     </if>
+	     <if test="heatingyear!=null and heatingyear!=''">
+	     	and a.HEATINGYEAR=#{heatingyear}
+	     </if> 
+	     <if test="feestatus!=null and feestatus!=''">
+	     	and a.FEESTATUS=#{feestatus}
+	     </if> 
+	  </where>
   	</select>
 	
 </mapper>

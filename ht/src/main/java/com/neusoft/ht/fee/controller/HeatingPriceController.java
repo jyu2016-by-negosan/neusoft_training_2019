@@ -90,8 +90,10 @@ public class HeatingPriceController {
 	}
 	
 	//修改供热天数
-	@PostMapping(value="/change/heatingdays")
-	public void ChangeHeatingdays(String heatingyear) throws Exception{
-		heatingPriceService.ChangeHeatingdays(heatingyear);
+	@PostMapping(value="/changeheatingdays")
+	public ResultMessage<HeatingPriceModel> ChangeHeatingdays(String heatingyear,int heatingdays) throws Exception{
+		ResultMessage<HeatingPriceModel> result=new ResultMessage<HeatingPriceModel>("OK","修改供热天数成功");
+		heatingPriceService.ChangeHeatingdays(heatingyear,heatingdays);
+		return result;
 	}
 }

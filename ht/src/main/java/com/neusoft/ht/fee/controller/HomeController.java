@@ -101,9 +101,11 @@ public class HomeController {
 	}
 	
 	//修改供热状态
-	@PostMapping(value="/change/heatingstatus")
-	public void ChangeHeatingStatus(int homeno) throws Exception {
-		homeService.ChangeHeatingStatus(homeno);
+	@PostMapping(value="/changeheatingstatus")
+	public ResultMessage<HomeModel> ChangeHeatingStatus(int homeno,String heatingstatus) throws Exception {
+		ResultMessage<HomeModel> result=new ResultMessage<HomeModel>("OK","修改供热状态成功");
+		homeService.ChangeHeatingStatus(homeno,heatingstatus);
+		return result;
 	}
 
 }

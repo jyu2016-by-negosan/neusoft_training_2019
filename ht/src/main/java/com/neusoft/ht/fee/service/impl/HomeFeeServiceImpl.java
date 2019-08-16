@@ -7,6 +7,7 @@ package com.neusoft.ht.fee.service.impl;
  */
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,9 +59,9 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int hoodno, String heatingyear,
-			String feestautus, int rows, int page) throws Exception {
+			String feestatus, int rows, int page) throws Exception {
 		
-		return homeFeeMapper.selectListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestautus, rows*(page-1), rows);
+		return homeFeeMapper.selectListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestatus, rows*(page-1), rows);
 	}
 
 	@Override
@@ -72,9 +73,9 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public int getPageCountByAll(int rows) throws Exception {
+	public int getPageCountByAll(int rows,int homeno,String heatingyear,String feestatus) throws Exception {
 		int pageCount=0;
-		int count=this.getCountByAllWithHomeAndHeatingPriceWithPage();
+		int count=this.getCountByAllWithHomeAndHeatingPriceWithPage(homeno, heatingyear, feestatus);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}
@@ -86,9 +87,9 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 	
 	//取得住宅供热信息记录的个数,带关联	
 	@Override
-	public int getCountByAllWithHomeAndHeatingPriceWithPage() throws Exception {
+	public int getCountByAllWithHomeAndHeatingPriceWithPage(int hoodno,String heatingyear,String feestautus) throws Exception {
 		
-		return homeFeeMapper.selectCountByAllWithHomeAndHeatingPriceWithPage();
+		return homeFeeMapper.selectCountByAllWithHomeAndHeatingPriceWithPage(hoodno,heatingyear,feestautus);
 	}
 
 }

@@ -90,8 +90,8 @@ public class HeatingPriceServiceImpl implements IHeatingPriceService {
 	
 	//修改实际供热天数
 	@Override
-	public void ChangeHeatingdays(String heatingyear) throws Exception {
-		heatingPriceMapper.ChangeHeatingdays(heatingyear);	
+	public void ChangeHeatingdays(String heatingyear,int heatingdays) throws Exception {
+		heatingPriceMapper.ChangeHeatingdays(heatingyear,heatingdays);	
 	}
 
 }

@@ -58,20 +58,22 @@ public class HomeFeeController {
 	
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	@GetMapping("/get")
-	public HomeFeeModel getByNoWithHomeAndHeatingPrice(int feeno) throws Exception {
-		
-		return homeFeeService.getByNoWithHomeAndHeatingPrice(feeno);
+	public ResultMessage<HomeFeeModel> getByNoWithHomeAndHeatingPrice(int feeno) throws Exception {
+		ResultMessage<HomeFeeModel> result=new ResultMessage<HomeFeeModel>("OK","取得特定居民供热记录成功");
+		result.setModel(homeFeeService.getByNoWithHomeAndHeatingPrice(feeno));
+		return result;
+
 	}
 	
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	@GetMapping("/list/all/page/condition")
 	public ResultMessage<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(@RequestParam(required = false,defaultValue ="0") int hoodno, @RequestParam(required = false,defaultValue ="") String heatingyear,
-			@RequestParam(required = false,defaultValue ="") String feestautus, @RequestParam(required = false,defaultValue ="4") int rows, @RequestParam(required = false,defaultValue ="1") int page) throws Exception {
+			@RequestParam(required = false,defaultValue ="") String feestatus, @RequestParam(required = false,defaultValue ="4") int rows, @RequestParam(required = false,defaultValue ="1") int page) throws Exception {
 		
 		ResultMessage<HomeFeeModel> result=new ResultMessage<HomeFeeModel>("OK","条件检索取得住宅供热记录信息列表分页模式成功");
-		result.setCount(homeFeeService.getCountByAllWithHomeAndHeatingPriceWithPage());
-		result.setPageCount(homeFeeService.getPageCountByAll(rows));
-		result.setList(homeFeeService.getListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestautus, rows, page));
+		result.setCount(homeFeeService.getCountByAllWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestatus));
+		result.setPageCount(homeFeeService.getPageCountByAll(rows,hoodno, heatingyear, feestatus));
+		result.setList(homeFeeService.getListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestatus, rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 

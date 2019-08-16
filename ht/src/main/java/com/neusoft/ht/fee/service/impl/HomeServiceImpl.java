@@ -92,8 +92,8 @@ public class HomeServiceImpl implements IHomeService {
 
 	//修改供热状态
 	@Override
-	public void ChangeHeatingStatus(int homeno) throws Exception {
-		homeMapper.ChangeHeatingStatus(homeno);	
+	public void ChangeHeatingStatus(int homeno ,String heatingstatus) throws Exception {
+		homeMapper.ChangeHeatingStatus(homeno,heatingstatus);	
 	}
 	
 

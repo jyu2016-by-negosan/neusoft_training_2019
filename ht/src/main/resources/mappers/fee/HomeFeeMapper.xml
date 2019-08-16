@@ -4,8 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 住宅供热记录Mapper接口Mapping映射 -->   
 <mapper namespace="com.neusoft.ht.fee.mapper.IHomeFeeMapper">
-	<!-- 启用此映射的全局缓存 -->
-	<cache/>
+
 	<!-- 无关联属性的结果映射 -->
 	<resultMap id="HomeFeeResultMap" type="HomeFee" >
 		<id property="feeno" column="FeeNo" />
@@ -64,12 +63,12 @@
 	<!-- //根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式-->
 	<select id="selectListByConditionWithHomeAndHeatingPriceWithPage" resultMap="HomeFeeResultMapWithHomeAndHeatingPrice">
 		select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
-	  	inner join HT_HOME b on a.HOMENO=b.HOMENO
+	 	inner join HT_HOME b on a.HOMENO=b.HOMENO
 	  	inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
-	  	inner join 
+  		inner join 
 	  	(select home.HOMENO,neighbourhood.HOODNAME 
-	  	 from HT_HOME home
-	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
+			from HT_HOME home
+			inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
 	  <where>
 	     <if test="hoodno!=0">
 	      	and  a.HOMENO in
@@ -88,24 +87,28 @@
 	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   	<select id="selectCountByAllWithHomeAndHeatingPriceWithPage" resultType="int" >
    		select IFNULL(count(e.FEENO), 0) 
-		from (select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
-	 	inner join HT_HOME b on a.HOMENO=b.HOMENO
-	  	inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
-  		inner join 
-	  	(select home.HOMENO,neighbourhood.HOODNAME 
-		from HT_HOME home
-	  	inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO) e
-	  	<where>
-	     <if test="homeno!=0">
-	      	and a.HOMENO=#{homeno}
-	     </if>
-	     <if test="heatingyear!=null and heatingyear!=''">
-	     	and a.HEATINGYEAR=#{heatingyear}
-	     </if> 
-	     <if test="feestatus!=null and feestatus!=''">
-	     	and a.FEESTATUS=#{feestatus}
-	     </if> 
-	  </where>
+		from (
+			select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
+	 		inner join HT_HOME b on a.HOMENO=b.HOMENO
+	  		inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
+  			inner join 
+	  		(select home.HOMENO,neighbourhood.HOODNAME 
+				from HT_HOME home
+				inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
+		 	<where>
+	    	 <if test="hoodno!=0">
+		      	and a.HOMENO in
+	      		(select HOMENO from HT_HOME where HOODNO=#{hoodno})
+		     </if>
+		     <if test="heatingyear!=null and heatingyear!=''">
+		     	and a.HEATINGYEAR=#{heatingyear}
+		     </if> 
+		     <if test="feestatus!=null and feestatus!=''">
+		     	and a.FEESTATUS=#{feestatus}
+		     </if> 
+	  	</where>
+		 ) e
+	  	
   	</select>
 	
 </mapper>

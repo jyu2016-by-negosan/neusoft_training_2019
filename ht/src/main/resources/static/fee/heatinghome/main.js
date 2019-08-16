@@ -27,9 +27,7 @@ $(function(){
 	//设置系统页面标题
 	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
 
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>"
-
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民管理</span></li>");
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>");
 
 
 	//显示列表
@@ -227,9 +225,6 @@ $(function(){
 		
 		if(homeno==0){
 			BootstrapDialog.show({
-
-	            title: '投诉类型操作信息',
-	            message:"请选择要修改的投诉类型"
 
 	            title: '操作信息',
 	            message:"请选择要修改的居民信息"

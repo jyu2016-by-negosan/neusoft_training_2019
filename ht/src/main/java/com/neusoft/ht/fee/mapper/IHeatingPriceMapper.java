@@ -28,5 +28,5 @@ public interface IHeatingPriceMapper {
 	//检查年份是否已经存在
 	public int selectCountByYear(String heatingyear) throws Exception;
 	//修改实际供热天数
-	public void ChangeHeatingdays(String heatingyear);
+	public void ChangeHeatingdays(String heatingyear,int heatingdays);
 }

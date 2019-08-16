@@ -95,125 +95,106 @@ $(function(){
 	});
 	
 	
-	/* //=================点击修改按钮事件处理======================
-	$("a#HeatingHomeModifyLink").off().on("click",function(event){
+	//=================点击修改供热状态按钮事件处理======================
+	$("a#ChangeHeatingStatusLink").off().on("click",function(event){
 		
 		//定义表格行的点击事件，取得选择的编号
-		$("table#HeatingHomeGrid tbody tr").on("click",function(){
-			homeno=$(this).attr("id");
+		$("table#HomeFeeGrid tbody tr").on("click",function(){
+			feeno=$(this).attr("id");
 			
 		});
 		
-		if(homeno==0){
+		if(feeno==0){
 			BootstrapDialog.show({
-	            title: '操作信息',
-	            message:"请选择要修改的居民信息"
+	            title: '住宅供热记录操作信息',
+	            message:"请选择要修改的住宅供热记录"
 	        });
 		}
-		else {
-			
-			//取得小区列表，填充小区下拉框
-			$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
-				if(neighbourhoodList){
-					$.each(neighbourhoodList,function(index,neighbourhood){
-						$("select#NeighbourHoodSelection").append("<option value='"+neighbourhood.hoodno+"'>"+neighbourhood.hoodname+"</option>");
-					});
-				}
-			});
-			
-			//取得户型列表，填充下拉框
-			$.getJSON(host+"fee/housetype/list/all",function(housetypeList){
-				if(housetypeList){
-					$.each(housetypeList,function(index,housetype){
-						$("select#HousetTypeSelection").append("<option value='"+housetype.typeno+"'>"+housetype.typename+"</option>");
-					});
-				}
-			});
-			
-			$("div#HeatingHomeDialogArea").load("fee/heatinghome/modify.html",function(){
-				$.getJSON(host+"fee/home/get",{homeno:homeno},function(data){
+		else {	
+			$("div#HomeFeeDialogArea").load("fee/homefee/changeheatingstatus.html",function(){
+				$.getJSON(host+"fee/homefee/get",{feeno:feeno},function(data){
 					if(data.status=="OK"){
 					
-						$("input[name='homeno']").val(homeno);
-						$("input[name='homename']").val(data.model.homename);
-						$("input[name='heatingcode']").val(data.model.heatingcode);
-						$("input[name='homearea']").val(data.model.homearea);
-						$("input[name='heatingcode']").val(data.model.heatingcode);
-						$("input[name='buildingcode']").val(data.model.buildingcode);
-						$("input[name='departmentcode']").val(data.model.departmentcode);
-						$("input[name='floorcode']").val(data.model.floorcode);
-						$("input[name='heatingcode']").val(data.model.heatingcode);
-						$("input[name='housecode']").val(data.model.housecode);
-						$("input[value='"+data.model.direction+"']").prop('checked',true);
-						$("input[name='tel']").val(data.model.tel);
-						$("input[name='mobile']").val(data.model.mobile);
-						$("input[name='qq']").val(data.model.qq);
-						$("input[name='mail']").val(data.model.mail);
-						$("input[value='"+data.model.heatingstatus+"']").prop('checked',true);
-						$("input[name='heatingarea']").val(data.model.heatingarea);
+						$("span#homename").html(data.model.home.homename);
+						$("span#neighbourhood").html(data.model.home.neighbourhood.hoodname);
+						$("span#heatingarea").html(data.model.home.heatingarea);
+						$("span#agreefee").html(data.model.agreefee);
+						$("span#actualfee").html(data.model.actualfee);
+						$("span#debtfee").html(data.model.debtfee);
+						$("span#feedesc").html(data.model.feedesc);
+
+						$("input[value='"+data.model.home.heatingstatus+"']").prop('checked',true);
+						$("input[name='homeno']").val(data.model.home.homeno);
 					}
 				});
 
-				$("div#HeatingHomeDialogArea" ).dialog({
-					title:"居民信息修改",
+				$("div#HomeFeeDialogArea" ).dialog({
+					title:"住宅供热记录信息修改",
 					width:600
+				});		
+				//拦截表单提交
+				$("form#ChangeHeatingStatusForm").ajaxForm(function(result){			
+					if(result.status=="OK"){
+						reloadList();
+					}
+					BootstrapDialog.show({
+			            title: '住宅供热记录操作信息',
+			            message:result.message
+			        });
+					$("div#HomeFeeDialogArea" ).dialog( "close" );
+					$("div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");			
 				});
 				
-				//验证添加的信息是否已合法
-				$("form#HeatingHomeModifyForm").validate({
-					rules: {
-						neighbourhood: {
-							required: true,			  
-						},
-						heatingcode: {
-							required: true,
-						},
-						homearea: {
-							required: true,
-						},	
-						heatingarea:{
-							required: true,
-						},
-						homename: {
-							required: true,
-						},
-						mail:{
-					    	required:true,
-					    	email: true
-					    },
-					    mobile:{
-					    	required:true,
-					    	mobile:true
-					    },
-						qq: {
-							required: true,
-						},
-						buildingcode: {
-							required: true,
-						},
-						departmentcode: {
-							required: true,
-						},
-						floorcode: {
-							required: true,
-						},
-						housecode: {
-							required: true,
-						}
-					},
-					messages:{
-						neighbourhood: {
-							required: "必须选择小区!",
-						},
-						homename: {
-							required: "姓名不能为空!",
-						},			
-					}	
-				});			
 				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#HomeFeeDialogArea" ).dialog( "close" );
+					$( "div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");
+				});			
+			});
+		}				
+	});
+	//=================点击修改供热天数按钮事件处理======================
+	$("a#ChangeHeatingDaysLink").off().on("click",function(event){
+		
+		//定义表格行的点击事件，取得选择的编号
+		$("table#HomeFeeGrid tbody tr").on("click",function(){
+			feeno=$(this).attr("id");
+			
+		});
+		
+		if(feeno==0){
+			BootstrapDialog.show({
+	            title: '住宅供热记录操作信息',
+	            message:"请选择要修改的住宅供热记录"
+	        });
+		}
+		else {	
+			$("div#HomeFeeDialogArea").load("fee/homefee/changeheatingdays.html",function(){
+				$.getJSON(host+"fee/homefee/get",{feeno:feeno},function(data){
+					if(data.status=="OK"){
+						
+					$("span#homename").html(data.model.home.homename);
+					$("span#neighbourhood").html(data.model.home.neighbourhood.hoodname);
+					$("span#heatingarea").html(data.model.home.heatingarea);
+					$("span#agreefee").html(data.model.agreefee);
+					$("span#actualfee").html(data.model.actualfee);
+					$("span#debtfee").html(data.model.debtfee);
+					alert(data.model.heatingprice.heatingdays);
+					$("input[name='heatingdays']").val(data.model.heatingprice.heatingdays);
+					$("input[name='heatingyear']").val(data.model.heatingprice.heatingyear);
+					}
+				});
+	
+				$("div#HomeFeeDialogArea" ).dialog({
+					title:"住宅供热记录信息修改",
+					width:600
+				});		
 				//拦截表单提交
-				$("form#HeatingHomeModifyForm").ajaxForm(function(result){
-					
+				$("form#ChangeHeatingDaysForm").ajaxForm(function(result){
+			
 					if(result.status=="OK"){
 						reloadList();
 					}
@@ -222,22 +203,72 @@ $(function(){
 			            title: '操作信息',
 			            message:result.message
 			        });
-					$("div#HeatingHomeDialogArea" ).dialog( "close" );
-					$("div#HeatingHomeDialogArea" ).dialog( "destroy" );
-					$("div#HeatingHomeDialogArea").html("");
-					
+					$("div#HomeFeeDialogArea" ).dialog( "close" );
+					$("div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");			
 				});
 				
 				
 				//点击取消按钮处理
 				$("input[value='取消']").on("click",function(){
-					$( "div#HeatingHomeDialogArea" ).dialog( "close" );
-					$( "div#HeatingHomeDialogArea" ).dialog( "destroy" );
-					$("div#HeatingHomeDialogArea").html("");
+					$( "div#HomeFeeDialogArea" ).dialog( "close" );
+					$( "div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");
 				});			
 			});
 		}				
 	});
-	 */
 	
+	//=================点击查看详细按钮事件处理=====================
+	$("a#HomeFeeDetailLink").off().on("click",function(event){
+		//定义表格行的点击事件，取得选择的编号
+		$("tableHomeFeeGrid tbody tr").on("click",function(){
+			feeno=$(this).attr("id");
+			
+		});
+		
+		if(feeno==0){
+			BootstrapDialog.show({
+	            title: '住宅供热记录操作信息',
+	            message:"请选择要查看的住宅供热记录"
+	        });
+		}
+		else{
+			$("div#HomeFeeDialogArea").load("fee/homefee/detail.html",function(){
+				//取得选择的住宅供热记录信息
+				$.getJSON(host+"fee/homefee/get",{feeno:feeno},function(data){
+					if(data.status=="OK"){
+					
+					$("span#homename").html(data.model.home.homename);
+					$("span#neighbourhood").html(data.model.home.neighbourhood.hoodname);
+					$("span#heatingarea").html(data.model.home.heatingarea);
+					$("span#heatingdays").html(data.model.heatingprice.heatingdays);
+					$("span#agreefee").html(data.model.agreefee);
+					$("span#actualfee").html(data.model.actualfee);
+					$("span#debtfee").html(data.model.debtfee);
+					$("span#heatingstatus").html(data.model.home.heatingstatus);
+					var feestatus = null;
+					if(data.model.feestatus=='N'){
+						feestatus = '欠费';
+					}
+					else{
+						feestatus = '正常';
+					}
+					$("span#feestatus").html(feestatus);
+					$("span#feedesc").html(data.model.feedesc);			
+					}
+				});
+				$("div#HomeFeeDialogArea" ).dialog({
+					title:"住宅供热记录细信息",
+					width:600
+				});
+				//点击取消按钮处理
+				$("input[value='返回']").on("click",function(){
+					$( "div#HomeFeeDialogArea" ).dialog( "close" );
+					$( "div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");
+				});
+			});
+		}
+	});
 });

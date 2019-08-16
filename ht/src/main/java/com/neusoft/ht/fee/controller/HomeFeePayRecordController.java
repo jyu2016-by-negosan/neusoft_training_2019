@@ -20,7 +20,7 @@ import com.neusoft.ht.message.ResultMessage;
  */
 @RestController
 @RequestMapping("/fee/housepayrecord")
-public class HousePayRecordController {
+public class HomeFeePayRecordController {
 
 	@Autowired
 	private IHomeFeePayRecordService housePayRecordService;
@@ -49,6 +49,7 @@ public class HousePayRecordController {
 			try {
 				housePayRecordService.delete(payRecordModel);
 			} catch (Exception e) {
+				e.printStackTrace();
 				return new ResultMessage<HomeFeePayRecordModel>("ERROR", "删除住宅缴费记录失败！");
 			}
 		} else {
@@ -58,7 +59,7 @@ public class HousePayRecordController {
 	}
 
 	// 更新住宅缴费记录
-	@RequestMapping("/modify")
+	@PostMapping("/modify")
 	public ResultMessage<HomeFeePayRecordModel> modifyPayRecord(HomeFeePayRecordModel payRecordModel) {
 		if (payRecordModel != null) {
 			try {
@@ -76,15 +77,16 @@ public class HousePayRecordController {
 	// 根据住宅Id查找缴费记录
 	@RequestMapping("/getById")
 	public ResultMessage<HomeFeePayRecordModel> GetPayRecord(int recordno) {
-		List<HomeFeePayRecordModel> list = null;
+	
 		try {
-			list = housePayRecordService.getById(recordno);
+				HomeFeePayRecordModel homeFeePayRecordModel=housePayRecordService.getById(recordno);
+				return new ResultMessage<HomeFeePayRecordModel>(homeFeePayRecordModel,"OK", "住宅缴费记录查找成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultMessage<HomeFeePayRecordModel>("ERROR", "查找住宅缴费记录失败！");
 		}
 		
-		return new ResultMessage<HomeFeePayRecordModel>(list,"OK", "住宅缴费记录查找成功");
+		
 	}
 
 	// 查找所有住宅缴费记录

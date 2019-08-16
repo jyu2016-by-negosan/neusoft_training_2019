@@ -17,6 +17,7 @@ public class PublicHouseFeeModel implements Serializable {
 	private int feeno = 0;
 	private int houseno = 0;
 	private String heatingyear = null;
+	private float agreefee = 0;
 	private float actualfee = 0;
 	private float debtfee = 0;
 	private String feedesc = null;

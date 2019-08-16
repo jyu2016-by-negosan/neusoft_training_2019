@@ -26,7 +26,11 @@ $(function(){
 	
 	//设置系统页面标题
 	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
+
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>"
+
 	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民管理</span></li>");
+
 
 	//显示列表
 	$("table#HeatingHomeGrid").jqGrid({
@@ -77,6 +81,9 @@ $(function(){
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadList()
 	{
+
+		$("table#PaymentTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,typename:typename}}).trigger("reloadGrid");
+
 		$("table#HeatingHomeGrid").jqGrid('setGridParam',
 		{
 			postData:{				
@@ -84,6 +91,7 @@ $(function(){
 			},
 			
 		}).trigger("reloadGrid");
+
 	}
 	//点击检索事件处理
 	$("a#HeatingHomeSearchButton").on("click",function(){
@@ -91,14 +99,27 @@ $(function(){
 		reloadList();
 	});
 	
+
+	//点击增加链接处理，嵌入add.html
+	$("a#ComplainTypeAddLink").off().on("click",function(event){
+
 	//==========点击增加链接处理，嵌入add.html===================
 	$("a#HeatingHomeAddLink").off().on("click",function(event){
-				
+
+		$("div#PaymentTypeDialogArea").load("fee/paymenttype/add.html",function(){
+			$("div#PaymentTypeDialogArea" ).dialog({
+				title:"增加投诉类型",
+			})
+		});
+
 		$("div#HeatingHomeDialogArea").load("fee/heatinghome/add.html",function(){
 			$("div#HeatingHomeDialogArea" ).dialog({
 				title:"增加居民",
+
 				width:600
-			});
+			})
+			
+		});
 			//取得小区列表，填充小区下拉框
 			$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
 				if(neighbourhoodList){
@@ -173,7 +194,11 @@ $(function(){
 					reloadList();
 				}
 				BootstrapDialog.show({
+
+		            title: '投诉付款类型操作信息',
+
 		            title: '居民操作信息',
+
 		            message:result.message
 		        });
 				$("div#HeatingHomeDialogArea" ).dialog( "close" );
@@ -202,8 +227,13 @@ $(function(){
 		
 		if(homeno==0){
 			BootstrapDialog.show({
+
+	            title: '投诉类型操作信息',
+	            message:"请选择要修改的投诉类型"
+
 	            title: '操作信息',
 	            message:"请选择要修改的居民信息"
+
 	        });
 		}
 		else {

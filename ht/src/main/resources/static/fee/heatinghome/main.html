@@ -1,28 +1,41 @@
-<script type="text/javascript" src="fee/paymenttype/main.js"></script>
+<script type="text/javascript" src="fee/heatinghome/main.js"></script>
 <!-- Main row -->
 <div class="row">
-    <div class="col-lg-10 p-r-0 title-margin-right">
+    <div class="col-lg-12 p-r-0 title-margin-right">
 		<div class="box">
 			<div class="box-header">
 				<div class="row">
-					<div class="col-md-6"> <h4>付款类型列表</h4></div>
+					<div class="col-md-6">
+						<form class="form-inline" role="form">
+							<div class="form-group">
+								<span>小区选择 </span>&nbsp;
+								<select id="NeighbourHoodSelection" class="form-control" style="height: 33px;">
+									<option value="0">所有</option>
+								</select>
+							</div>
+							<div class="form-group">
+								&nbsp;<a href="#" class="btn btn-info" id="HeatingHomeSearchButton">检索</a>
+							</div>
+						</form>
+					</div>
 					<div class="col-md-6 text-right">
-						<a href="#" id="PaymentTypeAddLink" class="btn btn-info">增加</a> 
-						<a href="#" id="PaymentTypeModifyLink" class="btn btn-info">修改</a> 
-						<a href="#" id="PaymentTypeDeleteLink" class="btn btn-info">删除</a>
-						<a href="#" id="PaymentTypeDetailLink" class="btn btn-info">查看</a>
+						<a href="#" id="HeatingHomeAddLink" class="btn btn-info">增加</a> 
+						<a href="#" id="HeatingHomeModifyLink" class="btn btn-info">修改</a> 
+						<a href="#" id="HeatingHomeDeleteLink" class="btn btn-info">删除</a>
+						<a href="#" id="HeatingHomeDetailLink" class="btn btn-info">查看</a>
 					</div>
 				</div>
 			</div>
+			
 			<div class="box-body ">
-				<table id="PaymentTypeGrid" >
+				<table id="HeatingHomeGrid" >
 				</table>
-				<div id="PaymentTypeGridPager">  
+				<div id="HeatingHomeGridPager">  
 				</div>
 			</div>
 		</div>   	
     </div>
 </div>  
- <div  class="col-md-6 " id="PaymentTypeDialogArea">
+ <div  class=" " id="HeatingHomeDialogArea">
  			    
  </div>	

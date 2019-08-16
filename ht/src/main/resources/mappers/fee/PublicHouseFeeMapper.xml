@@ -6,7 +6,7 @@
   <!-- 
   /**
   	* 模块：供热缴费管理
-  	* 公建供热费的Mapper接口映射
+  	* 公建供热记录的Mapper接口映射
   	* 表：公建供热记录表 HT_PublicHouseFee
   	*
   	* @author 张晓龙
@@ -31,11 +31,11 @@
 	
 	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKeys = "true" flushCache = "true">
 		insert into HT_PublicHouseFee (
-			HeatArea, AgreeFee, ActualFee, DebtFee, 
-			FeeDesc, FeeStatus, heatingdays 
+			FeeNo, HeatArea, AgreeFee, ActualFee, 
+			DebtFee, FeeDesc, FeeStatus, heatingdays 
 		) value (
-			#{heatarea}, #{agreefee}, #{actualfee}, #{debtfee}, 
-			#{feedesc}, #{feestatus}, #{heatingdays} 
+			#{feeno}, #{heatarea}, #{agreefee}, #{actualfee}, 
+			#{debtfee}, #{feedesc}, #{feestatus}, #{heatingdays} 
 		)
 	</insert>
 	

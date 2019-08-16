@@ -25,5 +25,5 @@ public class PublicHouseFeePayRecordModel implements Serializable {
 	private String checkcode = null;
 	private String invoicecode = null;
 	private String paydesc = null;
-	private String recordestatus = null;
+	private String recordstatus = null;
 }

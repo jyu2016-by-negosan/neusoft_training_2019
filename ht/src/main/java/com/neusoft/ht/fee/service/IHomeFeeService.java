@@ -28,5 +28,5 @@ public interface IHomeFeeService {
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	public HomeFeeModel getByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
-	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int homeno,String heatingyear, String feestautus,int rows, int page) throws Exception;
+	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int hoodno,String heatingyear, String feestautus,int rows, int page) throws Exception;
 }

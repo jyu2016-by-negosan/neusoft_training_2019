@@ -18,7 +18,7 @@
 	
 	<!-- 使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
 	<resultMap id="HomeFeeResultMapWithHomeAndHeatingPrice" type="HomeFee" extends="HomeFeeResultMap">
-		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMap"/>
+		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMapWithNeighbourHoodAndHouseType"/>
 		<association property="heatingprice" resultMap="com.neusoft.ht.fee.mapper.IHeatingPriceMapper.HeatingPriceRusultMap"/>
 	</resultMap>
 
@@ -71,8 +71,10 @@
 	  	 from HT_HOME home
 	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
 	  <where>
-	     <if test="homeno!=0">
-	      	and a.HOMENO=#{homeno}
+	     <if test="hoodno!=0">
+	      	and  a.HOMENO in
+	      	(select HOMENO from HT_HOME where HOODNO=#{hoodno})
+
 	     </if>
 	     <if test="heatingyear!=null and heatingyear!=''">
 	     	and a.HEATINGYEAR=#{heatingyear}

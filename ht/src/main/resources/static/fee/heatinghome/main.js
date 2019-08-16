@@ -34,7 +34,7 @@ $(function(){
 
 	//显示列表
 	$("table#HeatingHomeGrid").jqGrid({
-		url: 'http://127.0.0.1:8080/fee/home/list/all/page/condition',
+		url: host+'fee/home/list/all/page/condition',
 		datatype: "json",
 		colModel: [
 			{ label: '序号', name: 'homeno' },
@@ -187,8 +187,7 @@ $(function(){
 					homename: {
 						required: "姓名不能为空!",
 					},			
-				}
-				
+				}	
 			});			
 			$("form#HeatingHomeAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
@@ -257,7 +256,6 @@ $(function(){
 				}
 			});
 			
-			
 			$("div#HeatingHomeDialogArea").load("fee/heatinghome/modify.html",function(){
 				$.getJSON(host+"fee/home/get",{homeno:homeno},function(data){
 					if(data.status=="OK"){
@@ -286,6 +284,59 @@ $(function(){
 					title:"居民信息修改",
 					width:600
 				});
+				
+				//验证添加的信息是否已合法
+				$("form#HeatingHomeModifyForm").validate({
+					rules: {
+						neighbourhood: {
+							required: true,			  
+						},
+						heatingcode: {
+							required: true,
+						},
+						homearea: {
+							required: true,
+						},	
+						heatingarea:{
+							required: true,
+						},
+						homename: {
+							required: true,
+						},
+						mail:{
+					    	required:true,
+					    	email: true
+					    },
+					    mobile:{
+					    	required:true,
+					    	mobile:true
+					    },
+						qq: {
+							required: true,
+						},
+						buildingcode: {
+							required: true,
+						},
+						departmentcode: {
+							required: true,
+						},
+						floorcode: {
+							required: true,
+						},
+						housecode: {
+							required: true,
+						}
+					},
+					messages:{
+						neighbourhood: {
+							required: "必须选择小区!",
+						},
+						homename: {
+							required: "姓名不能为空!",
+						},			
+					}	
+				});			
+				
 				//拦截表单提交
 				$("form#HeatingHomeModifyForm").ajaxForm(function(result){
 					

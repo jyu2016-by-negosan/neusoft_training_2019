@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+  /**
+  	* 模块：供热缴费管理
+  	* 公建供热报停记录的Mapper接口映射
+  	* 表：公建供热报停记录表 HT_PublicHouseStopRecord
+  	*
+  	* @author 张晓龙
+  	*/
+   -->
+   
+<mapper namespace = "com.neusoft.ht.fee.mapper.IPublicHouseStopRecordMapper">
+	<!-- 启用此映射的全局缓存 -->
+	<cache/>
+	
+	<!-- 无关联的结果映射 -->
+	<resultMap id = "PublicHouseStopRecordResultMap" type = "PublicHouseStopRecord">
+		<id property = "recordno" column = "recordno"/>
+		<result property = "stoparea" column = "stoparea"/>
+		<result property = "stopdate" column = "stopdate"/>
+		<result property = "stopreason" column = "stopreason"/>
+		<result property = "stopperson" column = "stopperson"/>
+		<result property = "stopdesc" column = "stopdesc"/>
+		<result property = "stopstatus" column = "stopstatus"/>
+	</resultMap>
+	
+	<insert id = "insert" keyProperty = "recordno" keyColumn = "recordno" useGeneratedKeys = "true" flushCache = "true">
+		insert into HT_PublicHouseStopRecord (
+			recordno, stoparea, stopdate, stopreason, stopperson, stopdesc, stopstatus
+		) value (
+			#{recordno}, #{stoparea}, #{stopdate}, #{stopreason}, #{stopperson}, #{stopdesc}, #{stopstatus}
+		)
+	</insert>
+	
+	<update id = "update" flushCache = "true">
+		update HT_PublicHouseStopRecord 
+		<set>
+			<if test = "stoparea != null">stoparea = #{stoparea}, </if>
+			<if test = "stopdate != null">stopdate = #{stopdate}, </if>
+			<if test = "stopreason != null">stopreason = #{stopreason}, </if>
+			<if test = "stopperson != null">stopperson = #{stopperson}, </if>
+			<if test = "stopdesc != null">stopdesc = #{stopdesc}, </if>
+			<if test = "stopstatus != null">stopstatus = #{stopstatus}</if>
+		</set>
+		where 
+			recordno = #{recordno}
+	</update>
+	
+	<delete id = "delete" flushCache = "true">
+		delete from HT_PublicHouseStopRecord where recordno = #{recordno}
+	</delete>
+	
+	<select id = "selectListByAll" resultMap = "PublicHouseStopRecordResultMap">
+		select * from HT_PublicHouseStopRecord
+	</select>
+	
+	<select id = "selectByNo" resultMap = "PublicHouseStopRecordResultMap">
+		select * from HT_PublicHouseStopRecord where recordno = #{recordno}
+	</select>
+	
+	<select id = "selectListByAllWithPage" resultMap = "PublicHouseStopRecordResultMap">
+		select * from HT_PublicHouseStopRecord limit #{start}, #{rows}
+	</select> 
+	
+	<select id = "selectCountByAll" resultType = "int">
+		select IFNULL(count(recordno), 0) from HT_PublicHouseStopRecord 
+	</select>
+</mapper>

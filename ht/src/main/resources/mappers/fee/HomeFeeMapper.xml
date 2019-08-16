@@ -18,11 +18,11 @@
 	
 	<!-- 使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
 	<resultMap id="HomeFeeResultMapWithHomeAndHeatingPrice" type="HomeFee" extends="HomeFeeResultMap">
-		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMapWithNeighbourHoodAndHouseType"/>
+		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMap"/>
 		<association property="heatingprice" resultMap="com.neusoft.ht.fee.mapper.IHeatingPriceMapper.HeatingPriceRusultMap"/>
 	</resultMap>
 
-	<insert id="insert"  parameterType="Home" keyProperty="homeno"  keyColumn="HOMENO" useGeneratedKeys="true" flushCache="true" >
+	<insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
 		insert into HT_HOMEFEE
 		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC)
 		values 
@@ -39,7 +39,7 @@
 		delete from HT_HOMEFEE where FEENO=#{feeno}
 	</delete>
   
-	<select id="selectListByAll" resultMap="">
+	<select id="selectListByAll" resultMap="HomeFeeResultMap">
 		select * from HT_HOMEFEE 
 	</select>
 

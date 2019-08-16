@@ -75,12 +75,24 @@ public class HomeServiceImpl implements IHomeService {
 		}
 		return pageCount;
 	}
-
+	//根据综合检索条件,取得居民列表取得关联的小区和户型,分页模式
 	@Override
 	public List<HomeModel> getListByConditionWithHoodNoAndHouseTypeNoWithPage(int hoodno, int housetypeno, int rows,
 			int page) throws Exception {
 		
 		return homeMapper.selectListByConditionWithHoodNoAndHouseTypeNoWithPage(hoodno, housetypeno, rows*(page-1),rows);
+	}
+
+	//取关联小区和户型的特定居民
+	@Override
+	public HomeModel getByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception {
+		
+		return homeMapper.selectByNoWithHoodNoAndHouseTypeNo(homeno);
+	}
+
+	@Override
+	public void ChangeHeatingStatus(int homeno) throws Exception {
+		homeMapper.ChangeHeatingStatus(homeno);	
 	}
 	
 

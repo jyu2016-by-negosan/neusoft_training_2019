@@ -13,12 +13,13 @@ $(function(){
 	//设置日期的格式和选择
 	
 	//显示户型列表
+	  
 	$("table#HouseTypeGrid").jqGrid({
-		url: 'http://127.0.0.1:8080/fee/housetype/list/all/page',
+		url: host+'fee/housetype/list/all/page',
 		datatype: "json",
 		colModel: [
 			{ label: '户型编号', name: 'typeno', width: 75 },
-			{ label: '户型名称', name: 'typename', width: 90, align: 'left' },
+			{ label: '户型名称', name: 'typename', width: 90 },
 		          
 		],
 		viewrecords: true, 
@@ -34,7 +35,6 @@ $(function(){
 		      repeatitems: true, 
 		      id: "typeno"},
 		pager: "#HouseTypeGridPager",
-		
 	});
 	//更新jQGrid的列表显示
 	function reloadList()
@@ -92,7 +92,7 @@ $(function(){
 		else {
 			$("div#HouseTypeDialogArea").load("fee/housetype/modify.html",function(){
 				
-				$.getJSON("http://127.0.0.1:8080/fee/housetype/get",{typeno:typeno},function(data){
+				$.getJSON(host+"fee/housetype/get",{typeno:typeno},function(data){
 					if(data.status=="OK"){
 						$("input[name='typeno']").val(typeno);
 						$("input[name='typename']").val(data.model.typename);
@@ -152,7 +152,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除户型么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/housetype/delete",{typeno:typeno},function(result){
+					$.post(host+"fee/housetype/delete",{typeno:typeno},function(result){
 						if(result.status=="OK"){
 							reloadList(); 
 						}
@@ -186,11 +186,9 @@ $(function(){
 		else{
 			$("div#HouseTypeDialogArea").load("fee/housetype/detail.html",function(){
 				//取得选择的户型
-				$.getJSON("http://127.0.0.1:8080/fee/housetype/get",{typeno:typeno},function(data){
+				$.getJSON(host+"fee/housetype/get",{typeno:typeno},function(data){
 					if(data.status=="OK"){
-						$("span#typename").html(data.model.typename);
-					
-						
+						$("span#typename").html(data.model.typename);				
 					}
 				});
 				$("div#HouseTypeDialogArea" ).dialog({

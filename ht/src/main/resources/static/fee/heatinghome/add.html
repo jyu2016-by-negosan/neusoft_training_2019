@@ -12,14 +12,14 @@
                 	<div class="col-md-6">
 						<div class="form-group">
 		                  <label>选择小区</label>
-		                  <select name="neighbourhood.hoodno" class="form-control" id="NeighbourHoodSelection" style="height: 33px;" >
-							 <option value="0">请选择</option>
+		                  <select  class="form-control" name="neighbourhood.hoodno" id="NeighbourHoodSelection" style="height: 33px;" required >
+							 <option value=" " >请选择</option>
 						  </select>
 		                </div>
 						<div class="form-group">
 		                  <label >选择户型</label>
-		                  <select name="housetype.typeno" class="form-control" id="HouseTypeSelection" style="height: 33px;">
-							  <option value="0">请选择</option>
+		                  <select name="housetype.typeno" class="form-control" id="HouseTypeSelection" style="height: 33px;" required>
+							  <option value=" ">请选择</option>
 		                  </select>
 		                </div>
 						<div class="form-group">
@@ -75,15 +75,15 @@
 						</div>
 						<div class="form-group">
 						  <label >朝向</label>
-						  <input type="radio"  name="direction" value="南向" checked />南向
+						  <input type="radio"  name="direction" value="南向" required />南向
 						  <input type="radio"  name="direction" value="北向" />北向
 						  <input type="radio"  name="direction" value="东向" />东向
 						  <input type="radio"  name="direction" value="西向" />西向
 						</div>
 						 <div class="form-group" >
 							<label >供热状态</label>
-							<input type="checkbox" name="heatingstatus" value="正常" />正常
-							<input type="checkbox" name="heatingstatus" value="停供" />停供
+							<input type="radio" name="heatingstatus" value="正常" required />正常
+							<input type="radio" name="heatingstatus" value="停供" />停供
 						</div>
 					</div>
 				</div>

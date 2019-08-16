@@ -19,6 +19,8 @@ public interface IHomeMapper {
 	public List<HomeModel> selectListByAll() throws Exception;
 	//R2
 	public HomeModel selectByNo(int homeno) throws Exception;
+	//取关联小区和户型的特定居民
+	public HomeModel selectByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception;
 	//R3
 	public List<HomeModel> selectListByAllWithPage(@Param("start") int start,@Param("rows") int rows) throws Exception;
 	//D
@@ -27,4 +29,6 @@ public interface IHomeMapper {
 	public int selectCountByAll() throws Exception;
 	//根据综合检索条件取得居民列表，取得关联的小区和户型，分页模式
 	public List<HomeModel> selectListByConditionWithHoodNoAndHouseTypeNoWithPage(@Param("hoodno") int hoodno,@Param("housetypeno") int housetypeno,@Param("start") int start,@Param("rows") int rows) throws Exception;
+	//修改供热状态
+	public void ChangeHeatingStatus(int homeno) throws Exception;
 }

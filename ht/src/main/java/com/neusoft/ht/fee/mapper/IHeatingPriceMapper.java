@@ -25,4 +25,8 @@ public interface IHeatingPriceMapper {
 	public void delete(HeatingPriceModel heatingPriceModel) throws Exception;
 	//取得对象的个数
 	public int selectCountByAll() throws Exception;
+	//检查年份是否已经存在
+	public int selectCountByYear(String heatingyear) throws Exception;
+	//修改实际供热天数
+	public void ChangeHeatingdays(String heatingyear);
 }

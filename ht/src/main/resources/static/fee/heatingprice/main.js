@@ -16,7 +16,7 @@ $(function(){
 
 	//显示列表
 	$("table#HeatingPriceGrid").jqGrid({
-		url: 'http://127.0.0.1:8080/fee/heatingprice/list/all/page',
+		url: host+'fee/heatingprice/list/all/page',
 		datatype: "json",
 		colModel: [
 			{ label: '供热年份', name: 'heatingyear'},
@@ -49,16 +49,53 @@ $(function(){
 	}
 	
 	//点击增加链接处理，嵌入add.html
-	$("a#HeatingPriceAddLink").off().on("click",function(event){
-		
-		
+	$("a#HeatingPriceAddLink").off().on("click",function(event){	
 		$("div#HeatingPriceDialogArea").load("fee/heatingprice/add.html",function(){
 			$("div#HeatingPriceDialogArea" ).dialog({
 				title:"增加年度供热价格",
 				width:600
+			});			
+			//验证年份是否已存在
+			$("form#HeatingPriceAddForm").validate({
+				rules: {
+					heatingyear: {
+						required: true,
+						remote: host+"fee/heatingprice/checkyear"
+					  
+					},
+					heatingdays: {
+						required: true,
+					},
+					homeprice: {
+						required: true,
+					},
+					publichouseprice: {
+						required: true,
+					},
+					heatingmemo: {
+						required: true,
+					}
+				},
+				messages:{
+					heatingyear: {
+						required: "年份不能为空!",
+						remote:"年份已经存在"
+					},
+					heatingdays: {
+						required: "天数不能为空!",
+					},
+					homeprice: {
+						required: "价格不能为空!",
+					},
+					publichouseprice: {
+						required: "价格不能为空!",
+					},
+					heatingmemo: {
+						required: "备注信息不能为空!",
+					}
+				}
+				
 			});
-
-		
 			$("form#HeatingPriceAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					reloadList();
@@ -71,17 +108,13 @@ $(function(){
 				$("div#HeatingPriceDialogArea" ).dialog( "destroy" );
 				$("div#HeatingPriceDialogArea").html("");
 				
-			});
-		
-			
+			});			
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
 				$( "div#HeatingPriceDialogArea" ).dialog( "close" );
 				$( "div#HeatingPriceDialogArea" ).dialog( "destroy" );
 				$("div#HeatingPriceDialogArea").html("");
-			});		
-			
-			
+			});				
 		});		
 	});
 	
@@ -102,7 +135,7 @@ $(function(){
 		else {
 			$("div#HeatingPriceDialogArea").load("fee/heatingprice/modify.html",function(){
 				
-				$.getJSON("http://127.0.0.1:8080/fee/heatingprice/get",{heatingyear:year},function(data){
+				$.getJSON(host+"fee/heatingprice/get",{heatingyear:year},function(data){
 					if(data.status=="OK"){
 						$("input[name='heatingyear']").val(year);
 						$("input[name='heatingdays']").val(data.model.heatingdays);
@@ -165,7 +198,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除该年份么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/heatingprice/delete",{heatingyear:year},function(result){
+					$.post(host+"fee/heatingprice/delete",{heatingyear:year},function(result){
 						if(result.status=="OK"){
 							reloadList(); 
 						}
@@ -199,7 +232,7 @@ $(function(){
 		else{
 			$("div#HeatingPriceDialogArea").load("fee/heatingprice/detail.html",function(){
 				//取得选择的年份
-				$.getJSON("http://127.0.0.1:8080/fee/heatingprice/get",{heatingyear:year},function(data){
+				$.getJSON(host+"fee/heatingprice/get",{heatingyear:year},function(data){
 					if(data.status=="OK"){
 						$("span#heatingyear").html(data.model.heatingyear);
 						$("span#heatingdays").html(data.model.heatingdays);

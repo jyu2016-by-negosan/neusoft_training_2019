@@ -20,6 +20,8 @@ public interface IHomeService {
 	public void delete(HomeModel homeModel) throws Exception;
 	//取得单个居民
 	public HomeModel  getByNo(int homeno) throws Exception;
+	//取关联小区和户型的特定居民
+	public HomeModel  getByNoWithHoodNoAndHouseTypeNo(int homeno) throws Exception;
 	//取得所有居民
 	public List<HomeModel> getListByAll() throws Exception;
 	
@@ -31,5 +33,6 @@ public interface IHomeService {
 	public int getPagaCountByAll(int rows) throws Exception;
 	//根据综合检索条件,取得居民列表取得关联的小区和户型,分页模式
 	public List<HomeModel> getListByConditionWithHoodNoAndHouseTypeNoWithPage(@Param("hoodno") int hoodno,@Param("housetypeno") int housetypeno,int rows, int page) throws Exception;
-
+	//修改供热状态
+	public void ChangeHeatingStatus(int homeno) throws Exception;
 }

@@ -59,7 +59,7 @@ $(function(){
 		      total: "pageCount", 
 		      records: "count", 
 		      repeatitems: true, 
-		      id: "typeno",
+		      id: "homeno",
 			  },
 		pager: "#HeatingHomeGridPager",
 		multiselect:false,
@@ -120,7 +120,8 @@ $(function(){
 			$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
 				if(neighbourhoodList){
 					$.each(neighbourhoodList,function(index,neighbourhood){
-						$("select#NeighbourHoodSelection").append("<option value='"+neighbourhood.hoodno+"'>"+neighbourhood.hoodname+"</option>");
+						$("select#NeighbourHoodSelection").append("<option value='"+neighbourhood.hoodno+ "'>"+neighbourhood.hoodname+"</option>");
+						
 					});
 				}
 			});
@@ -133,7 +134,58 @@ $(function(){
 					});
 				}
 			});
-					
+			//验证添加的信息是否已合法
+			$("form#HeatingHomeAddForm").validate({
+				rules: {
+					neighbourhood: {
+						required: true,			  
+					},
+					heatingcode: {
+						required: true,
+					},
+					homearea: {
+						required: true,
+					},	
+					heatingarea:{
+						required: true,
+					},
+					homename: {
+						required: true,
+					},
+					mail:{
+				    	required:true,
+				    	email: true
+				    },
+				    mobile:{
+				    	required:true,
+				    	mobile:true
+				    },
+					qq: {
+						required: true,
+					},
+					buildingcode: {
+						required: true,
+					},
+					departmentcode: {
+						required: true,
+					},
+					floorcode: {
+						required: true,
+					},
+					housecode: {
+						required: true,
+					}
+				},
+				messages:{
+					neighbourhood: {
+						required: "必须选择小区!",
+					},
+					homename: {
+						required: "姓名不能为空!",
+					},			
+				}
+				
+			});			
 			$("form#HeatingHomeAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					reloadList();
@@ -161,7 +213,7 @@ $(function(){
 		});		
 	});
 	
-	//=================点击修改按钮事件处理=============================
+	//=================点击修改按钮事件处理======================
 	$("a#HeatingHomeModifyLink").off().on("click",function(event){
 		
 		//定义表格行的点击事件，取得选择的编号
@@ -203,7 +255,7 @@ $(function(){
 			
 			
 			$("div#HeatingHomeDialogArea").load("fee/heatinghome/modify.html",function(){
-				$.getJSON("http://127.0.0.1:8080/fee/home/get",{homeno:homeno},function(data){
+				$.getJSON(host+"fee/home/get",{homeno:homeno},function(data){
 					if(data.status=="OK"){
 					
 						$("input[name='homeno']").val(homeno);
@@ -216,21 +268,16 @@ $(function(){
 						$("input[name='floorcode']").val(data.model.floorcode);
 						$("input[name='heatingcode']").val(data.model.heatingcode);
 						$("input[name='housecode']").val(data.model.housecode);
-						$("input[name='direction']").val(data.model.direction);
+						$("input[value='"+data.model.direction+"']").prop('checked',true);
 						$("input[name='tel']").val(data.model.tel);
 						$("input[name='mobile']").val(data.model.mobile);
 						$("input[name='qq']").val(data.model.qq);
 						$("input[name='mail']").val(data.model.mail);
-						$("input[name='heatingstatus']").val(data.model.heatingstatus);
+						$("input[value='"+data.model.heatingstatus+"']").prop('checked',true);
 						$("input[name='heatingarea']").val(data.model.heatingarea);
 					}
 				});
-		/* 
-		 
-		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		 
-		 
-		 */
+
 				$("div#HeatingHomeDialogArea" ).dialog({
 					title:"居民信息修改",
 					width:600
@@ -266,63 +313,77 @@ $(function(){
 	//=================点击删除按钮事件处理===============================
 	$("a#HeatingHomeDeleteLink").off().on("click",function(event){
 		
-		//定义表格行的点击事件，取得选择的户型编号
+		//定义表格行的点击事件，取得选择的编号
 		$("table#HeatingHomeGrid tbody tr").on("click",function(){
-			typeno=$(this).attr("id");
+			homeno=$(this).attr("id");
 			
 		});
-		/* 
-		if(typeno==0){
+		
+		if(homeno==0){
 			BootstrapDialog.show({
 	            title: '操作信息',
-	            message:"请选择要删除的"
+	            message:"请选择要删除的居民信息"
 	        });
 		}
 		
 		else {
-		 */
+		
 			BootstrapDialog.confirm('确认删除居民信息么?', function(result){
 				if(result) {
-					/* $.post("http://127.0.0.1:8080/fee/home/delete",{:},function(result){
+					$.post(host+"fee/home/delete",{homeno:homeno},function(result){
 						if(result.status=="OK"){
 							reloadList(); 
 						}
 						BootstrapDialog.show({
-							title: '操作信息',
+							title: '居民操作信息',
 							message:result.message
 						});
-					}); */
+					});
 				}
 			});
-		/* 			
+					
 		}
-		 */
+		
 	});
 	
 	//=================点击查看详细按钮事件处理=====================
 	$("a#HeatingHomeDetailLink").off().on("click",function(event){
 		//定义表格行的点击事件，取得选择的编号
 		$("table#HeatingHomeGrid tbody tr").on("click",function(){
-			typeno=$(this).attr("id");
+			homeno=$(this).attr("id");
 			
 		});
-		/* 
-		if(typeno==0){
+		
+		if(homeno==0){
 			BootstrapDialog.show({
-	            title: '付款类型操作信息',
-	            message:"请选择要查看的付款类型"
+	            title: '居民操作信息',
+	            message:"请选择要查看的居民信息"
 	        });
 		}
-		else{ */
+		else{
 			$("div#HeatingHomeDialogArea").load("fee/heatinghome/detail.html",function(){
-				//取得选择的付款类型
-				/* $.getJSON("http://127.0.0.1:8080/fee/home/get",{:},function(data){
+				//取得选择的居民信息
+				$.getJSON(host+"fee/home/get/detail",{homeno:homeno},function(data){
 					if(data.status=="OK"){
-						
 					
-						
+					$("span#neighbourhood").html(data.model.neighbourhood.hoodname);
+					$("span#housetype").html(data.model.housetype.typename);
+					$("span#heatingcode").html(data.model.heatingcode);
+					$("span#homearea").html(data.model.homearea);
+					$("span#heatingarea").html(data.model.heatingarea);
+					$("span#homename").html(data.model.homename);
+					$("span#tel").html(data.model.tel);
+					$("span#mobile").html(data.model.mobile);
+					$("span#mail").html(data.model.mail);
+					$("span#qq").html(data.model.qq);
+					$("span#buildingcode").html(data.model.buildingcode);
+					$("span#departmentcode").html(data.model.departmentcode);
+					$("span#floorcode").html(data.model.floorcode);
+					$("span#housecode").html(data.model.housecode);
+					$("span#direction").html(data.model.direction);
+					$("span#heatingstatus").html(data.model.heatingstatus);					
 					}
-				}); */
+				});
 				$("div#HeatingHomeDialogArea" ).dialog({
 					title:"居民详细信息",
 					width:600
@@ -336,6 +397,6 @@ $(function(){
 					$("div#HeatingHomeDialogArea").html("");
 				});
 			});
-		/* } */
+		}
 	});
 });

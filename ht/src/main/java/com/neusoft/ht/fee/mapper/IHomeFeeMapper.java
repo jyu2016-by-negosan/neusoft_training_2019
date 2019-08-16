@@ -2,8 +2,12 @@ package com.neusoft.ht.fee.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.neusoft.ht.fee.model.HomeFeeModel;
-/**模块：供热缴费管理
+
+/**
+ * 模块：供热缴费管理
  * 住宅供热记录管理的Mapper接口
  * @author 黄宇德
  *
@@ -18,10 +22,12 @@ public interface IHomeFeeMapper {
 	//D
 	public void delete(HomeFeeModel homeFeeModel) throws Exception;
 	
-	//显示带小区名的居民供热记录（三表连接）
-	public List<HomeFeeModel> selectListByAllWithHouseType() throws Exception;
-	//按年份查找供热缴费记录
-	public List<HomeFeeModel> selectListByAllWithHeatingYear() throws Exception;
-	//生成欠费住宅列表
-	public List<HomeFeeModel> selectListByAllWithDebtFee() throws Exception;
+	//取得特定居民供热记录，取关联的居民表和年度供热价格表
+	public HomeFeeModel selectByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
+	
+	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
+	public List<HomeFeeModel> selectListByConditionWithHomeAndHeatingPriceWithPage(
+			@Param("homeno") int homeno,@Param("heatingyear") int heatingyear,@Param("feestatus") String feestautus,
+			@Param("start") int start,@Param("rows") int rows) throws Exception;
+
 }

@@ -48,13 +48,13 @@
   
   <update id="update" flushCache="true">
    update HT_HOME 
-   set HeatingCode={heatingcode},HOODNO=#{neibourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode={housecode},
-   HomeArea=#{homearea},Direction=#{direction},Tel={tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
+   set HeatingCode=#{heatingcode},HOODNO=#{neighbourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode=#{housecode},
+   HomeArea=#{homearea},Direction=#{direction},Tel=#{tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
    where HOMENO=#{homeno}
   </update>
   
   <delete id="delete" flushCache="true">
-   delete from HT_HOME where HOME=#{homeno}
+   delete from HT_HOME where HOMENO=#{homeno}
   </delete>
   
   <select id="selectListByAll" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
@@ -64,6 +64,14 @@
   <select id="selectByNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from HT_HOME  
    where  HOMENO=#{homeno}
+  </select>
+  
+   <!-- 取关联小区和户型的特定居民 -->
+  <select id="selectByNoWithHoodNoAndHouseTypeNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
+  select a.*,b.HOODNAME,c.TYPENAME from HT_HOME a 
+  inner join HT_NEIGHBOURHOOD b on a.HOODNO=b.HOODNO
+  inner join HT_HOUSETYPE c on a.HOUSETYPENO=c.TYPENO
+  where HOMENO=#{homeno}
   </select>
   
   <select id="selectListByAllWithPage" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
@@ -91,5 +99,12 @@
   </where>
     limit #{start},#{rows}
   </select>
+  
+  <!-- 修改供热状态 -->
+  <update id="ChangeHeatingStatus" flushCache="true">
+   update HT_HOME 
+   set HeatingStatus=#{heatingstatus}
+   where HOMENO=#{homeno}
+  </update>
   
 </mapper>

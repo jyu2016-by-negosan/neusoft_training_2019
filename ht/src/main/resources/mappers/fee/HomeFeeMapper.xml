@@ -42,40 +42,57 @@
 	<select id="selectListByAll" resultMap="HomeFeeResultMap">
 		select * from HT_HOMEFEE 
 	</select>
+	
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  	<select id="selectCountByAll" resultType="int">
+   		select IFNULL(count(FEENO), 0) from HT_HOMEFEE
+  	</select>
+  
 
 	<!-- 取得特定居民供热记录，取关联的居民表和年度供热价格表 -->
 	<select id="selectByNoWithHomeAndHeatingPrice" resultMap="HomeFeeResultMapWithHomeAndHeatingPrice">
-		select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAY,d.HOODNAME from HT_HOMEFEE a 
-	  	inner join HT_HOME b on a.HOME=b.HOMENO
+		select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
+	  	inner join HT_HOME b on a.HOMENO=b.HOMENO
 	  	inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
 	  	inner join 
 	  	(select home.HOMENO,neighbourhood.HOODNAME 
 	  	 from HT_HOME home
-	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on on a.HOME=d.HOMENO
+	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
 	  	where FEENO=#{feeno}
 	</select>
 	
 	<!-- //根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式-->
 	<select id="selectListByConditionWithHomeAndHeatingPriceWithPage" resultMap="HomeFeeResultMapWithHomeAndHeatingPrice">
-		select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAY,d.HOODNAME from HT_HOMEFEE a 
-	  	inner join HT_HOME b on a.HOME=b.HOMENO
+		select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
+	  	inner join HT_HOME b on a.HOMENO=b.HOMENO
 	  	inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
 	  	inner join 
 	  	(select home.HOMENO,neighbourhood.HOODNAME 
 	  	 from HT_HOME home
-	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on on a.HOME=d.HOMENO
+	  	 inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
 	  <where>
 	     <if test="homeno!=0">
-	      	and a.HOODNO=#{hoodno}
+	      	and a.HOMENO=#{homeno}
 	     </if>
-	     <if test="heatingyear!=NULL">
+	     <if test="heatingyear!=null and heatingyear!=''">
 	     	and a.HEATINGYEAR=#{heatingyear}
 	     </if> 
-	     <if test="feestatus!=NULL">
+	     <if test="feestatus!=null and feestatus!=''">
 	     	and a.FEESTATUS=#{feestatus}
 	     </if> 
 	  </where>
 	    limit #{start},#{rows}
 	</select>
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  	<select id="selectCountByAllWithHomeAndHeatingPriceWithPage" resultType="int" >
+   		select IFNULL(count(e.FEENO), 0) 
+		from (select a.*,b.HOMENAME,b.HEATINGAREA,b.HEATINGSTATUS,c.HEATINGDAYS,d.HOODNAME from HT_HOMEFEE a 
+	 	inner join HT_HOME b on a.HOMENO=b.HOMENO
+	  	inner join HT_HEATINGPRICE c on a.HEATINGYEAR=c.HEATINGYEAR
+  		inner join 
+	  	(select home.HOMENO,neighbourhood.HOODNAME 
+		from HT_HOME home
+	  	inner join HT_NEIGHBOURHOOD neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO) e
+  	</select>
 	
 </mapper>

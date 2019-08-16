@@ -88,4 +88,10 @@ public class HeatingPriceController {
 		}
 		return result;
 	}
+	
+	//修改供热天数
+	@PostMapping(value="/change/heatingdays")
+	public void ChangeHeatingdays(String heatingyear) throws Exception{
+		heatingPriceService.ChangeHeatingdays(heatingyear);
+	}
 }

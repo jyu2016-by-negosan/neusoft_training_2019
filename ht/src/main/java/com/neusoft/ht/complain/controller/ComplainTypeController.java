@@ -20,8 +20,8 @@ public class ComplainTypeController {
 	@Autowired
 	private IComplainTypeService complainTypeService;
 
-	@GetMapping("/add")
-	public ResultMessage<ComplainTypeModel> addComplainType(ComplainTypeModel complainType) {
+	@PostMapping("/add")
+	public ResultMessage<ComplainTypeModel> addComplainType(ComplainTypeModel complainType) throws Exception {
 		if (complainType != null) {
 
 			try {
@@ -41,6 +41,7 @@ public class ComplainTypeController {
 
 			try {
 				complainTypeService.delete(complainType);
+				System.out.println("jkl");
 			} catch (Exception e) {
 				return new ResultMessage<ComplainTypeModel>("ERROR", "删除住户投诉对象失败");
 			}
@@ -57,6 +58,7 @@ public class ComplainTypeController {
 			try {
 				complainTypeService.modify(complainType);
 			} catch (Exception e) {
+				e.printStackTrace();
 				return new ResultMessage<ComplainTypeModel>("ERROR", "修改住户投诉对象失败");
 			}
 			return new ResultMessage<ComplainTypeModel>("OK", "修改住户投诉对象成功");
@@ -71,8 +73,8 @@ public class ComplainTypeController {
 	}
 	
 	@GetMapping("/get")
-	public ComplainTypeModel getComplainType(@RequestParam(required = true) int complainno) throws Exception {
-		return complainTypeService.getComplainTypeBytypeNo(complainno);
+	public ComplainTypeModel getComplainType(@RequestParam(required = true) int typeno) throws Exception {
+		return complainTypeService.getComplainTypeBytypeNo(typeno);
 	}
 
 	@GetMapping("/list/all/page")

@@ -27,7 +27,7 @@ $(function(){
 	//设置系统页面标题
 	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
 
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>");
+	+"<li class='breadcrumb-item'><span id='mainpagetille'>供热居民管理</span></li>"
 
 	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民管理</span></li>");
 
@@ -109,13 +109,17 @@ $(function(){
 		$("div#PaymentTypeDialogArea").load("fee/paymenttype/add.html",function(){
 			$("div#PaymentTypeDialogArea" ).dialog({
 				title:"增加投诉类型",
+			})
+		});
 
 		$("div#HeatingHomeDialogArea").load("fee/heatinghome/add.html",function(){
 			$("div#HeatingHomeDialogArea" ).dialog({
 				title:"增加居民",
 
 				width:600
-			});
+			})
+			
+		});
 			//取得小区列表，填充小区下拉框
 			$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
 				if(neighbourhoodList){

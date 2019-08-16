@@ -20,13 +20,11 @@
 	<!-- 无关联属性的结果映射 -->
 	<resultMap id = "PublicHouseFeeResultMap" type = "PublicHouseFee">
 		<id property = "feeno" column = "FeeNo" />
-		<result property = "heatarea" column = "HeatArea" />
 		<result property = "agreefee" column = "AgreeFee" />
 		<result property = "actualfee" column = "ActualFee" />
 		<result property = "debtfee" column = "DebtFee" />
 		<result property = "feedesc" column = "FeeDesc" />
 		<result property = "feestatus" column = "FeeStatus" />
-		<result property = "heatingdays" column = "heatingdays" />
 	</resultMap>
 	
 	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKeys = "true" flushCache = "true">
@@ -42,13 +40,11 @@
 	<update id = "update" flushCache = "true">
 		update HT_PublicHouseFee 
 		<set>
-			<if test = "HeatArea != null">HeatArea = #{heatarea}, </if>
 			<if test = "AgreeFee != null">AgreeFee = #{agreefee}, </if>
 			<if test = "ActualFee != null">ActualFee = #{actualfee}, </if>
 			<if test = "DebtFee != null">DebtFee = #{debtfee}, </if>
 			<if test = "FeeDesc != null">FeeDesc = #{feedesc}, </if>
 			<if test = "FeeStatus != null">FeeStatus = #{feestatus}, </if>
-			<if test = "heatingdays != null">heatingdays = #{heatingdays} </if>
 		</set> 
 		where 
 			FeeNo = #{feeno}

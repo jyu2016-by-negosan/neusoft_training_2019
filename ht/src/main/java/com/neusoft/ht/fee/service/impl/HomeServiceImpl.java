@@ -90,6 +90,7 @@ public class HomeServiceImpl implements IHomeService {
 		return homeMapper.selectByNoWithHoodNoAndHouseTypeNo(homeno);
 	}
 
+	//修改供热状态
 	@Override
 	public void ChangeHeatingStatus(int homeno) throws Exception {
 		homeMapper.ChangeHeatingStatus(homeno);	

@@ -36,7 +36,7 @@ public class HomeController {
 	@PostMapping("/modify")
 	public ResultMessage<HomeModel> modify(HomeModel homeModel ) throws Exception {
 		homeService.modify(homeModel);
-		return new ResultMessage<HomeModel>("OK","修改居民年度供热价格信息成功");
+		return new ResultMessage<HomeModel>("OK","修改居民信息成功");
 	
 	}
 
@@ -98,6 +98,12 @@ public class HomeController {
 			
 		return result;
 		
+	}
+	
+	//修改供热状态
+	@PostMapping(value="/change/heatingstatus")
+	public void ChangeHeatingStatus(int homeno) throws Exception {
+		homeService.ChangeHeatingStatus(homeno);
 	}
 
 }

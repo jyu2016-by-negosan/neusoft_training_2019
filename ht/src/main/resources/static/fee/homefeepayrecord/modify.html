@@ -1,0 +1,44 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box-body">
+        <!-- 修改小区信息 -->
+       	    <form id="HomeFeePayRecordModifyForm" action="http://127.0.0.1:8080/fee/housepayrecord/modify" method="post">
+				<div class="form-group">
+					<label>缴费序号</label> 
+					<input class="form-control" name="recordno"> 
+				</div>	
+				<div class="form-group">
+					<label>缴费金额</label> 
+					<input class="form-control" name="payamount"> 
+				</div>
+				<div class="form-group">
+					<label>缴费日期</label> 
+					<input class="form-control" type="date" name="paydate"> 
+				</div>
+			
+				<div class="form-group">
+					<label>缴费人</label> 
+					<input class="form-control" name="payperson"> 
+				</div>
+				<div class="form-group">
+					<label>收据编号</label> 
+					<input class="form-control" name="invoicecode"> 
+				</div>
+				<div class="form-group">
+					<label>缴费备注</label> 
+					<input class="form-control" name="paydesc"> 
+				</div>
+				<div class="form-group">
+					<label>记录状态</label> 
+					<input class="form-control" name="recordstatus"> 
+				</div>
+				<input type="submit" class="btn btn-primary" value="提交"></input>
+				<input type="button" class="btn btn-primary" value="取消"></input>
+			</form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    
+    
+ </div>

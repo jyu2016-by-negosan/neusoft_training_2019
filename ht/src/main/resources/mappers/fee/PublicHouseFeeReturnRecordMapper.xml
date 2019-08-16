@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+  /**
+  	* 模块：供热缴费管理
+  	* 公建供热退费记录的Mapper接口映射
+  	* 表：公建供热退费记录表 HT_PublicHouseFeeReturnRecord
+  	*
+  	* @author 张晓龙
+  	*/
+   -->
+   
+<mapper namespace="com.neusoft.ht.fee.mapper.IPublicHouseFeeReturnRecordMapper">
+	<!-- 启用此映射的全局缓存 -->
+	<cache/>
+	
+	<!-- 无关联的结果映射 -->
+	<resultMap id = "PublicHouseFeeReturnRecordResultMap" type = "PublicHouseFeeReturnRecord">
+		<id property="recordno" column="recordno"/>
+		<result property="amount" column="amount"/>
+		<result property="returndate" column="returndate"/>
+		<result property="person" column="person"/>
+		<result property="checkcode" column="checkcode"/>
+		<result property="invoicecode" column="invoicecode"/>
+		<result property="recorddesc" column="recorddesc"/>
+		<result property="recordstatus" column="recordstatus"/>
+	</resultMap>
+	
+	<insert id = "insert" keyProperty = "recordno" keyColumn = "recordno" flushCache = "true" useGeneratedKeys = "true">
+		insert into HT_PublicHouseFeeReturnRecord (
+			recordno, amount, returndate, person, checkcode, invoicecode, recorddesc, recordstatus
+		) value (
+			#{recordno}, #{amount}, #{returndate}, #{person}, #{checkcode}, #{invoicecode}, #{recorddesc}, #{recordstatus}
+		)
+	</insert>
+	
+	<update id = "update" flushCache = "true">
+		update HT_PublicHouseFeeReturnRecord
+		<set>
+			<if test = "amount != null">amount = #{amount}, </if>
+			<if test = "returndate != null">returndate = #{returndate}, </if>
+			<if test = "person != null">person = #{person}, </if>
+			<if test = "checkcode != null">checkcode = #{checkcode}, </if>
+			<if test = "invoicecode != null">invoicecode = #{invoicecode}, </if>
+			<if test = "recorddesc != null">recorddesc = #{recorddesc}, </if>
+			<if test = "recordstatus != null">recordstatus = #{recordstatus}</if>
+		</set>
+		where 
+			recordno = #{recordno}
+	</update>
+	
+	<delete id = "delete" flushCache = "true">
+		delete from HT_PublicHouseFeeReturnRecord where recordno = #{recordno}
+	</delete>
+	
+	<select id = "selectListByAll" resultMap = "PublicHouseFeeReturnRecordResultMap">
+		select * from HT_PublicHouseFeeReturnRecord
+	</select>
+	
+	<select id = "selectByNo" resultMap = "PublicHouseFeeReturnRecordResultMap">
+		select * from HT_PublicHouseFeeReturnRecord where recordno = #{recordno}
+	</select>
+	
+	<select id = "selectListByAllWithPage" resultMap = "PublicHouseFeeReturnRecordResultMap">
+		select * from HT_PublicHouseFeeReturnRecord limit #{start}, #{rows}
+	</select>
+	
+	<select id = "selectCountByAll" resultType = "int">
+		select IFNULL(Count(RecordNo), 0) from HT_PublicHouseFeeReturnRecord
+	</select>
+</mapper>

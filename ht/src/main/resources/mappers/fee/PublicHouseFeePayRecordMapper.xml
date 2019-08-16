@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+  /**
+  	* 模块：供热缴费管理
+  	* 公建供热缴费记录的Mapper接口映射
+  	* 表：公建供热缴费记录表 HT_PublicHouseFeePayRecord
+  	*
+  	* @author 张晓龙
+  	*/
+   -->
+   
+<mapper namespace = "com.neusoft.ht.fee.mapper.IPublicHouseFeePayRecordMapper">
+	<!-- 启动此映射的全局缓存 -->
+	<cache/>
+	
+	<!-- 无关联的结果映射 -->
+	<resultMap id="PublicHouseFeePayRecordResultMap" type="PublicHouseFeePayRecord">
+		<id property = "recordno" column = "RecordNo"/>
+		<result property = "payamount" column = "PayAmount"/>
+		<result property = "paydate" column = "PayDate"/>
+		<result property = "payperson" column = "PayPerson"/>
+		<result property = "checkcode" column = "CheckCode"/>
+		<result property = "invoicecode" column = "InvoiceCode"/>
+		<result property = "paydesc" column = "PayDesc"/>
+		<result property = "recordstatus" column = "RecordStatus"/>
+	</resultMap>
+	
+	<insert id = "insert" keyProperty = "recordno" keyColumn = "RecordNo" useGeneratedKeys = "true" flushCache = "true">
+		insert into HT_PublicHouseFeePayRecord (
+			RecordNo, PayAmount, PayDate, PayPerson,
+			CheckCode, InvoiceCode, PayDesc, RecordStatus
+		) value (
+			#{recordno}, #{payamount}, #{paydate}, #{payperson}, 
+			#{checkcode}, #{invoicecode}, #{paydesc}, #{recordstatus}
+		)
+	</insert>
+	
+	<update id = "update" flushCache = "true">
+		update HT_PublicHouseFeePayRecord 
+		<set>
+			<if test = "payamount != null">PayAmount = #{payamount}, </if>
+			<if test = "paydate != null">PayDate = #{paydate}, </if>
+			<if test = "payperson != null">PayPerson = #{payperson}, </if>
+			<if test = "checkcode != null">CheckCode = #{checkcode}, </if>
+			<if test = "invoicecode != null">InvoiceCode = #{invoicecode}, </if>
+			<if test = "paydesc != null">PayDesc = #{paydesc}, </if>
+			<if test = "recordstatus != null">RecordStatus = #{recordstatus}</if>
+		</set>
+		where 
+			RecordNo = #{recordno}
+	</update>
+	
+	<delete id = "delete" flushCache = "true">
+		delete from HT_PublicHouseFeePayRecord where RecordNo = #{recordno}
+	</delete>
+	
+	<select id = "selectListByAll" resultMap = "PublicHouseFeePayRecordResultMap">
+		select * from HT_PublicHouseFeePayRecord
+	</select>
+	
+	<select id = "selectByNo" resultMap = "PublicHouseFeePayRecordResultMap">
+		select * from HT_PublicHouseFeePayRecord where RecordNo = #{recordno}
+	</select>
+	
+	<select id = "selectListByAllWithPage" resultMap = "PublicHouseFeePayRecordResultMap">
+		select * from HT_PublicHouseFeePayRecord limit #{start}, #{rows}
+	</select>
+	
+	<select id = "selectCountByAll" resultType = "int">
+		select IFNULL(Count(RecordNo), 0) from HT_PublicHouseFeePayRecord
+	</select>
+</mapper>

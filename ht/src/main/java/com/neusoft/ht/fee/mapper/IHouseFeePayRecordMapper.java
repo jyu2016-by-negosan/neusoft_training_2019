@@ -3,6 +3,7 @@ package com.neusoft.ht.fee.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 
@@ -12,7 +13,7 @@ import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
  *
  */
 @Mapper
-public interface IHouseFeeRecordMapper {
+public interface IHouseFeePayRecordMapper {
 	//增加住宅缴费记录
 	public void insert( HomeFeePayRecordModel payRecordModel);
 	
@@ -26,7 +27,11 @@ public interface IHouseFeeRecordMapper {
 	public List< HomeFeePayRecordModel> selectById(int recordNo);
 	
 	//查找所有住宅缴费记录
-	public List< HomeFeePayRecordModel> selectByAllList();
+	public List< HomeFeePayRecordModel> selectAllByList();
 	
+	//查找所有住宅缴费记录（分页）
+	public List<HomeFeePayRecordModel> selectAllByListWithPage(@Param("start")int start,@Param("rows")int rows);
 	
+	//查找缴费记录总条数
+	public int selectAllCount();
 }

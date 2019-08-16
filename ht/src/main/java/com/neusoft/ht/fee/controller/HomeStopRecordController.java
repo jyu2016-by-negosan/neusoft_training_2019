@@ -65,7 +65,7 @@ public class HomeStopRecordController {
 			return new ResultMessage<HomeStopRecordModel>("ERROR", "居民报停记录不能为空！");
 		}
 		return new ResultMessage<HomeStopRecordModel>("OK", "删除居民报停记录成功！");
-	}
+	} 
 
 	@RequestMapping("/getById")
 	public ResultMessage<HomeStopRecordModel> getHomeFeeReturnRecordById(

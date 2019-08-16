@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.ht.fee.mapper.IHouseFeeRecordMapper">
+<mapper namespace="com.neusoft.ht.fee.mapper.IHouseFeePayRecordMapper">
 
   <!-- 启用全局缓存 -->
   <cache/>
@@ -47,10 +47,17 @@
  	select * from ht_homefeepayrecord where recordNo=#{recordno}
  </select>
  
- <select id="selectByAllList" resultMap="HomePayRecordResultMap">
+ <select id="selectAllByList" resultMap="HomePayRecordResultMap">
  	select * from ht_homefeepayrecord
  </select>
  
+ <select id="selectAllByListWithPage" resultMap="HomePayRecordResultMap">
+ 	select * from ht_homefeepayrecord limit #{start},#{rows}
+ </select>
+ 
+ <select id="selectAllCount" resultType="int">
+ 	select  IFNULL(count(recordno),0) from ht_homefeepayrecord
+ </select>
  
 
 </mapper>

@@ -8,7 +8,7 @@ import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
  * @author 罗妙忠
  *
  */
-public interface IHomePayRecordService {
+public interface IHomeFeePayRecordService {
 		//增加住宅缴费记录
 		public void add(HomeFeePayRecordModel payRecordModel);
 		
@@ -22,5 +22,11 @@ public interface IHomePayRecordService {
 		public List<HomeFeePayRecordModel> getById(int recordno);
 		
 		//查找所有住宅缴费记录
-		public List<HomeFeePayRecordModel> getByAllList();
+		public List<HomeFeePayRecordModel> getAllByList();
+		
+		//查找所有住宅缴费记录(分页)
+		public List<HomeFeePayRecordModel> getAllByListWithPage(int page,int rows);
+		
+		//记录总条数
+		public int getAllCount();
 }

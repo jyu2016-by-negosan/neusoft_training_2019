@@ -27,7 +27,7 @@ $(function(){
 		],
 		viewrecords: true, 
 		autowidth: true,
-		height: 200,
+		height: 250,
 		rowNum: 5,
 
 		jsonReader : { 

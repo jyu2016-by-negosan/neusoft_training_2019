@@ -21,13 +21,15 @@ public interface IHomeFeeMapper {
 	public List<HomeFeeModel> selectListByAll() throws Exception;
 	//D
 	public void delete(HomeFeeModel homeFeeModel) throws Exception;
-	
+	//取得住宅供热信息记录的个数
+	public int selectCountByAll() throws Exception;
+	//取得住宅供热信息记录的个数,带关联
+	public int selectCountByAllWithHomeAndHeatingPriceWithPage() throws Exception;
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	public HomeFeeModel selectByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
-	
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	public List<HomeFeeModel> selectListByConditionWithHomeAndHeatingPriceWithPage(
-			@Param("homeno") int homeno,@Param("heatingyear") int heatingyear,@Param("feestatus") String feestautus,
+			@Param("homeno") int homeno,@Param("heatingyear") String heatingyear,@Param("feestatus") String feestautus,
 			@Param("start") int start,@Param("rows") int rows) throws Exception;
 
 }

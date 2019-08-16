@@ -34,6 +34,7 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<HomeFeeModel> getListByAll() throws Exception {
 		
 		return homeFeeMapper.selectListByAll();
@@ -44,18 +45,50 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 		homeFeeMapper.delete(homeFeeModel);
 
 	}
-
+	
+	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	@Override
+	@Transactional(readOnly = true)
 	public HomeFeeModel getByNoWithHomeAndHeatingPrice(int feeno) throws Exception {
 		
 		return homeFeeMapper.selectByNoWithHomeAndHeatingPrice(feeno);
 	}
-
+	
+	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	@Override
-	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int homeno, int heatingyear,
+	@Transactional(readOnly = true)
+	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int homeno, String heatingyear,
 			String feestautus, int rows, int page) throws Exception {
 		
 		return homeFeeMapper.selectListByConditionWithHomeAndHeatingPriceWithPage(homeno, heatingyear, feestautus, rows*(page-1), rows);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int getCountByAll() throws Exception {
+		
+		return homeFeeMapper.selectCountByAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int getPageCountByAll(int rows) throws Exception {
+		int pageCount=0;
+		int count=this.getCountByAllWithHomeAndHeatingPriceWithPage();
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+	
+	//取得住宅供热信息记录的个数,带关联	
+	@Override
+	public int getCountByAllWithHomeAndHeatingPriceWithPage() throws Exception {
+		
+		return homeFeeMapper.selectCountByAllWithHomeAndHeatingPriceWithPage();
 	}
 
 }

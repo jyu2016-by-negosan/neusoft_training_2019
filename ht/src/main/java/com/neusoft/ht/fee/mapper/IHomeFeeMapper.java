@@ -29,7 +29,7 @@ public interface IHomeFeeMapper {
 	public HomeFeeModel selectByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	public List<HomeFeeModel> selectListByConditionWithHomeAndHeatingPriceWithPage(
-			@Param("homeno") int homeno,@Param("heatingyear") String heatingyear,@Param("feestatus") String feestautus,
+			@Param("hoodno") int hoodno,@Param("heatingyear") String heatingyear,@Param("feestatus") String feestautus,
 			@Param("start") int start,@Param("rows") int rows) throws Exception;
 
 }

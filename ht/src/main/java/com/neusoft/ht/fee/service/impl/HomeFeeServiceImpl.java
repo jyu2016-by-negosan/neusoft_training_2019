@@ -57,10 +57,10 @@ public class HomeFeeServiceImpl implements IHomeFeeService {
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	@Override
 	@Transactional(readOnly = true)
-	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int homeno, String heatingyear,
+	public List<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(int hoodno, String heatingyear,
 			String feestautus, int rows, int page) throws Exception {
 		
-		return homeFeeMapper.selectListByConditionWithHomeAndHeatingPriceWithPage(homeno, heatingyear, feestautus, rows*(page-1), rows);
+		return homeFeeMapper.selectListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestautus, rows*(page-1), rows);
 	}
 
 	@Override

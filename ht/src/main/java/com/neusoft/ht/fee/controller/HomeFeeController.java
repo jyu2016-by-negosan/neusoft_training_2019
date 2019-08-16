@@ -65,13 +65,13 @@ public class HomeFeeController {
 	
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式
 	@GetMapping("/list/all/page/condition")
-	public ResultMessage<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(@RequestParam(required = false,defaultValue ="0") int homeno, @RequestParam(required = false,defaultValue ="") String heatingyear,
+	public ResultMessage<HomeFeeModel> getListByConditionWithHomeAndHeatingPriceWithPage(@RequestParam(required = false,defaultValue ="0") int hoodno, @RequestParam(required = false,defaultValue ="") String heatingyear,
 			@RequestParam(required = false,defaultValue ="") String feestautus, @RequestParam(required = false,defaultValue ="4") int rows, @RequestParam(required = false,defaultValue ="1") int page) throws Exception {
 		
 		ResultMessage<HomeFeeModel> result=new ResultMessage<HomeFeeModel>("OK","条件检索取得住宅供热记录信息列表分页模式成功");
 		result.setCount(homeFeeService.getCountByAllWithHomeAndHeatingPriceWithPage());
 		result.setPageCount(homeFeeService.getPageCountByAll(rows));
-		result.setList(homeFeeService.getListByConditionWithHomeAndHeatingPriceWithPage(homeno, heatingyear, feestautus, rows, page));
+		result.setList(homeFeeService.getListByConditionWithHomeAndHeatingPriceWithPage(hoodno, heatingyear, feestautus, rows, page));
 		result.setPage(page);
 		result.setRows(rows);
 

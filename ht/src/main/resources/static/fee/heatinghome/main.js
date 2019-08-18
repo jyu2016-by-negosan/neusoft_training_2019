@@ -79,9 +79,6 @@ $(function(){
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadList()
 	{
-
-		$("table#PaymentTypeGrid").jqGrid('setGridParam',{postData:{typeno:typeno,typename:typename}}).trigger("reloadGrid");
-
 		$("table#HeatingHomeGrid").jqGrid('setGridParam',
 		{
 			postData:{				
@@ -98,50 +95,37 @@ $(function(){
 	});
 	
 
-	//点击增加链接处理，嵌入add.html
-	$("a#ComplainTypeAddLink").off().on("click",function(event){
 
 	//==========点击增加链接处理，嵌入add.html===================
 	$("a#HeatingHomeAddLink").off().on("click",function(event){
-
-		$("div#PaymentTypeDialogArea").load("fee/paymenttype/add.html",function(){
-			$("div#PaymentTypeDialogArea" ).dialog({
-				title:"增加投诉类型",
-			})
+		
+		//取得小区列表，填充小区下拉框
+		$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
+			if(neighbourhoodList){
+				$.each(neighbourhoodList,function(index,neighbourhood){
+					$("select#NeighbourHoodSelection").append("<option value='"+neighbourhood.hoodno+ "'>"+neighbourhood.hoodname+"</option>");
+					
+				});
+			}
 		});
-
+		//取得户型列表，填充户型下拉框
+		$.getJSON(host+"fee/housetype/list/all",function(housetypeList){
+			if(housetypeList){
+				$.each(housetypeList,function(index,housetype){
+					$("select#HouseTypeSelection").append("<option value='"+housetype.typeno+"'>"+housetype.typename+"</option>");
+					
+				});
+			}
+		});
 		$("div#HeatingHomeDialogArea").load("fee/heatinghome/add.html",function(){
 			$("div#HeatingHomeDialogArea" ).dialog({
 				title:"增加居民",
 
 				width:600
 			})
-			
-		});
-			//取得小区列表，填充小区下拉框
-			$.getJSON(host+"fee/neighbourhood/list/all",function(neighbourhoodList){
-				if(neighbourhoodList){
-					$.each(neighbourhoodList,function(index,neighbourhood){
-						$("select#NeighbourHoodSelection").append("<option value='"+neighbourhood.hoodno+ "'>"+neighbourhood.hoodname+"</option>");
-						
-					});
-				}
-			});
-			//取得户型列表，填充户型下拉框
-			$.getJSON(host+"fee/housetype/list/all",function(housetypeList){
-				if(housetypeList){
-					$.each(housetypeList,function(index,housetype){
-						$("select#HouseTypeSelection").append("<option value='"+housetype.typeno+"'>"+housetype.typename+"</option>");
-						
-					});
-				}
-			});
-			//验证添加的信息是否已合法
+					//验证添加的信息是否已合法
 			$("form#HeatingHomeAddForm").validate({
 				rules: {
-					neighbourhood: {
-						required: true,			  
-					},
 					heatingcode: {
 						required: true,
 					},
@@ -155,13 +139,13 @@ $(function(){
 						required: true,
 					},
 					mail:{
-				    	required:true,
-				    	email: true
-				    },
-				    mobile:{
-				    	required:true,
-				    	mobile:true
-				    },
+						required:true,
+						email: true
+					},
+					mobile:{
+						required:true,
+						mobile:true
+					},
 					qq: {
 						required: true,
 					},
@@ -179,41 +163,37 @@ $(function(){
 					}
 				},
 				messages:{
-					neighbourhood: {
-						required: "必须选择小区!",
-					},
 					homename: {
 						required: "姓名不能为空!",
 					},			
-				}	
-			});			
+				}		
+			});		
+				
 			$("form#HeatingHomeAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					reloadList();
 				}
 				BootstrapDialog.show({
-
-		            title: '投诉付款类型操作信息',
-
-		            title: '居民操作信息',
-
-		            message:result.message
-		        });
+					title: '居民操作信息',
+					message:result.message
+				});
 				$("div#HeatingHomeDialogArea" ).dialog( "close" );
 				$("div#HeatingHomeDialogArea" ).dialog( "destroy" );
 				$("div#HeatingHomeDialogArea").html("");
-				
+					
 			});
-			
+				
 			//点击取消按钮处理
 			$("input[value='取消']").on("click",function(){
 				$( "div#HeatingHomeDialogArea" ).dialog( "close" );
 				$( "div#HeatingHomeDialogArea" ).dialog( "destroy" );
 				$("div#HeatingHomeDialogArea").html("");
-			});		
-		});		
-	});
+			});	
+			
+		});
 	
+	});	
+
 	//=================点击修改按钮事件处理======================
 	$("a#HeatingHomeModifyLink").off().on("click",function(event){
 		
@@ -283,9 +263,6 @@ $(function(){
 				//验证添加的信息是否已合法
 				$("form#HeatingHomeModifyForm").validate({
 					rules: {
-						neighbourhood: {
-							required: true,			  
-						},
 						heatingcode: {
 							required: true,
 						},
@@ -323,9 +300,6 @@ $(function(){
 						}
 					},
 					messages:{
-						neighbourhood: {
-							required: "必须选择小区!",
-						},
 						homename: {
 							required: "姓名不能为空!",
 						},			
@@ -347,9 +321,7 @@ $(function(){
 					$("div#HeatingHomeDialogArea" ).dialog( "destroy" );
 					$("div#HeatingHomeDialogArea").html("");
 					
-				});
-				
-				
+				});					
 				//点击取消按钮处理
 				$("input[value='取消']").on("click",function(){
 					$( "div#HeatingHomeDialogArea" ).dialog( "close" );

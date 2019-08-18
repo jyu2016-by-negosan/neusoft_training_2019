@@ -182,7 +182,6 @@ $(function(){
 					$("span#agreefee").html(data.model.agreefee);
 					$("span#actualfee").html(data.model.actualfee);
 					$("span#debtfee").html(data.model.debtfee);
-					alert(data.model.heatingprice.heatingdays);
 					$("input[name='heatingdays']").val(data.model.heatingprice.heatingdays);
 					$("input[name='heatingyear']").val(data.model.heatingprice.heatingyear);
 					}

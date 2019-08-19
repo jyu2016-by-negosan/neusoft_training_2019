@@ -12,15 +12,7 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080"
-//	var homefeeUrl =""
-	//设置系统页面标题
-//	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
-//	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民缴费管理</span></li>");
-//	function getHomefeePage(event){
-//		$("div#homefee").load("/fee/homefee/main.html");
-//		event.preventDefault();
-//	}
-//	getHomefeePage();
+
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getAllByListWithPage",{page:page,rows:rows},function(data){
@@ -38,7 +30,7 @@ $(function(){
 					$("table#HomeFeePayRecordTable tbody").append(tr);
 				}
 				//定义表格行的点击时间，取得选择的缴费记录ID
-				$("table#HomeFeePayRecordTable tbody tr").on("click",function(){
+				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#6495ED");

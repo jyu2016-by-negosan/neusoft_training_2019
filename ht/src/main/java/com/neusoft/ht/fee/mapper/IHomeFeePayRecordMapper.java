@@ -35,6 +35,9 @@ public interface IHomeFeePayRecordMapper {
 	//查找关联的供热记录
 	public List<HomeFeePayRecordModel> selectAllByListWithHomeFee();
 	
+	//查找feeno
+	public int selectByIdWithFeeno(HomeFeePayRecordModel payRecordModel);
+	
 	//查找缴费记录
 	public HomeFeePayRecordModel selectByIdWithHomeFee(int recordno);
 	

@@ -10,29 +10,29 @@ import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
  */
 public interface IHomeFeePayRecordService {
 		//增加住宅缴费记录
-		public void add(HomeFeePayRecordModel payRecordModel);
+		public void add(HomeFeePayRecordModel payRecordModel) throws Exception;
 		
 		//删除住宅缴费记录
-		public void delete(HomeFeePayRecordModel payRecordModel);
+		public void delete(HomeFeePayRecordModel payRecordModel)throws Exception;
 		
 		//更改住宅缴费记录
-		public void modify(HomeFeePayRecordModel payRecordModel);
+		public void modify(HomeFeePayRecordModel payRecordModel)throws Exception;
 		
 		//根据居民缴费序号查找缴费记录
-		public HomeFeePayRecordModel getById(int recordno);
+		public HomeFeePayRecordModel getById(int recordno)throws Exception;
 		
 		//查找所有住宅缴费记录
-		public List<HomeFeePayRecordModel> getAllByList();
+		public List<HomeFeePayRecordModel> getAllByList()throws Exception;
 		
 		//查找所有住宅缴费记录(分页)
-		public List<HomeFeePayRecordModel> getAllByListWithPage(int page,int rows);
+		public List<HomeFeePayRecordModel> getAllByListWithPage(int page,int rows)throws Exception;
 		
 		//查找缴费记录
-		public HomeFeePayRecordModel getByIdWithHomeFee(int recordno);
+		public HomeFeePayRecordModel getByIdWithHomeFee(int recordno)throws Exception;
 		
 		//查找所有缴费记录和关联的供热记录
 //		public List<HomeFeePayRecordModel> getAllByListWithHomeFee();
 		
 		//记录总条数
-		public int getAllCount();
+		public int getAllCount()throws Exception;
 }

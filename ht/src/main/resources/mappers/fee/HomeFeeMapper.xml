@@ -21,16 +21,16 @@
 		<association property="heatingprice" resultMap="com.neusoft.ht.fee.mapper.IHeatingPriceMapper.HeatingPriceRusultMap"/>
 	</resultMap>
 
-	<insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
+   <insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
 		insert into HT_HOMEFEE
 		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC)
 		values 
-		(#{homeno},#{heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc})
+		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc})
   	</insert>
 
 	<update id="update" flushCache="true">
 		update HT_HOMEFEE 
-		set HOMENO=#{homeno},HEATINGYEAR=#{heatingyear},AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
+		set HOMENO=#{home.homeno},HEATINGYEAR=#{heatingprice.heatingyear},AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
 		where FEENO=#{feeno}
 	</update>
   

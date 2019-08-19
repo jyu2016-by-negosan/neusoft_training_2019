@@ -26,13 +26,11 @@
   </resultMap>
   
  
-  
-  
-  
-  
+ 
+
   <insert id="insert" keyProperty="recordno" keyColumn="RecordNo" useGeneratedKeys="true">
-  	insert into ht_homefeepayrecord (recordno,payamount,paydate,checkcode,payperson,invoicecode,paydesc,recordstatus)
-  	values(#{recordno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc},#{recordstatus})
+  	insert into ht_homefeepayrecord (recordno,feeno,paymenttypeno,payamount,paydate,checkcode,payperson,invoicecode,paydesc,recordstatus)
+  	values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc},#{recordstatus})
   </insert>
   
   <delete id="delete">
@@ -55,6 +53,10 @@
  
  <select id="selectById" resultMap="HomePayRecordResultMap">
  	select * from ht_homefeepayrecord where recordNo=#{recordno}
+ </select>
+ 
+ <select id="selectByIdWithFeeno" resultType="int">
+ 	select feeno from ht_homefeepayrecord where recordno = #{recordno}
  </select>
  
  <select id="selectAllByList" resultMap="HomePayRecordResultMap">

@@ -14,7 +14,7 @@ public class HomeComplainServiceImpl implements IHomeComplainService {
 
 	@Autowired
 	private IHomeComplainMapper homeComplainMapper;
-	
+
 	@Override
 	public void add(HomeComplainModel homeComplain) throws Exception {
 		homeComplainMapper.create(homeComplain);
@@ -46,8 +46,20 @@ public class HomeComplainServiceImpl implements IHomeComplainService {
 	}
 
 	@Override
-	public List<HomeComplainModel> selectListByAllWithPage(int rows, int pages) throws Exception {
-		return homeComplainMapper.selectListByAllWithPage((pages-1)*rows, pages);
+	public List<HomeComplainModel> getListByAllWithPage(int rows, int pages) throws Exception {
+		return homeComplainMapper.selectListByAllWithPage((pages - 1) * rows, rows);
+	}
+
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int pageCount = 0;
+		int count = this.getCountByAll();
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
 	}
 
 }

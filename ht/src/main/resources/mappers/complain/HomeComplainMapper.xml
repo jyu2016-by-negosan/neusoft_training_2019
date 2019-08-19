@@ -33,18 +33,6 @@
 		<result property="complainstatus" column="ComplainStatus" />
 	</resultMap>
 
-	<!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
-	<resultMap id="HomeComplainResultMapWithComplainType"
-		type="HomeComplain" extends="HomeComplainResultMap">
-		<association property="complaintypes"
-			resultMap="com.neusoft.ht.complain.mapper.IComplainTypeMapper.ComplainTypeResultMap" />
-	</resultMap>
-
-	<resultMap id="HomeComplainResultMapWithHome"
-		type="HomeComplain" extends="HomeComplainResultMap">
-		<association property="homes"
-			resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMap" />
-	</resultMap>
 
 	<insert id="create" keyProperty="complainno"
 		keyColumn="ComplainNo" useGeneratedKeys="true" flushCache="true">
@@ -98,6 +86,12 @@
 		where ComplainNo=#{complainno}
 	</update>
 
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select
+		IFNULL(count(ComplainNo), 0) from ht_homecomplain
+	</select>
+
 	<!-- 无关联查询 -->
 	<select id="selectHomeComplainModelByAll"
 		resultMap="HomeComplainResultMap">
@@ -111,5 +105,10 @@
 		resultMap="HomeComplainResultMap">
 		select * from
 		ht_homecomplain where ComplainNo=#{complainno}
+	</select>
+
+	<select id="selectListByAllWithPage"
+		resultMap="HomeComplainResultMap">
+		select * from ht_homecomplain limit #{start},#{end}
 	</select>
 </mapper>

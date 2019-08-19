@@ -3,6 +3,7 @@ package com.neusoft.ht.complain.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ import com.neusoft.ht.complain.service.IPublicHouseComplainService;
 import com.neusoft.ht.message.ResultMessage;
 
 @RestController
-@RequestMapping("/housecomplain")
+@RequestMapping("complain/housecomplain")
 public class PublicHouseComplainController {
 
 	@Autowired
@@ -71,20 +72,20 @@ public class PublicHouseComplainController {
 		}
 	}
 
-	@RequestMapping("/getBytypeNo")
-	public PublicHouseComplainModel getComplainType() throws Exception {
-		return housecomplainService.getHouseComplainBycomplainNo(1);
+	@RequestMapping("/get")
+	public PublicHouseComplainModel getComplainType(@RequestParam(required = true) int complainno) throws Exception {
+		return housecomplainService.getHouseComplainBycomplainNo(complainno);
 	}
 
-	@RequestMapping("/getCountByAll")
-	public int getAllCount() throws Exception {
-		return housecomplainService.getCountByAll();
-	}
 
-	@RequestMapping("/listwithpage")
-	public List<PublicHouseComplainModel> getListWithPage(@RequestParam(required = false, defaultValue = "2") int rows,
+	@GetMapping("/list/all/page")
+	public ResultMessage<PublicHouseComplainModel> getListWithPage(@RequestParam(required = false, defaultValue = "2") int rows,
 			@RequestParam(required = false, defaultValue = "1") int pages) throws Exception {
-		return housecomplainService.selectListByAllWithPage(rows, pages);
+		
+		int pageCount = housecomplainService.getPageCountByAll(rows);
+		int count = housecomplainService.getCountByAll();
+		List<PublicHouseComplainModel> list = housecomplainService.getListByAllWithPage(rows, pages);
+		return new ResultMessage<PublicHouseComplainModel>(list,rows,pages,count,pageCount,"OK","查询成功");
 	}
 
 }

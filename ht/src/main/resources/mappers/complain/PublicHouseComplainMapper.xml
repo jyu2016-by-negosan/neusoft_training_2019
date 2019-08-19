@@ -113,4 +113,15 @@
 		ht_publichousecomplain where
 		ComplainNo=#{complainno}
 	</select>
+
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select
+		IFNULL(count(ComplainNo), 0) from ht_publichousecomplain
+	</select>
+
+	<select id="selectListByAllWithPage"
+		resultMap="PublicHouseComplainResultMap">
+		select * from ht_publichousecomplain limit #{start},#{end}
+	</select>
 </mapper>

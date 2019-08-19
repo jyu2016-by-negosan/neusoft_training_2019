@@ -32,8 +32,10 @@ public interface IComplainTypeMapper {
 	// 查2
 	public ComplainTypeModel selectComplianTypeModelByTypeNo(int typeno) throws Exception;
 
+	
 	public int selectCountByAll() throws Exception;
 
+	
 	public List<ComplainTypeModel> selectListByAllWithPage(@Param("start")int start,@Param("end")int end) throws Exception;
 
 }

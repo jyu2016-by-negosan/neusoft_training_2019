@@ -41,7 +41,6 @@ public class ComplainTypeController {
 
 			try {
 				complainTypeService.delete(complainType);
-				System.out.println("jkl");
 			} catch (Exception e) {
 				return new ResultMessage<ComplainTypeModel>("ERROR", "删除住户投诉对象失败");
 			}

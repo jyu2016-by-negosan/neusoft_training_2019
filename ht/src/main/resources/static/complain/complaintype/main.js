@@ -1,5 +1,5 @@
 /**
- * 模块：供热缴费管理 小区管理的前端控制JS 作者：黄宇德
+ * 模块：客户服务管理 投诉管理的前端控制JS 作者：万俊星
  * 
  */
 
@@ -7,7 +7,7 @@ $(function() {
 	var rows = 5;
 	var page = 1;
 	var pageCount = 0;
-	var no = 0; // 选择的小区编号
+	var no = 0; // 选择的投诉编号
 
 	// 设置系统页面标题
 	$("ol.breadcrumb")
@@ -122,71 +122,58 @@ $(function() {
 						});
 			});
 
-	// 点击修改按钮事件处理
-	$("a#ComplainTypeModifyLink").off().on(
-			"click",
-			function(event) {
-				if (no == 0) {
+	//点击修改按钮事件处理
+	$("a#ComplainTypeModifyLink").off().on("click",function(event){
+		if(no==0){
+			BootstrapDialog.show({
+	            title: '投诉操作信息',
+	            message:"请选择要修改的投诉"
+	        });
+		}
+		else {
+			$("div#ComplainTypeDialogArea").load("complain/complaintype/modify.html",function(){
+				//取得选择的部门
+				$.getJSON(host+"complain/complaintype/get",{typeno:no},function(data){
+					if(data.status=="OK"){
+						$("input[name='typeno']").val(no);
+						$("input[name='typename']").val(data.model.typename);
+					}
+				});
+				
+				$("div#ComplainTypeDialogArea" ).dialog({
+					title:"小区修改",
+					width:600
+				});
+				//拦截表单提交
+				$("form#ComplainTypeModifyForm").ajaxForm(function(result){
+					
+					if(result.status=="OK"){
+						getListInfo(); 
+					}
+
 					BootstrapDialog.show({
-						title : '投诉操作信息',
-						message : "请选择要修改的投诉"
-					});
-				} else {
-					$("div#ComplainTypeDialogArea").load(
-							"complain/complaintype/modify.html",
-							function() {
-								// 取得选择的部门
-								$.getJSON(host + "complain/complaintype/get", {
-									typeno : no
-								}, function(data) {
-									if (data.status == "OK") {
-										$("input[name='typeno']").val(no);
-										$("input[name='typename']").val(
-												data.model.typename);
-									}
-								});
-
-								$("div#ComplainTypeDialogArea").dialog({
-									title : "投诉修改",
-									width : 600
-								});
-								// 拦截表单提交
-								$("form#ComplainTypeModifyForm").ajaxForm(
-										function(result) {
-
-											if (result.status == "OK") {
-												getListInfo();
-											}
-
-											BootstrapDialog.show({
-												title : '投诉操作信息',
-												message : result.message
-											});
-											$("div#ComplainTypeDialogArea")
-													.dialog("close");
-											$("div#ComplainTypeDialogArea")
-													.dialog("destroy");
-											$("div#ComplainTypeDialogArea")
-													.html("");
-
-										});
-
-								// 点击取消按钮处理
-								$("input[value='取消']").on(
-										"click",
-										function() {
-											$("div#ComplainTypeDialogArea")
-													.dialog("close");
-											$("div#ComplainTypeDialogArea")
-													.dialog("destroy");
-											$("div#ComplainTypeDialogArea")
-													.html("");
-										});
-							});
-
-				}
-
+			            title: '投诉操作信息',
+			            message:result.message
+			        });
+					$("div#ComplainTypeDialogArea" ).dialog( "close" );
+					$("div#ComplainTypeDialogArea" ).dialog( "destroy" );
+					$("div#ComplainTypeDialogArea").html("");
+					
+				});
+				
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#ComplainTypeDialogArea" ).dialog( "close" );
+					$( "div#ComplainTypeDialogArea" ).dialog( "destroy" );
+					$( "div#ComplainTypeDialogArea").html("");
+				});
 			});
+			
+		}
+		
+		
+	});
 
 	// 点击删除按钮事件处理
 	$("a#ComplainTypeDeleteLink").off().on("click", function(event) {

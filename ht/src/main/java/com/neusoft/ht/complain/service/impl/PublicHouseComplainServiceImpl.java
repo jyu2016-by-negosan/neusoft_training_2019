@@ -46,8 +46,24 @@ public class PublicHouseComplainServiceImpl implements IPublicHouseComplainServi
 	}
 
 	@Override
-	public List<PublicHouseComplainModel> selectListByAllWithPage(int rows, int pages) throws Exception {
-		return housemapper.selectListByAllWithPage((pages-1)*rows, pages);
+	public List<PublicHouseComplainModel> getListByAllWithPage(int rows, int pages) throws Exception {
+		return housemapper.selectListByAllWithPage((pages - 1) * rows, rows);
+	}
+	
+	
+	@Override
+	public int getPageCountByAll(int rows) throws Exception {
+		int pageCount = 0;
+		int count = this.getCountByAll();
+		if (count % rows == 0) {
+			pageCount = count / rows;
+		} else {
+			pageCount = count / rows + 1;
+		}
+		return pageCount;
 	}
 
-}
+		
+	};
+
+

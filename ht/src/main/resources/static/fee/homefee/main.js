@@ -34,6 +34,7 @@ $(function(){
 			{ label: '欠缴费', name:'debtfee'},
 			{ label: '供热状态', name: 'home.heatingstatus' },          
 		],
+		caption:"住宅供热记录列表",
 		viewrecords: true, 
 		autowidth: true,
 		height: 250,

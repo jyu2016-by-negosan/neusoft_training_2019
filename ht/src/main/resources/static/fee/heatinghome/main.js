@@ -46,6 +46,7 @@ $(function(){
 			{ label: '单元', name: 'departmentcode' },
 			{ label: '供热状态', name: 'heatingstatus' },          
 		],
+		caption:"居民列表",
 		viewrecords: true, 
 		autowidth: true,
 		height: 200,

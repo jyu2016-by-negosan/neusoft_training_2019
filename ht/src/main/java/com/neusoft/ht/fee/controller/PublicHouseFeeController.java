@@ -84,10 +84,10 @@ public class PublicHouseFeeController {
 	}
 	
 	@RequestMapping("/getByNo")
-	public ResultMessage<PublicHouseFeeModel> getByNo(int houseno) {
+	public ResultMessage<PublicHouseFeeModel> getByNo(int feeno) {
 		PublicHouseFeeModel publicHouseFeeModel = null;
 		try {
-			publicHouseFeeModel = publicHouseFeeService.getByNo(houseno);
+			publicHouseFeeModel = publicHouseFeeService.getByNo(feeno);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultMessage<PublicHouseFeeModel>(publicHouseFeeModel, "Error", "查找失败！");

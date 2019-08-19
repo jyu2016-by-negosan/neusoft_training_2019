@@ -65,12 +65,9 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 				homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()-error);
 				homeFeeMapper.update(homeFeeModel);
 			}
-		}else {
-			System.out.println("我。。。");
 		}
-		houseFeePayRecordMapper.update(payRecordModel);
-
 		
+		houseFeePayRecordMapper.update(payRecordModel);	
 	}
 			
 	//根据居民缴费序号查找缴费记录

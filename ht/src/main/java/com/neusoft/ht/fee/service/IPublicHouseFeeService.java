@@ -21,7 +21,7 @@ public interface IPublicHouseFeeService {
 	//R1
 	public List<PublicHouseFeeModel> getListByAll() throws Exception;
 	//R2
-	public PublicHouseFeeModel getByNo(int houseno) throws Exception;
+	public PublicHouseFeeModel getByNo(int feeno) throws Exception;
 	//R3
 	public List<PublicHouseFeeModel> getListByAllWithPage(int start, int rows) throws Exception;
 	

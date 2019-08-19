@@ -37,8 +37,8 @@ public class PublicHouseFeeServiceImpl implements IPublicHouseFeeService {
 	}
 
 	@Override
-	public PublicHouseFeeModel getByNo(int houseno) throws Exception {
-		return publichousefeemapper.selectByNo(houseno);
+	public PublicHouseFeeModel getByNo(int feeno) throws Exception {
+		return publichousefeemapper.selectByNo(feeno);
 	}
 
 	@Override
@@ -51,5 +51,4 @@ public class PublicHouseFeeServiceImpl implements IPublicHouseFeeService {
 	public int getCountByAll() throws Exception {
 		return publichousefeemapper.selectCountByAll();
 	}
-
 }

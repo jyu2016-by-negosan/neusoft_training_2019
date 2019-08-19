@@ -1,0 +1,46 @@
+<script type="text/javascript" src="complain/complaintype/main.js"></script>
+<!-- Main row -->
+<div class="row">
+    <div class="col-lg-10 p-r-0 title-margin-right">
+		<div class="box">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-md-6"><h4 class="box-title">投诉列表</h4></div>
+					<div class="col-md-6 text-right">
+						<a href="#" id="ComplainTypeAddLink" class="btn btn-info">增加</a> 
+						<a href="#" id="ComplainTypeModifyLink" class="btn btn-info">修改</a> 
+						<a href="#" id="ComplainTypeDeleteLink" class="btn btn-info">删除</a>
+						<a href="#" id="ComplainTypeDetailLink" class="btn btn-info">查看</a>
+					</div>
+				</div>
+			</div>
+			<div class="box-body" id="complaintypemaincontent">
+				<table id="ComplainTypeTable" class="table table-bordered table-striped table-hover">
+				          <thead>
+				          <tr>
+				            <th>序号</th>
+				            <th>名称</th>
+				          </tr>
+				          </thead>
+				          <tbody>
+				          
+				          </tfoot>
+				</table>
+				<div class="row">
+				   <div class="col-md-6 text-left">
+				             投诉个数:<span id="count"></span> 	页数:<span id="pagecount"></span>
+				   </div>
+				   <div class="col-md-6 text-right" id="page_nav">
+				     <a href="top" class="btn btn-info">首页</a> 
+				     <a href="pre" class="btn btn-info">上页</a>
+				     <a href="next" class="btn btn-info">下页</a>
+				     <a href="last" class="btn btn-info">末页</a>
+				   </div>
+				</div>
+			</div>
+		</div>
+     </div>
+</div>  
+<div  class="col-md-6 " id="ComplainTypeDialogArea">
+			    
+</div>

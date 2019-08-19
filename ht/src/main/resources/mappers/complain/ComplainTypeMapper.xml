@@ -46,7 +46,7 @@
 	<update id="update" flushCache="true">
 		update ht_complaintype
 		<set>
-			<if test="TYPENAME != null">TYPENAME=#{typename}</if>
+			<if test="typename != null">TYPENAME=#{typename}</if>
 		</set>
 		where TYPENO=#{typeno}
 	</update>

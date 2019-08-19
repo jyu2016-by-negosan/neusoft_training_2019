@@ -24,7 +24,8 @@ public interface IHomeFeeMapper {
 	//取得住宅供热信息记录的个数
 	public int selectCountByAll() throws Exception;
 	//取得住宅供热信息记录的个数,带关联
-	public int selectCountByAllWithHomeAndHeatingPriceWithPage() throws Exception;
+	public int selectCountByAllWithHomeAndHeatingPriceWithPage(
+			@Param("hoodno") int hoodno,@Param("heatingyear") String heatingyear,@Param("feestatus") String feestatus) throws Exception;
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	public HomeFeeModel selectByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式

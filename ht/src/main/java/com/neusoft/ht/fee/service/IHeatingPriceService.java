@@ -28,5 +28,5 @@ public interface IHeatingPriceService {
 	//检查年份是否已经存在
 	public int getCountByYear(String heatingyear) throws Exception;
 	//修改实际供热天数
-	public void ChangeHeatingdays(String heatingyear) throws Exception;
+	public void ChangeHeatingdays(String heatingyear,int heatingdays) throws Exception;
 }

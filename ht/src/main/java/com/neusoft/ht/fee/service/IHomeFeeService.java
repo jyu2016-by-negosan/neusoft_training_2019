@@ -2,6 +2,8 @@ package com.neusoft.ht.fee.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.neusoft.ht.fee.model.HomeFeeModel;
 
 /**
@@ -22,9 +24,9 @@ public interface IHomeFeeService {
 	//取得住宅供热信息记录的个数
 	public int getCountByAll() throws Exception;
 	//取得住宅供热信息记录的个数,带关联
-	public int getCountByAllWithHomeAndHeatingPriceWithPage() throws Exception;
+	public int getCountByAllWithHomeAndHeatingPriceWithPage(int hoodno, String heatingyear, String feestautus) throws Exception;
 	//取得住宅供热信息记录页数
-	public int getPageCountByAll(int rows) throws Exception;
+	public int getPageCountByAll(int rows,int homeno,String heatingyear,String feestatus) throws Exception;
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	public HomeFeeModel getByNoWithHomeAndHeatingPrice(int feeno) throws Exception;
 	//根据综合检索条件取得居民供热记录列表，取得关联的居民表，取关联的年度供热价格表，分页模式

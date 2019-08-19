@@ -30,7 +30,7 @@ public interface IComplainTypeMapper {
 	public List<ComplainTypeModel> selectComplianTypeModelByAll() throws Exception;
 
 	// 查2
-	public ComplainTypeModel selectComplianTypeModelByTypeNo(int typeNo) throws Exception;
+	public ComplainTypeModel selectComplianTypeModelByTypeNo(int typeno) throws Exception;
 
 	public int selectCountByAll() throws Exception;
 

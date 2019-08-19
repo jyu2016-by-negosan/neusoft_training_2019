@@ -20,12 +20,14 @@ public interface IComplainTypeService {
 	public List<ComplainTypeModel> getListByAll() throws Exception;
 
 	//根据投诉类型编号查询对象
-	public ComplainTypeModel getComplainTypeBytypeNo(int typeNo) throws Exception;
+	public ComplainTypeModel getComplainTypeBytypeNo(int typeno) throws Exception;
 
 	//查询对象个数
 	public int getCountByAll() throws Exception;
 
 	//查询所有对象（分页）
-	public List<ComplainTypeModel> selectListByAllWithPage(int rows, int pages) throws Exception;
+	public List<ComplainTypeModel> getListByAllWithPage(int rows, int pages) throws Exception;
+	
+	public int getPageCountByAll(int rows) throws Exception;
 
 }

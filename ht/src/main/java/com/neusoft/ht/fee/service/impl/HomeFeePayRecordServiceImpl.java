@@ -57,5 +57,10 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 		return houseFeePayRecordMapper.selectAllCount();
 	}
 
+	@Override
+	public HomeFeePayRecordModel getByIdWithHomeFee(int recordno) {
+		return houseFeePayRecordMapper.selectByIdWithHomeFee(recordno);
+	}
+
 	
 }

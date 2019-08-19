@@ -27,6 +27,12 @@ public interface IHomeFeePayRecordService {
 		//查找所有住宅缴费记录(分页)
 		public List<HomeFeePayRecordModel> getAllByListWithPage(int page,int rows);
 		
+		//查找缴费记录
+		public HomeFeePayRecordModel getByIdWithHomeFee(int recordno);
+		
+		//查找所有缴费记录和关联的供热记录
+//		public List<HomeFeePayRecordModel> getAllByListWithHomeFee();
+		
 		//记录总条数
 		public int getAllCount();
 }

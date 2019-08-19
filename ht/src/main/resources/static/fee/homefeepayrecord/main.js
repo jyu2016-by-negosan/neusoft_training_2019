@@ -11,10 +11,16 @@ $(function(){
 	var pageCount=0;  //缴费总页数
 	var no =-1;
 	var recordno =-1;
+	var host = "http://127.0.0.1:8080"
+//	var homefeeUrl =""
 	//设置系统页面标题
-	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
-	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民缴费管理</span></li>");
-	
+//	$("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetille'>供热缴费模块</span></li>"
+//	+"<li class='breadcrumb-item'><span id='mainpagetille'>居民缴费管理</span></li>");
+//	function getHomefeePage(event){
+//		$("div#homefee").load("/fee/homefee/main.html");
+//		event.preventDefault();
+//	}
+//	getHomefeePage();
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getAllByListWithPage",{page:page,rows:rows},function(data){
@@ -72,6 +78,7 @@ $(function(){
 	//初始调用取得分页列表数据
 	getListInfo();
 	
+	
 	//点击增加链接处理，嵌入add.html
 	$("a#PayRecordAddLink").off().on("click",function(event){
 		$("div#PayRecordDialogArea").load("fee/homefeepayrecord/add.html",function(){
@@ -79,7 +86,13 @@ $(function(){
 				title:"增加居民缴费记录",
 				width:400
 			});
-			
+			$.getJSON(host+"/fee/paymenttype/list/all",function(PayTypeList){
+				if(PayTypeList){
+					$.each(PayTypeList,function(index,payType){
+						$("#payType").append("<option value='"+payType.typeno+"'>"+payType.typename+"</option>");
+					})
+				}
+			})
 			$("form#HomeFeePayRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					getListInfo(); 

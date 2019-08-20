@@ -49,7 +49,7 @@
   <update id="update" flushCache="true">
    update HT_HOME 
    set HeatingCode=#{heatingcode},HOODNO=#{neighbourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode=#{housecode},
-   HomeArea=#{homearea},Direction=#{direction},Tel=#{tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
+   HomeArea=#{homearea},Direction=#{direction},Tel=#{tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingprice.heatingarea}
    where HOMENO=#{homeno}
   </update>
   

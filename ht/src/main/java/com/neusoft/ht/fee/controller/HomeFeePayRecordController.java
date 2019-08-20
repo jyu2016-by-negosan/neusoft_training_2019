@@ -37,18 +37,15 @@ public class HomeFeePayRecordController {
 			 HomeFeeModel homeFeeModel = homeFeeService.getByNoWithHomeAndHeatingPrice(feeno);
 			if(homeFeeModel!=null) {
 				if(homeFeeModel.getDebtfee()!=0) {
-					if(homeFeeModel.getDebtfee()>=payRecordModel.getPayamount()) {
+				
 						
 						PaymentTypeModel paymentType = new PaymentTypeModel();
-						
 						paymentType.setTypeno(typeno);
 						payRecordModel.setHomeFeeModel(homeFeeModel);
 						payRecordModel.setPaymentTypeModel(paymentType);
 						housePayRecordService.add(payRecordModel);
 						
-					}else {
-						return new ResultMessage<HomeFeePayRecordModel>("ERROR", "缴费金额大于欠费金额！");
-					}
+				
 				}else {
 					return new ResultMessage<HomeFeePayRecordModel>("ERROR", "该住户不欠费！");
 				}

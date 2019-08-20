@@ -1,0 +1,52 @@
+
+<!-- Main row -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box-body">
+			<form id="HomeFeeReturnRecordAddForm"
+				action="http://127.0.0.1:8080/fee/homefeereturnrecord/add" method="post">
+				<div class="form-group">
+					<label>供热序号</label> 
+					<input class="form-control" name="feeno" id="feeno">
+				</div>
+				<div class="form-group">
+					<span>退款方式</span>&nbsp; 
+					<select id="payType" name="typeno"
+						class="form-control" style="height: 33px;">
+						<option value="0">请选择</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>退款金额</label> 
+					<input class="form-control" name="amount" id="amount">
+				</div>
+				<div class="form-group">
+					<label>退款日期</label> <input class="form-control" type="date"
+						name="returndate">
+				</div>
+
+				<div class="form-group">
+					<label>退款人</label> <input class="form-control" name="person">
+				</div>
+				<div class="form-group">
+					<label>退款编号</label> <input class="form-control" name="invoicecode">
+				</div>
+				<div class="form-group">
+					<label>退款备注</label> <input class="form-control" name="recorddesc">
+				</div>
+				<div class="form-group">
+					<label>记录状态</label> <input class="form-control" name="recordstatus">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</div>
+<script type="text/javascript" src="fee/homefeereturnrecord/inputchange.js"></script>
+
+<!-- /.col -->
+
+<!-- /.row -->

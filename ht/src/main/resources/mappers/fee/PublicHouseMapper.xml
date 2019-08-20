@@ -28,6 +28,14 @@
 	<result property="heatingarea" column="heatingarea"/>
   </resultMap>
   
+  	<!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
+	<resultMap
+		id="PublicHouseResultMapWithNeighbourhood"
+		type="PublicHouse" extends="PublicHouseResultMap">
+		<association property="neighbourHoodModel"
+			resultMap="com.neusoft.ht.fee.mapper.INeighbourHoodMapper.NeighbourHoodResultMap" />
+	</resultMap>
+  
    <select id="selectByNo" resultMap="PublicHouseResultMap">
    		select * from ht_publichouse where houseno=#{houseno}
    </select>

@@ -73,12 +73,12 @@ public class PublicHouseComplainController {
 	}
 
 	@RequestMapping("/get")
-	public PublicHouseComplainModel getComplainType(@RequestParam(required = true) int complainno) throws Exception {
-		return housecomplainService.getHouseComplainBycomplainNo(complainno);
+	public ResultMessage<PublicHouseComplainModel> getHouseComplainType(@RequestParam(required = true) int complainno) throws Exception {
+		return new ResultMessage<PublicHouseComplainModel>(housecomplainService.getByNoWithHouseAndComplainType(complainno),"OK","取得特定居民供热记录成功");
 	}
 
 
-	@GetMapping("/list/all/page")
+	@GetMapping("/list/all/page/condition")
 	public ResultMessage<PublicHouseComplainModel> getListWithPage(@RequestParam(required = false, defaultValue = "2") int rows,
 			@RequestParam(required = false, defaultValue = "1") int pages) throws Exception {
 		

@@ -26,7 +26,7 @@ public class HomeComplainModel implements Serializable{
 	
 	private int complainno;
 	private HomeModel home;
-	private ComplainTypeModel compliantype;
+	private ComplainTypeModel complaintype;
 	private String complaintitle;
 	private String complaincontent;
 	private String requestcontent;

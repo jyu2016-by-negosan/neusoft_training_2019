@@ -25,7 +25,7 @@ public class PublicHouseComplainModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int complainno;
 	private PublicHouseModel house;
-	private ComplainTypeModel compliantype;
+	private ComplainTypeModel complaintype;
 	private String complaintitle;
 	private String complaincontent;
 	private String requestcontent;

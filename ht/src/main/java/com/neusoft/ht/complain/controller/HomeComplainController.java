@@ -71,8 +71,8 @@ public class HomeComplainController {
 	}
 
 	@GetMapping("/get")
-	public HomeComplainModel getComplainType(@RequestParam(required = true) int complainno) throws Exception {
-		return homecomplainService.getHomeComplainBycomplainNo(complainno);
+	public HomeComplainModel getHomeComplainType(@RequestParam(required = true) int complainno) throws Exception {
+		return homecomplainService.getByNoWithHomeAndComplainType(complainno);
 	}
 
 

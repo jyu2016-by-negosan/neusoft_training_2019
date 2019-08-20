@@ -38,5 +38,7 @@ public interface IHomeComplainMapper {
 
 	
 	public List<HomeComplainModel> selectListByAllWithPage(@Param("start")int start,@Param("end")int end) throws Exception;
-
+	
+	
+	public HomeComplainModel selectByNoWithHomeAndComplainType(int complainno) throws Exception;
 }

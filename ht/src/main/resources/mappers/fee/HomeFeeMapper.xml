@@ -84,6 +84,7 @@
 	  </where>
 	    limit #{start},#{rows}
 	</select>
+	
 	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   	<select id="selectCountByAllWithHomeAndHeatingPriceWithPage" resultType="int" >
    		select IFNULL(count(e.FEENO), 0) 

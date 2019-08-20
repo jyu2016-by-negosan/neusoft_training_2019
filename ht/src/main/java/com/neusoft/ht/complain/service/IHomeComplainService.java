@@ -28,5 +28,7 @@ public interface IHomeComplainService {
 	public List<HomeComplainModel> getListByAllWithPage(int rows, int pages) throws Exception;
 	
 	public int getPageCountByAll(int rows) throws Exception;
+	
+	public HomeComplainModel getByNoWithHomeAndComplainType(int complainno) throws Exception;
 
 }

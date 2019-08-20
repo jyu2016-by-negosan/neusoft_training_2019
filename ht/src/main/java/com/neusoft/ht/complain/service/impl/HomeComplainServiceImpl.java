@@ -62,4 +62,9 @@ public class HomeComplainServiceImpl implements IHomeComplainService {
 		return pageCount;
 	}
 
+	@Override
+	public HomeComplainModel getByNoWithHomeAndComplainType(int complainno) throws Exception {
+		return homeComplainMapper.selectByNoWithHomeAndComplainType(complainno);
+	}
+
 }

@@ -30,7 +30,11 @@
 
 	<update id="update" flushCache="true">
 		update HT_HOMEFEE 
-		set HOMENO=#{home.homeno},HEATINGYEAR=#{heatingprice.heatingyear},AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
+		<set> 
+		<if test="home!=null">HOMENO=#{home.homeno},</if>
+		<if test="heatingprice!=null">HEATINGYEAR=#{heatingprice.heatingyear},</if>	
+		AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
+		</set>
 		where FEENO=#{feeno}
 	</update>
   

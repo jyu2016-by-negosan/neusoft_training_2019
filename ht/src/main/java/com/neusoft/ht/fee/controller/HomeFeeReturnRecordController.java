@@ -96,6 +96,22 @@ public class HomeFeeReturnRecordController {
 		return new ResultMessage<HomeFeeReturnRecordModel>(homeFeeReturnRecordModel,"OK", "查找居民退费记录成功！");
 	}
 	
+	@RequestMapping("/getByIdWithHomeFee")
+	public ResultMessage<HomeFeeReturnRecordModel> getHomeFeeReturnRecordAndHomeFeeById(int recordno){
+		HomeFeeReturnRecordModel homeFeeReturnRecordModel = null;
+		try {
+			homeFeeReturnRecordModel = homeFeeReturnRecordService.getByIdWithHomeFee(recordno);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResultMessage<HomeFeeReturnRecordModel>("ERROR", "查找居民退费记录失败！");
+
+		}
+		//System.out.println(homeFeeReturnRecordModel.getHomeFeeModel().getActualfee());
+		return new ResultMessage<HomeFeeReturnRecordModel>(homeFeeReturnRecordModel,"OK", "查找居民退费记录成功！");
+
+	}
+	
 	@RequestMapping("/getReturnAmount")
 	public float getReturnAmount(int feeno){
 		try {

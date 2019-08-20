@@ -41,16 +41,13 @@ public class HomeFeeReturnRecordServiceImpl implements IHomeFeeReturnRecordServi
 	@Override
 	public void delete(HomeFeeReturnRecordModel homeFeeReturnRecordModel) throws Exception{
 		 HomeFeeReturnRecordModel  selectByIdmodel = homeFeeReturnRecordMapper.selectByIdWithHomeFee(homeFeeReturnRecordModel.getRecordno());
-		 System.out.println("actualfee: "+selectByIdmodel.getHomeFeeModel().getActualfee());
-		 System.out.println("heatingprice: "+selectByIdmodel.getHomeFeeModel().getHeatingprice());
 		 float amount =selectByIdmodel.getAmount();
 		 HomeFeeModel homeFeeModel = selectByIdmodel.getHomeFeeModel();
 		 float actualfee = homeFeeModel.getActualfee();
-		
 		 actualfee = actualfee+amount;
 		 homeFeeModel.setActualfee(actualfee);
-		 //homeFeeMapper.update(homeFeeModel);
-		 //homeFeeReturnRecordMapper.delete(homeFeeReturnRecordModel);
+		 homeFeeMapper.update(homeFeeModel);
+		 homeFeeReturnRecordMapper.delete(homeFeeReturnRecordModel);
 		
 	}
 
@@ -76,6 +73,11 @@ public class HomeFeeReturnRecordServiceImpl implements IHomeFeeReturnRecordServi
 	public List<HomeFeeReturnRecordModel> getAllByListWithPages(int rows, int page) {
 		
 		return homeFeeReturnRecordMapper.selectAllByListWithPages((page-1)*rows, rows);
+	}
+
+	@Override
+	public HomeFeeReturnRecordModel getByIdWithHomeFee(int recordno) throws Exception {
+		return homeFeeReturnRecordMapper.selectByIdWithHomeFee(recordno);
 	}
 
 }

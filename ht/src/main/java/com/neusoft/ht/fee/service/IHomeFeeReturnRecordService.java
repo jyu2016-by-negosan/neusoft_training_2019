@@ -28,6 +28,7 @@ public interface IHomeFeeReturnRecordService {
 	// 查找所有居民退费记录
 	public List<HomeFeeReturnRecordModel> getAllByList()throws Exception;
 
+	public HomeFeeReturnRecordModel getByIdWithHomeFee(int recordno)throws Exception;
 	// 分页查找居民退费记录
 	public List<HomeFeeReturnRecordModel> getAllByListWithPages(int rows, int page)throws Exception;
 }

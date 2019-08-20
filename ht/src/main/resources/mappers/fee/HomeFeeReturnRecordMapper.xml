@@ -25,8 +25,8 @@
   </resultMap>
   
   <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
-  		insert into HT_HomeFeeReturnRecord (recordno,feeno,amount,returndate,person,
-  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{homeFeeModel.feeno},#{amount},#{returndate},
+  		insert into HT_HomeFeeReturnRecord (recordno,feeno,paymentTypeno,amount,returndate,person,
+  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{amount},#{returndate},
   		#{person},#{checkcode},#{invoicecode},#{recorddesc},#{recordstatus})
   </insert>
   
@@ -63,7 +63,9 @@
    </select>
   
   <select id="selectByIdWithHomeFee" resultMap="selectByIdWithHomeFee">
-  	select * from HT_HomeFeeReturnRecord where recordno = #{recordno}
+  	select a.*,b.* from HT_HomeFeeReturnRecord a 
+  	inner join HT_HomeFee b on a.feeno=b.feeno
+  	where recordno = #{recordno}
   </select>
   
   

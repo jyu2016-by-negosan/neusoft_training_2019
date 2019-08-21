@@ -56,6 +56,8 @@ public class HomeStopRecordController {
 	public ResultMessage<HomeStopRecordModel> modifyHomeStopRecord(HomeStopRecordModel homeStopRecordModel) {
 
 		try {
+			
+			System.out.println("wo_____");
 			homeStopRecordService.modify(homeStopRecordModel);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -125,8 +125,16 @@ $(function(){
 				//拦截表单提交
 				$("form#ChangeHeatingStatusForm").ajaxForm(function(result){			
 					if(result.status=="OK"){
+						var val = $('input[name="heatingstatus"]:checked').val(); 
+						console.log("val:"+val);
+						if(val=="正常"){
+							val = "Y";
+						}else{
+							val = "N";
+						}
+						
 						 //修改此页面的stopstatus状态
-						$.post(host+"fee/homestoprecord/modify",{stopstatus:"Y"});
+						$.getJSON(host+"/fee/homestoprecord/modify",{recordno:no,stopstatus:val});
 						getListInfo();
 					}
 					BootstrapDialog.show({
@@ -135,7 +143,8 @@ $(function(){
 			        });
 					$("div#StopRecordDialogArea" ).dialog( "close" );
 					$("div#StopRecordDialogArea" ).dialog( "destroy" );
-					$("div#StopRecordDialogArea").html("");			
+					$("div#StopRecordDialogArea").html("");	
+					
 				});
 				
 				

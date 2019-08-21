@@ -62,7 +62,7 @@
   	select * from HT_HomeStopRecord 
   </select>
   
-   <select id="selectAllByListWithPages" resultMap="HomeStopRecordResultMap">
+   <select id="selectAllByListWithPages" resultMap="HomeStopRecordResultMap" >
   	select * from HT_HomeStopRecord limit #{start},#{rows}
   </select>
   

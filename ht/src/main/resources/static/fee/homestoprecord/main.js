@@ -12,9 +12,9 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080";
-	var stopstatus ="";
+	var status ="";
+	var feeno = 0;
 	
-
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON(host+"/fee/homestoprecord/getAllByListWithPages",{page:page,rows:rows},function(data){
@@ -32,8 +32,10 @@ $(function(){
 					}else{
 						stopstatus = "处理完毕";
 					}
-					var tr="<tr id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno+"</td><td>"+data.list[i].stoparea+"</td><td>"
-					+data.list[i].stopreason+"</td><td>"+data.list[i].stopdate+"</td><td>" +data.list[i].stopperson+"</td><td id='stopstatus'>"
+					var tr="<tr id='"+data.list[i].recordno+"' data-status='"+data.list[i].stopstatus+
+					"'><td>"+data.list[i].recordno+"</td><td>"+data.list[i].stoparea+"</td><td>"
+					+data.list[i].stopreason+"</td><td>"+data.list[i].stopdate+"</td><td>"
+					+data.list[i].stopperson+"</td><td data='status'>"
 					+stopstatus+"</td><td>"+data.list[i].stopdesc+"</td></tr>";					
 					
 					$("table#HomeFeeStopRecordTable tbody").append(tr);
@@ -41,15 +43,21 @@ $(function(){
 				//定义表格行的点击时间，取得选择的退费记录ID
 				$("table#HomeFeeStopRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
-					stopstatus = $("td#stopstatus").val();
+					status = $(this).data("status");
+					console.log("status:"+status);
+					 $.getJSON(host+"/fee/homestoprecord/getByIdWithHomeFee",{recordno:no},function(data){
+							feeno = data.model.homeFeeModel.feeno;
+							//alert(feeNo);
+						 })
 					$("table#HomeFeeStopRecordTable tbody tr").css("background-color","#FFFFFF");
-					$(this).css("background-color","#6495ED");
+					$(this).css("background-color","#d6d0d08c");
 				});
 				
 				
 		 });
 			
-	}	
+	}
+	
 	//定义分页导航链接处理事件
 	$("div#page_nav a").on("click",function(event){
 			  var action=$(this).attr("href");
@@ -82,6 +90,65 @@ $(function(){
 	//初始调用取得分页列表数据
 	getListInfo();
 	
+	//==================================================
+	
+	$("a#StopRecordStatusLink").off().on("click",function(event){
+		if(no==-1){
+			BootstrapDialog.show({
+	            title: '停供操作信息',
+	            message:"请选择要修改的停供记录"
+	        });
+		}
+		else {	
+			 $("div#StopRecordDialogArea").load("fee/homefee/changeheatingstatus.html",function(){
+					
+				$.getJSON(host+"/fee/homefee/get",{feeno:feeno},function(data){
+					if(data.status=="OK"){
+						//console.log("feeNo: "+feeNo);
+						//console.log("data.model.home:"+data.model.home);
+						$("span#homename").html(data.model.home.homename);
+						$("span#neighbourhood").html(data.model.home.neighbourhood.hoodname);
+						$("span#heatingarea").html(data.model.home.heatingarea);
+						$("span#agreefee").html(data.model.agreefee);
+						$("span#actualfee").html(data.model.actualfee);
+						$("span#debtfee").html(data.model.debtfee);
+						$("span#feedesc").html(data.model.feedesc);
+						$("input[value='"+data.model.home.heatingstatus+"']").prop('checked',true);
+						$("input[name='homeno']").val(data.model.home.homeno);
+					}
+				});
+
+				$("div#StopRecordDialogArea" ).dialog({
+					title:"供热状态信息操作",
+					width:600
+				});		
+				//拦截表单提交
+				$("form#ChangeHeatingStatusForm").ajaxForm(function(result){			
+					if(result.status=="OK"){
+						 //修改此页面的stopstatus状态
+						$.post(host+"fee/homestoprecord/modify",{stopstatus:"Y"});
+						getListInfo();
+					}
+					BootstrapDialog.show({
+			            title: '供热状态操作信息',
+			            message:result.message
+			        });
+					$("div#StopRecordDialogArea" ).dialog( "close" );
+					$("div#StopRecordDialogArea" ).dialog( "destroy" );
+					$("div#StopRecordDialogArea").html("");			
+				});
+				
+				
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#StopRecordDialogArea" ).dialog( "close" );
+					$( "div#StopRecordDialogArea" ).dialog( "destroy" );
+					$( "div#StopRecordDialogArea").html("");
+				});			
+			});
+		}				
+	});
+	
 	
 	//点击增加链接处理，嵌入add.html
 	$("a#StopRecordAddLink").off().on("click",function(event){
@@ -111,8 +178,8 @@ $(function(){
 	
 	//点击修改按钮事件处理
 	$("a#StopRecordModifyLink").off().on("click",function(event){
-		console.log("stopstatus:"+stopstatus);
-		if(stopstatus!="处理中..."){
+		
+		if(status!="N"){
 			BootstrapDialog.show({
 				message:"已完成处理，无法修改！"
 			});
@@ -128,6 +195,7 @@ $(function(){
 			$("div#StopRecordDialogArea").load("fee/homestoprecord/modify.html",function(){
 				//取得居民停供记录
 				$.getJSON("http://127.0.0.1:8080/fee/homestoprecord/getById",{recordno:no},function(data){
+					
 					if(data.status=="OK"){
 						$("input[name='recordno']").val(no);
 						$("input[name='stopstatus']").val(data.model.stopstatus);
@@ -170,8 +238,13 @@ $(function(){
 	});
 	
 	//点击删除按钮事件处理
-	$("a#ReturnRecordDeleteLink").off().on("click",function(event){
-		
+	$("a#StopRecordDeleteLink").off().on("click",function(event){
+		if(status!="N"){
+			BootstrapDialog.show({
+				message:"已完成处理，无法修改！"
+			})
+			return;
+		}
 		if(no==-1){
 			BootstrapDialog.show({
 	            title: '记录操作信息',
@@ -182,12 +255,12 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.getJSON("http://127.0.0.1:8080/fee/homefeereturnrecord/delete",{recordno:no},function(result){
+					$.getJSON("http://127.0.0.1:8080/fee/homestoprecord/delete",{recordno:no},function(result){
 						if(result.status=="OK"){
 							getListInfo(); 
 						}
 						BootstrapDialog.show({
-							title: '记录操作信息',
+							title: '停供操作信息',
 							message:result.message
 						});
 					});

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +52,7 @@ public class HomeStopRecordController {
 		return new ResultMessage<HomeStopRecordModel>("OK", "添加居民报停记录成功！");
 	}
 
-	@RequestMapping("/modify")
+	@RequestMapping(value= {"/modify"}, method= {RequestMethod.POST,RequestMethod.GET})
 	public ResultMessage<HomeStopRecordModel> modifyHomeStopRecord(HomeStopRecordModel homeStopRecordModel) {
 
 		try {
@@ -70,9 +71,11 @@ public class HomeStopRecordController {
 			try {
 				homeStopRecordService.delete(homeStopRecordModel);
 			} catch (Exception e) {
+				e.printStackTrace();
 				return new ResultMessage<HomeStopRecordModel>("ERROR", "删除居民报停记录失败！");
 			}
 		} else {
+			
 			return new ResultMessage<HomeStopRecordModel>("ERROR", "居民报停记录不能为空！");
 		}
 		return new ResultMessage<HomeStopRecordModel>("OK", "删除居民报停记录成功！");
@@ -102,7 +105,8 @@ public class HomeStopRecordController {
 		if (recordno == -1) {
 			return new ResultMessage<HomeStopRecordModel>("ERROR", "查找Id不能为空");
 		}
-		try {		
+		try {
+			
 			homeStopRecordModel = homeStopRecordService.getByIdWithHomeFee(recordno);
 		} catch (Exception e) {
 			e.printStackTrace();

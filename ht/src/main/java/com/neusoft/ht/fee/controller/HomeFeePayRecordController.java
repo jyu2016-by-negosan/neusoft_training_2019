@@ -37,15 +37,13 @@ public class HomeFeePayRecordController {
 			 HomeFeeModel homeFeeModel = homeFeeService.getByNoWithHomeAndHeatingPrice(feeno);
 			if(homeFeeModel!=null) {
 				if(homeFeeModel.getDebtfee()!=0) {
-				
-						
+
 						PaymentTypeModel paymentType = new PaymentTypeModel();
 						paymentType.setTypeno(typeno);
 						payRecordModel.setHomeFeeModel(homeFeeModel);
 						payRecordModel.setPaymentTypeModel(paymentType);
 						housePayRecordService.add(payRecordModel);
-						
-				
+
 				}else {
 					return new ResultMessage<HomeFeePayRecordModel>("ERROR", "该住户不欠费！");
 				}

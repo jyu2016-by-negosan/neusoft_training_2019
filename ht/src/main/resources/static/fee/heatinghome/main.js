@@ -124,7 +124,7 @@ $(function(){
 
 				width:600
 			})
-					//验证添加的信息是否已合法
+			//验证添加的信息是否已合法
 			$("form#HeatingHomeAddForm").validate({
 				rules: {
 					heatingcode: {

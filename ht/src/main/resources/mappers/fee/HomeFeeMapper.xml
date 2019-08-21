@@ -20,6 +20,8 @@
 		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMapWithNeighbourHoodAndHouseType"/>
 		<association property="heatingprice" resultMap="com.neusoft.ht.fee.mapper.IHeatingPriceMapper.HeatingPriceRusultMap"/>
 	</resultMap>
+	
+
 
    <insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
 		insert into HT_HOMEFEE

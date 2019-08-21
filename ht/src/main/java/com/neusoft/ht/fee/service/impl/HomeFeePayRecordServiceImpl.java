@@ -37,6 +37,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()-payAmount);
 		}else {
 			homeFeeModel.setDebtfee(0);
+			homeFeeModel.setFeestatus("N");
 		}
 		homeFeeMapper.update(homeFeeModel);
 	}
@@ -71,6 +72,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 				}
 				else {
 					homeFeeModel.setDebtfee(0);
+					homeFeeModel.setFeestatus("N");
 				}
 				homeFeeMapper.update(homeFeeModel);
 			}

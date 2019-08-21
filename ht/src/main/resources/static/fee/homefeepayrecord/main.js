@@ -23,9 +23,15 @@ $(function(){
 				//显示列表
 				$("table#HomeFeePayRecordTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
+					var recordstatus = "";
+					if(data.list[i].recordstatus=="Y"){
+						recordstatus="正常";
+					}else{
+						recordstatus="失败";
+					}
 					var tr="<tr id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
 							+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
-									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+data.list[i].recordstatus+"</td></tr>";
+									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+recordstatus+"</td></tr>";
 									
 					$("table#HomeFeePayRecordTable tbody").append(tr);
 				}

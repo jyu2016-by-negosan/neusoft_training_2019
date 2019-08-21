@@ -1,1 +1,54 @@
-<h1>住宅停供记录管理主页</h1>
+<script type="text/javascript" src="fee/homestoprecord/main.js"></script>
+
+  
+<!-- Main row -->
+
+<div class="row">
+    <div class="col-lg-10 p-r-0 title-margin-right">
+		<div class="box">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-md-6"><h4 class="box-title">居民停供列表</h4></div>
+					<div class="col-md-6 text-right">
+						<a href="#" id="StopRecordAddLink" class="btn btn-info">增加</a> 
+					    <a href="#" id="StopRecordModifyLink" class="btn btn-info">修改</a>
+						<a href="#" id="StopRecordDeleteLink" class="btn btn-info">删除</a>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<table id="HomeFeeStopRecordTable" class="table table-bordered table-striped table-hover">
+				          <thead>
+				          <tr>
+				            <th>序号</th>
+				            <th>停供面积</th>
+				            <th>停供原因</th>
+				            <th>停供日期</th>
+				            <th>申请人</th>
+				            <th>处理状态</th>
+				            <th>备注</th>
+				          </tr>
+				          </thead>
+				          <tbody>
+				          </tbody>
+				          <tfoot>
+				          </tfoot>
+				</table>
+				<div class="row">
+				   <div class="col-md-6 text-left">
+				   停供记录总数:<span id="count"></span> 	页数:<span id="pagecount"></span>
+				   </div>
+				   <div class="col-md-6 text-right" id="page_nav">
+				   <a href="top" class="btn btn-info">首页</a> 
+				   <a href="pre" class="btn btn-info">上页</a>
+				   <a href="next" class="btn btn-info">下页</a>
+				   <a href="last" class="btn btn-info">末页</a>
+				   </div>
+				</div>
+			</div>
+		</div>
+     </div>
+</div>  
+<div  class="col-md-6 " id="StopRecordDialogArea">
+			    
+</div>

@@ -25,7 +25,7 @@
 		insert into HT_HOMEFEE
 		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC,FEESTATUS)
 		values 
-		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc},#{feestatus)
+		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc},#{feestatus})
   	</insert>
 
 	<update id="update" flushCache="true">

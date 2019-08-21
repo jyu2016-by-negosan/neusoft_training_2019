@@ -235,7 +235,7 @@ $(function(){
 			$("div#HeatingHomeDialogArea").load("fee/heatinghome/modify.html",function(){
 				$.getJSON(host+"fee/home/get",{homeno:homeno},function(data){
 					if(data.status=="OK"){
-					
+						
 						$("input[name='homeno']").val(homeno);
 						$("input[name='homename']").val(data.model.homename);
 						$("input[name='heatingcode']").val(data.model.heatingcode);

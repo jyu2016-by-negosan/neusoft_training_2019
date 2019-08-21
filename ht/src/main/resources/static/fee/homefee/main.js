@@ -271,4 +271,159 @@ $(function(){
 			});
 		}
 	});
-});
+
+	//==========点击增加链接处理，嵌入add.html===================
+	$("a#HomeFeeAddLink").off().on("click",function(event){
+		
+		//取得年份列表，填充下拉框
+		$.getJSON(host+"fee/heatingprice/list/all",function(heatingpriceList){
+			if(heatingpriceList){
+				$.each(heatingpriceList,function(index,heatingprice){
+					$("select#HeatingPriceSelection").append("<option value='"+heatingprice.heatingyear+ "'>"+heatingprice.heatingyear+"</option>");
+					
+				});
+			}
+		});
+		//取得居民列表，填充下拉框
+		$.getJSON(host+"fee/home/list/all",function(homeList){
+			if(homeList){
+				$.each(homeList,function(index,home){
+					$("select#HomeSelection").append("<option value='"+home.homeno+"'>"+home.homename+"</option>");
+					//alert(home.homeno);
+				});
+			}
+		});
+		$("div#HomeFeeDialogArea").load("fee/homefee/add.html",function(){
+			$("div#HomeFeeDialogArea" ).dialog({
+				title:"增加住宅供热记录信息",
+				width:600
+			})
+			
+			//验证添加的信息是否已合法
+			$("form#HomeFeeAddForm").validate({
+				rules:{
+					agreefee:{
+						required:true,
+						isFloatGteZero:true
+					},
+					actualfee:{
+						required:true
+					},
+					debtfee:{
+						required:true
+					},
+					feestatus:{
+						required:true
+					},
+				}				
+			})
+			
+			$("form#HomeFeeAddForm").ajaxForm(function(result){
+				if(result.status=="OK"){
+					reloadList();
+				}
+				BootstrapDialog.show({
+					title: '住宅供热记录操作信息',
+					message:result.message
+				});
+				$("div#HomeFeeDialogArea" ).dialog( "close" );
+				$("div#HomeFeeDialogArea" ).dialog( "destroy" );
+				$("div#HomeFeeDialogArea").html("");
+					
+			});
+				
+			//点击取消按钮处理
+			$("input[value='取消']").on("click",function(){
+				$( "div#HomeFeeDialogArea" ).dialog( "close" );
+				$( "div#HomeFeeDialogArea" ).dialog( "destroy" );
+				$("div#HomeFeeDialogArea").html("");
+			});	
+			
+		});
+	
+	});	
+	
+	//=================点击修改记录按钮事件处理======================
+	$("a#HomeFeeModifyLink").off().on("click",function(event){					
+		//取得年份列表，填充下拉框
+		$.getJSON(host+"fee/heatingprice/list/all",function(heatingpriceList){
+			if(heatingpriceList){
+				$.each(heatingpriceList,function(index,heatingprice){
+					$("select#HeatingPriceSelection").append("<option value='"+heatingprice.heatingyear+ "'>"+heatingprice.heatingyear+"</option>");
+					
+				});
+			}
+		});
+		//取得居民列表，填充下拉框
+		$.getJSON(host+"fee/home/list/all",function(homeList){
+			if(homeList){
+				$.each(homeList,function(index,home){
+					$("select#HomeSelection").append("<option value='"+home.homeno+"'>"+home.homename+"</option>");
+				});
+			}
+		});
+		
+		//定义表格行的点击事件，取得选择的编号
+		$("table#HomeFeeGrid tbody tr").on("click",function(){
+			feeno=$(this).attr("id");	
+		});
+			
+		if(feeno==0){
+			BootstrapDialog.show({
+
+	            title: '操作信息',
+	            message:"请选择要修改的记录"
+
+	        });
+		}
+		else {
+			$("div#HomeFeeDialogArea").load("fee/homefee/modify.html",function(){
+				$.getJSON(host+"fee/homefee/get",{feeno:feeno},function(data){
+					if(data.status=="OK"){
+					
+					}
+				});
+
+				$("div#HeatingHomeDialogArea" ).dialog({
+					title:"记录信息修改",
+					width:600
+				});
+				
+				//验证添加的信息是否已合法
+				$("form#HomeFeeModifyForm").validate({
+					rules: {
+					
+					},
+					messages:{
+							
+					}	
+				});			
+				
+				//拦截表单提交
+				$("form#HomeFeeModifyForm").ajaxForm(function(result){
+					
+					if(result.status=="OK"){
+						reloadList();
+					}
+	
+					BootstrapDialog.show({
+			            title: '操作信息',
+			            message:result.message
+			        });
+					$("div#HomeFeeDialogArea" ).dialog( "close" );
+					$("div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");
+					
+				});					
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$( "div#HomeFeeDialogArea" ).dialog( "close" );
+					$( "div#HomeFeeDialogArea" ).dialog( "destroy" );
+					$("div#HomeFeeDialogArea").html("");
+				});			
+			});
+		}				
+	});
+})
+
+	

@@ -25,9 +25,9 @@
 
    <insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
 		insert into HT_HOMEFEE
-		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC)
+		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC,FEESTATUS)
 		values 
-		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc})
+		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc},#{feestatus})
   	</insert>
 
 	<update id="update" flushCache="true">

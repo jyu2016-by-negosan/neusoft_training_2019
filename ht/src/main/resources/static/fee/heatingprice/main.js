@@ -198,15 +198,24 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除该年份么?', function(result){
 				if(result) {
-					$.post(host+"fee/heatingprice/delete",{heatingyear:year},function(result){
-						if(result.status=="OK"){
-							reloadList(); 
+					$.get(host+"fee/heatingprice/get",{heatingyear:year},function(result){
+						if(!result.model.homeprice&&!result.model.publichouseprice){
+							$.post(host+"fee/heatingprice/delete",{heatingyear:year},function(result){
+								if(result.status=="OK"){
+									reloadList(); 
+								}
+								BootstrapDialog.show({
+									title: '年度供热价格操作信息',
+									message:result.message
+								});
+							});
 						}
 						BootstrapDialog.show({
 							title: '年度供热价格操作信息',
-							message:result.message
+							message:"不能删除有价格信息的年份！"
 						});
 					});
+					
 				}
 			});
 				

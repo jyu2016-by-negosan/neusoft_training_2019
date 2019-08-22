@@ -27,4 +27,6 @@ public interface IPublicHouseFeeService {
 	
 	//取得列表对象个数
 	public int getCountByAll() throws Exception;
+	//取得对象页数
+	public int getCountPageByAll(int rows) throws Exception;
 }

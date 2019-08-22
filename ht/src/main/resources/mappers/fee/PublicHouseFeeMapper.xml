@@ -20,6 +20,8 @@
 	<!-- 无关联属性的结果映射 -->
 	<resultMap id = "PublicHouseFeeResultMap" type = "PublicHouseFee">
 		<id property = "feeno" column = "FeeNo" />
+		<result property = "houseno" column = "HouseNo" />
+		<result property = "heatingyear" column = "HeatingYear" />
 		<result property = "agreefee" column = "AgreeFee" />
 		<result property = "actualfee" column = "ActualFee" />
 		<result property = "debtfee" column = "DebtFee" />
@@ -29,22 +31,25 @@
 	
 	<insert id = "insert" keyProperty = "feeno" keyColumn = "FeeNo" useGeneratedKeys = "true" flushCache = "true">
 		insert into HT_PublicHouseFee (
-			FeeNo, HeatArea, AgreeFee, ActualFee, 
-			DebtFee, FeeDesc, FeeStatus, heatingdays 
+			FeeNo, HouseNo, HeatingYear, AgreeFee, 
+			ActualFee, DebtFee, FeeDesc, FeeStatus
 		) value (
-			#{feeno}, #{heatarea}, #{agreefee}, #{actualfee}, 
-			#{debtfee}, #{feedesc}, #{feestatus}, #{heatingdays} 
+			#{feeno}, #{houseno}, #{heatingyear}, #{agreefee}, 
+			#{actualfee}, #{debtfee}, #{feedesc}, #{feestatus} 
 		)
 	</insert>
 	
 	<update id = "update" flushCache = "true">
 		update HT_PublicHouseFee 
 		<set>
-			<if test = "AgreeFee != null">AgreeFee = #{agreefee}, </if>
-			<if test = "ActualFee != null">ActualFee = #{actualfee}, </if>
-			<if test = "DebtFee != null">DebtFee = #{debtfee}, </if>
-			<if test = "FeeDesc != null">FeeDesc = #{feedesc}, </if>
-			<if test = "FeeStatus != null">FeeStatus = #{feestatus}, </if>
+			<if test = "feeno != null">FeeNo = #{feeno}, </if>
+			<if test = "houseno != null">HouseNo = #{houseno}, </if>
+			<if test = "heatingyear != null">HeatingYear = #{heatingyear}, </if>
+			<if test = "agreefee != null">AgreeFee = #{agreefee}, </if>
+			<if test = "actualfee != null">ActualFee = #{actualfee}, </if>
+			<if test = "debtfee != null">DebtFee = #{debtfee}, </if>
+			<if test = "feedesc != null">FeeDesc = #{feedesc}, </if>
+			<if test = "feestatus != null">FeeStatus = #{feestatus}</if>
 		</set> 
 		where 
 			FeeNo = #{feeno}

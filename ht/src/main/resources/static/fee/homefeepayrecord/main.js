@@ -138,7 +138,7 @@ $(function(){
 				
 				$("div#PayRecordDialogArea" ).dialog({
 					title:"居民缴费记录修改",
-					width:600
+					width:300
 				});
 				//拦截表单提交
 				$("form#HomeFeePayRecordModifyForm").ajaxForm(function(result){

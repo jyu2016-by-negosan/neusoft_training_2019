@@ -33,23 +33,20 @@ public class HomeFeePayRecordController {
 	private IHomeFeeService homeFeeService;
 	// 增加住宅缴费记录
 	@PostMapping("/add")
-	public ResultMessage<HomeFeePayRecordModel> addPayRecord(HomeFeePayRecordModel payRecordModel, int feeno,int typeno) {
+	public ResultMessage<HomeFeePayRecordModel> addPayRecord(HomeFeePayRecordModel payRecordModel) {
+	    
 		try { 
-			 HomeFeeModel homeFeeModel = homeFeeService.getByNoWithHomeAndHeatingPrice(feeno);
+			 HomeFeeModel homeFeeModel = homeFeeService.getByNoWithHomeAndHeatingPrice(payRecordModel.getHomeFeeModel().getFeeno());
 			if(homeFeeModel!=null) {
 				if(homeFeeModel.getDebtfee()!=0) {
 
-						PaymentTypeModel paymentType = new PaymentTypeModel();
-						paymentType.setTypeno(typeno);
 						payRecordModel.setHomeFeeModel(homeFeeModel);
-						payRecordModel.setPaymentTypeModel(paymentType);
 						housePayRecordService.add(payRecordModel);
 
 				}else {
 					return new ResultMessage<HomeFeePayRecordModel>("ERROR", "该住户不欠费！");
 				}
 			}else {
-				
 				return new ResultMessage<HomeFeePayRecordModel>("ERROR", "缴费序号不存在！");
 			}
 			
@@ -65,8 +62,7 @@ public class HomeFeePayRecordController {
 	@RequestMapping(value= {"/delete"},method= {RequestMethod.POST,RequestMethod.GET})
 	public ResultMessage<HomeFeePayRecordModel> deletePayRecord(HomeFeePayRecordModel payRecordModel) {
 		if (payRecordModel != null) {
-			try {
-			
+			try {	
 				housePayRecordService.delete(payRecordModel);
 			} catch (Exception e) {
 				e.printStackTrace();

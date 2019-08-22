@@ -41,7 +41,7 @@ $(function(){
 				//定义表格行的点击时间，取得选择的退费记录ID
 				$("table#HomeFeeStopRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
-					stopstatus = $("td#stopstatus").val();
+					stopstatus = $("tr#stopstatus").val();
 					$("table#HomeFeeStopRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#6495ED");
 				});

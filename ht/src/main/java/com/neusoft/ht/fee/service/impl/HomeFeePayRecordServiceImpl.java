@@ -38,6 +38,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
 		homeFeeModel.setActualfee(homeFeeModel.getActualfee() + payAmount);
 		if (homeFeeModel.getDebtfee() - payAmount > 0) {
 			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee() - payAmount);
+			homeFeeModel.setFeestatus("N");
 		} else {
 			homeFeeModel.setDebtfee(0);
 			homeFeeModel.setFeestatus("Y");
@@ -54,7 +55,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
 		HomeFeeModel homeFeeModel = homeFeeMapper
 				.selectByNoWithHomeAndHeatingPrice(feeno);
 		if (homeFeeModel.getDebtfee() == 0) {
-			homeFeeModel.setFeestatus("N");
+			homeFeeModel.setFeestatus("Y");
 		}
 		
 		homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+homeFeeModel.getActualfee()-homeFeeModel.getAgreefee());
@@ -89,7 +90,7 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
 					homeFeeModel.setDebtfee(homeFeeModel.getDebtfee() - error);
 				} else {
 					homeFeeModel.setDebtfee(0);
-					homeFeeModel.setFeestatus("Y");
+					homeFeeModel.setFeestatus("N");
 					System.out.println(homeFeeModel.getFeestatus());
 				}
 				homeFeeMapper.update(homeFeeModel);

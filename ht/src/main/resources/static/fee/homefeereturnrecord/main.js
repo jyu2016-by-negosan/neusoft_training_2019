@@ -12,7 +12,7 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080"
-	
+	var recordstatus = "";
 
 	function getListInfo(){
 		//取得列表，分页模式
@@ -24,8 +24,7 @@ $(function(){
 				//显示列表
 				$("table#HomeFeeReturnRecordTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
-					var recordstatus = "";
-					if(data.list[i].recordstatus=="Y"){
+					if(data.list[i].recordstatus="N"){
 						recordstatus="正常";
 					}else{
 						recordstatus="失败";

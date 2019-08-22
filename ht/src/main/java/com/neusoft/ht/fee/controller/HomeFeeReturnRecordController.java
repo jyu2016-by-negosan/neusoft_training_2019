@@ -28,9 +28,13 @@ public class HomeFeeReturnRecordController {
 	@PostMapping("/add")
 	public ResultMessage<HomeFeeReturnRecordModel> addHomeFeeReturnRecord(
 			HomeFeeReturnRecordModel homeFeeReturnRecordModel,int feeno) {
+		
 		if (homeFeeReturnRecordModel != null) {
 			try {
 				HomeFeeModel homeFeeModel = homeFeeService.getByNoWithHomeAndHeatingPrice(feeno);
+				if(homeFeeReturnRecordModel.getAmount()==0) {
+					return new ResultMessage<HomeFeeReturnRecordModel>("ERROR","退款金额不可为0！");
+				}
 				if(homeFeeReturnRecordModel.getAmount()>(homeFeeModel.getActualfee()-homeFeeModel.getAgreefee())) {
 					return new ResultMessage<HomeFeeReturnRecordModel>("ERROR","退款金额不得大于可退费金额");
 				}

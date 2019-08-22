@@ -39,7 +39,7 @@ $(function(){
 				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
-					$(this).css("background-color","#6495ED");
+					$(this).css("background-color","#d6d0d08c");
 				});
 		 });
 			
@@ -80,10 +80,7 @@ $(function(){
 	//点击增加链接处理，嵌入add.html
 	$("a#PayRecordAddLink").off().on("click",function(event){
 		$("div#PayRecordDialogArea").load("fee/homefeepayrecord/add.html",function(){
-			$("div#PayRecordDialogArea" ).dialog({
-				title:"增加居民缴费记录",
-				width:400
-			});
+			
 			$.getJSON(host+"/fee/paymenttype/list/all",function(PayTypeList){
 				if(PayTypeList){
 					$.each(PayTypeList,function(index,payType){
@@ -91,6 +88,11 @@ $(function(){
 					})
 				}
 			})
+			
+			$("div#PayRecordDialogArea" ).dialog({
+				title:"增加居民缴费记录",
+				width:300
+			});
 			$("form#HomeFeePayRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					getListInfo(); 

@@ -26,6 +26,9 @@ public interface IHomeFeeReturnRecordMapper {
 	//根据Id查找居民退费记录
 	public HomeFeeReturnRecordModel selectById(int recordno);
 	
+	//根据Id查找退费记录包含关联的HomeFeeModel
+	public HomeFeeReturnRecordModel selectByIdWithHomeFee(int recordno);
+	
 	//查找所有居民退费记录
 	public List<HomeFeeReturnRecordModel> selectAllByList();
 	

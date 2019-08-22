@@ -35,17 +35,15 @@
 	</resultMap>
 
 	<!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
-	<resultMap id="PublicHouseComplainResultMapWithComplainType"
+	<resultMap
+		id="PublicHouseComplainResultMapWithComplainTypeAndHouse"
 		type="HouseComplain" extends="PublicHouseComplainResultMap">
 		<association property="complaintype"
 			resultMap="com.neusoft.ht.complain.mapper.IComplainTypeMapper.ComplainTypeResultMap" />
+		<association property="house"
+			resultMap="com.neusoft.ht.fee.mapper.IPublicHouseMapper.PublicHouseResultMapWithNeighbourhood" />
 	</resultMap>
 
-	<resultMap id="HouseComplainResultMapWithPublicHouse"
-		type="HouseComplain" extends="PublicHouseComplainResultMap">
-		<association property="house"
-			resultMap="com.neusoft.ht.fee.mapper.IPublicHouseMapper.PublicHouseResultMap" />
-	</resultMap>
 
 	<insert id="create" keyProperty="complainno"
 		keyColumn="ComplainNo" useGeneratedKeys="true" flushCache="true">
@@ -113,4 +111,110 @@
 		ht_publichousecomplain where
 		ComplainNo=#{complainno}
 	</select>
+
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select
+		IFNULL(count(ComplainNo), 0) from ht_publichousecomplain
+	</select>
+
+	<select id="selectListByAllWithPage"
+		resultMap="PublicHouseComplainResultMap">
+		select * from ht_publichousecomplain limit #{start},#{end}
+	</select>
+
+	<!-- 取得特定公建投诉记录，取关联的投诉类型表和公建表 -->
+	<select id="selectByNoWithHouseAndComplainType"
+		resultMap="PublicHouseComplainResultMapWithComplainTypeAndHouse">
+		select a.complaintitle,b.housename,c.typename,d.hoodname
+		from ht_PublicHouseComplain a
+		inner join ht_publichouse b on
+		a.houseno=b.houseno
+		inner join ht_complaintype c on a.typeno=c.typeno
+		inner join
+		(select house.HOUSENO,neighbourhood.HOODNAME
+		from
+		ht_PublicHouse house
+		inner join ht_Neighbourhood neighbourhood on
+		house.HOODNO=neighbourhood.HOODNO ) d on a.HOUSENO=d.HOUSENO
+		where
+		ComplainNo=#{complainno};
+	</select>
+
+	<select
+		id="selectListByConditionWithHouseAndComplainTypeWithPage"
+		resultMap="PublicHouseComplainResultMapWithComplainTypeAndHouse">
+		select a.*,b.housename,c.typename,d.hoodname
+		from
+		ht_PublicHouseComplain a
+		inner join ht_publichouse b on
+		a.houseno=b.houseno
+		inner join ht_complaintype c on a.typeno=c.typeno
+		inner join
+		(select house.HOUSENO,neighbourhood.HOODNAME
+		from
+		ht_PublicHouse house
+		inner join ht_Neighbourhood neighbourhood on
+		house.HOODNO=neighbourhood.HOODNO ) d on a.HOUSENO=d.HOUSENO
+		<where>
+			<if test="complainstatus !=null and complainstatus!=''">
+				and a.ComplainStatus=#{complainstatus}
+			</if>
+			<if test="hoodno!=0">
+				and a.HouseNo in
+				(select HouseNo from ht_PublicHouse where
+				HoodNo=#{hoodno})
+			</if>
+			<if test="housename !=null and housename!=''">
+				and b.HouseName=#{housename}
+			</if>
+			<if test="typename!=null and typename!=''">
+				and c.TypeName=#{typename}
+			</if>
+		</where>
+		limit #{start},#{rows}
+	</select>
+
+	<select id="selectCountByAllWithHouseAndComplainTypeWithPage"
+		resultType="int">
+		select IFNULL(count(e.complainno),0)
+		from
+		(select
+		a.*,b.housename,c.typename,d.hoodname
+		from
+		ht_PublicHouseComplain a
+		inner join ht_publichouse b on
+		a.houseno=b.houseno
+		inner join
+		ht_complaintype c on a.typeno=c.typeno
+		inner join
+		(select
+		house.HOUSENO,neighbourhood.HOODNAME
+		from
+		ht_PublicHouse house
+		inner join
+		ht_Neighbourhood neighbourhood on
+		house.HOODNO=neighbourhood.HOODNO ) d
+		on a.HOUSENO=d.HOUSENO
+		<where>
+			<if test="complainstatus !=null and complainstatus!=''">
+				and a.ComplainStatus=#{complainstatus}
+			</if>
+			<if test="hoodno!=0">
+				and a.HouseNo in
+				(select HouseNo from ht_PublicHouse where
+				HoodNo=#{hoodno})
+			</if>
+			<if test="housename !=null and housename!=''">
+				and b.HouseName=#{housename}
+			</if>
+			<if test="typename!=null and typename!=''">
+				and c.TypeName=#{typename}
+			</if>
+
+		</where>
+		) e
+	</select>
+
+
 </mapper>

@@ -18,14 +18,21 @@
     <result property="stopstatus" column="stopstatus"/>
   </resultMap>
   
+  <resultMap id="HomeStopRecordWithHomeFeeResultMap" type="HomeStopRecord" extends="HomeStopRecordResultMap">
+  	<association property="homeFeeModel" resultMap="com.neusoft.ht.fee.mapper.IHomeFeeMapper.HomeFeeResultMapWithHomeAndHeatingPrice">
+  	</association>
+  </resultMap>
+  
   <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
-  		insert into HT_HomeStopRecord (recordno,stoparea,stopdate,stopreason,
-  		stopperson,stopdesc,stopstatus) values(#{recordno},#{stopdate},#{stoparea},#{stopreason},
-  		#{stopperson},#{stopdesc},#{stopstatus})	
+  		insert into HT_HomeStopRecord (recordno,feeno,stoparea,stopdate,stopreason,
+  		stopperson,stopdesc) values(#{recordno},#{homeFeeModel.feeno},#{stoparea},#{stopdate},#{stopreason},
+  		#{stopperson},#{stopdesc})	
   </insert>
   
+ 
+  
   <delete id="delete">
-  	delete from HT_HomeStopRecord recordno=#{recordno}
+  	delete from HT_HomeStopRecord where recordno=#{recordno}
   </delete>
 
   <update id="update">
@@ -34,7 +41,7 @@
   	<if test="stopdate!=null">stopdate=#{stopdate},</if>
   	<if test="stopreason!=null">stopreason=#{stopreason},</if>
   	<if test="stopperson!=null">stopperson=#{stopperson},</if>
-  	<if test="stopdesc!=null">stopdesc=#{stodesc},</if>
+  	<if test="stopdesc!=null">stopdesc=#{stopdesc},</if>
   	<if test="stopstatus!=null">stopstatus=#{stopstatus}</if>
 	</set>
 	where recordno = #{recordno}
@@ -44,11 +51,18 @@
   	select * from HT_HomeStopRecord where recordno=#{recordno}
   </select>
   
+  <select id="selectByIdWithHomeFee" resultMap="HomeStopRecordWithHomeFeeResultMap">
+  	select a.*,b.*,c.heatingstatus from HT_HomeStopRecord a 
+  	inner join HT_HOMEFEE b on a.feeno=b.feeno
+  	inner join HT_HOME c on b.homeno=c.homeno
+  	where recordno = #{recordno}
+  </select>
+  
   <select id="selectAllByList" resultMap="HomeStopRecordResultMap">
   	select * from HT_HomeStopRecord 
   </select>
   
-   <select id="selectAllByListWithPages" resultMap="HomeStopRecordResultMap">
+   <select id="selectAllByListWithPages" resultMap="HomeStopRecordResultMap" >
   	select * from HT_HomeStopRecord limit #{start},#{rows}
   </select>
   

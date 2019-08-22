@@ -12,16 +12,17 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080"
+	
 
 	function getListInfo(){
 		//取得列表，分页模式
-		$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getAllByListWithPage",{page:page,rows:rows},function(data){
+		$.getJSON("http://127.0.0.1:8080/fee/homefeereturnrecord/getAllByListWithPages",{page:page,rows:rows},function(data){
 				//显示居民缴费总条数和页数
 				$("span#count").html(data.count);
 				$("span#pagecount").html(page+"/"+data.pageCount);
 				pageCount=data.pageCount;
 				//显示列表
-				$("table#HomeFeePayRecordTable tbody").html("");
+				$("table#HomeFeeReturnRecordTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
 					var recordstatus = "";
 					if(data.list[i].recordstatus=="Y"){
@@ -30,15 +31,15 @@ $(function(){
 						recordstatus="失败";
 					}
 					var tr="<tr id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
-							+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
-									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+recordstatus+"</td></tr>";
+							+"</td><td>"+data.list[i].amount+"</td><td>"+data.list[i].returndate+"</td><td>" +data.list[i].person+"</td><td>"
+									+data.list[i].invoicecode+"</td><td>" +data.list[i].recorddesc+"</td><td>"+recordstatus+"</td></tr>";
 									
-					$("table#HomeFeePayRecordTable tbody").append(tr);
+					$("table#HomeFeeReturnRecordTable tbody").append(tr);
 				}
-				//定义表格行的点击时间，取得选择的缴费记录ID
-				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
+				//定义表格行的点击时间，取得选择的退费记录ID
+				$("table#HomeFeeReturnRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
-					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
+					$("table#HomeFeeReturnRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#6495ED");
 				});
 		 });
@@ -78,10 +79,10 @@ $(function(){
 	
 	
 	//点击增加链接处理，嵌入add.html
-	$("a#PayRecordAddLink").off().on("click",function(event){
-		$("div#PayRecordDialogArea").load("fee/homefeepayrecord/add.html",function(){
-			$("div#PayRecordDialogArea" ).dialog({
-				title:"增加居民缴费记录",
+	$("a#ReturnRecordAddLink").off().on("click",function(event){
+		$("div#ReturnRecordDialogArea").load("fee/homefeereturnrecord/add.html",function(){
+			$("div#ReturnRecordDialogArea" ).dialog({
+				title:"增加居民退款记录",
 				width:400
 			});
 			$.getJSON(host+"/fee/paymenttype/list/all",function(PayTypeList){
@@ -91,21 +92,24 @@ $(function(){
 					})
 				}
 			})
-			$("form#HomeFeePayRecordAddForm").ajaxForm(function(result){
+
+			$("form#HomeFeeReturnRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					getListInfo(); 
 				}
 				BootstrapDialog.show({
-		            title: '缴费操作信息',
+		            title: '退款操作信息',
 		            message:result.message
 		        });
-				$("div#PayRecordDialogArea" ).dialog( "close" );
-				$("div#PayRecordDialogArea" ).dialog( "destroy" );
-				$("div#PayRecordDialogArea").html("");
+				$("div#ReturnRecordDialogArea" ).dialog( "close" );
+				$("div#ReturnRecordDialogArea" ).dialog( "destroy" );
+				$("div#ReturnRecordDialogArea").html("");
 				
 			});
 		});
 	});
+	
+	
 	
 	//点击修改按钮事件处理
 	$("a#PayRecordModifyLink").off().on("click",function(event){
@@ -167,7 +171,7 @@ $(function(){
 	});
 	
 	//点击删除按钮事件处理
-	$("a#PayRecordDeleteLink").off().on("click",function(event){
+	$("a#ReturnRecordDeleteLink").off().on("click",function(event){
 		
 		if(no==-1){
 			BootstrapDialog.show({
@@ -179,7 +183,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no},function(result){
+					$.getJSON("http://127.0.0.1:8080/fee/homefeereturnrecord/delete",{recordno:no},function(result){
 						if(result.status=="OK"){
 							getListInfo(); 
 						}

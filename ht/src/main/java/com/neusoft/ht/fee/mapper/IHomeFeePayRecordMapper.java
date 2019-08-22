@@ -32,6 +32,15 @@ public interface IHomeFeePayRecordMapper {
 	//查找所有住宅缴费记录（分页）
 	public List<HomeFeePayRecordModel> selectAllByListWithPage(@Param("start")int start,@Param("rows")int rows);
 	
+	//查找关联的供热记录
+	public List<HomeFeePayRecordModel> selectAllByListWithHomeFee();
+	
+	//查找feeno
+	public int selectByIdWithFeeno(HomeFeePayRecordModel payRecordModel);
+	
+	//查找缴费记录
+	public HomeFeePayRecordModel selectByIdWithHomeFee(int recordno);
+	
 	//查找缴费记录总条数
 	public int selectAllCount();
 }

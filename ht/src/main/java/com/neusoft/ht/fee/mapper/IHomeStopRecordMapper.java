@@ -27,6 +27,9 @@ public interface IHomeStopRecordMapper {
 
 	// 根据Id查找居民报停记录
 	public HomeStopRecordModel selectById(int recordno);
+	
+	//查找关联HomeFee
+	public HomeStopRecordModel selectByIdWithHomeFee(int recordno);
 
 	// 查找所有居民退费记录
 	public List<HomeStopRecordModel> selectAllByList();

@@ -34,17 +34,14 @@
 	</resultMap>
 
 	<!-- 使用内嵌式ResultMap的关联模块的结果映射 -->
-	<resultMap id="HomeComplainResultMapWithComplainType"
+	<resultMap id="HomeComplainResultMapWithComplainTypeAndHome"
 		type="HomeComplain" extends="HomeComplainResultMap">
-		<association property="complaintypes"
+		<association property="complaintype"
 			resultMap="com.neusoft.ht.complain.mapper.IComplainTypeMapper.ComplainTypeResultMap" />
+		<association property="home"
+			resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMapWithNeighbourHoodAndHouseType" />
 	</resultMap>
 
-	<resultMap id="HomeComplainResultMapWithHome"
-		type="HomeComplain" extends="HomeComplainResultMap">
-		<association property="homes"
-			resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMap" />
-	</resultMap>
 
 	<insert id="create" keyProperty="complainno"
 		keyColumn="ComplainNo" useGeneratedKeys="true" flushCache="true">
@@ -98,6 +95,12 @@
 		where ComplainNo=#{complainno}
 	</update>
 
+	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select
+		IFNULL(count(ComplainNo), 0) from ht_homecomplain
+	</select>
+
 	<!-- 无关联查询 -->
 	<select id="selectHomeComplainModelByAll"
 		resultMap="HomeComplainResultMap">
@@ -112,4 +115,27 @@
 		select * from
 		ht_homecomplain where ComplainNo=#{complainno}
 	</select>
+
+	<select id="selectListByAllWithPage"
+		resultMap="HomeComplainResultMap">
+		select * from ht_homecomplain limit #{start},#{end}
+	</select>
+	
+		<!-- 取得特定公建投诉记录，取关联的投诉类型表和公建表 -->
+	<select id="selectByNoWithHomeAndComplainType" resultMap="HomeComplainResultMapWithComplainTypeAndHome">
+		select a.complaintitle,b.typename,c.homename,c.heatingcode,d.hoodname,e.typename from ht_HomeComplain a 
+	  	inner join ht_ComplainType b on a.TYPENO=b.TYPENO
+	  	inner join ht_Home c on a.HOMENO=c.HOMENO
+	  	inner join 
+	  	(select home.HOMENO,neighbourhood.hoodname
+	  	 from ht_Home home
+	  	 inner join ht_Neighbourhood neighbourhood on home.HOODNO=neighbourhood.HOODNO ) d on a.HOMENO=d.HOMENO
+	  	inner join
+	  	(select home.HOMENO,housetype.typename
+	  	from ht_Home home
+	  	inner join ht_housetype housetype on home.HOUSETYPENO=housetype.TYPENO) e on a.HOMENO=e.HOMENO
+	  	where COMPLAINNO=#{complainno};
+	</select>
+
+
 </mapper>

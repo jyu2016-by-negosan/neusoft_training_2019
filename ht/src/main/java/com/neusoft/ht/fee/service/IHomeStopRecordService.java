@@ -14,20 +14,23 @@ import com.neusoft.ht.fee.model.HomeStopRecordModel;
  */
 public interface IHomeStopRecordService {
 	// 增加居民报停表
-	public void add(HomeStopRecordModel homeStopRecordModel);
+	public void add(HomeStopRecordModel homeStopRecordModel) throws Exception;
 
 	// 删除居民报停表
-	public void delete(HomeStopRecordModel homeStopRecordModel);
+	public void delete(HomeStopRecordModel homeStopRecordModel)throws Exception;
 
 	// 更新居民报停表
-	public void modify(HomeStopRecordModel homeStopRecordModel);
+	public void modify(HomeStopRecordModel homeStopRecordModel)throws Exception;
 
 	// 根据Id查找居民报停记录
-	public HomeStopRecordModel getById(int recordno);
+	public HomeStopRecordModel getById(int recordno)throws Exception;
+	
+	//查找关联HomeFee
+	public HomeStopRecordModel getByIdWithHomeFee(int recordno);
 
 	// 查找所有居民退费记录
-	public List<HomeStopRecordModel> getAllByList();
+	public List<HomeStopRecordModel> getAllByList()throws Exception;
 
 	// 分页查找居民退费记录
-	public List<HomeStopRecordModel> getAllByListWithPages(int rows, int page);
+	public List<HomeStopRecordModel> getAllByListWithPages(int rows, int page)throws Exception;
 }

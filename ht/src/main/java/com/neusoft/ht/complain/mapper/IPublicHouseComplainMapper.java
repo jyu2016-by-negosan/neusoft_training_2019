@@ -29,11 +29,20 @@ public interface IPublicHouseComplainMapper {
 	public List<PublicHouseComplainModel> selectHouseComplainModelByAll() throws Exception;
 
 	// 查2
-	public PublicHouseComplainModel selectHouseComplainModelByComplainNo(long complainNo) throws Exception;
+	public PublicHouseComplainModel selectHouseComplainModelByComplainNo(int complainno) throws Exception;
 
-	
 	public int selectCountByAll() throws Exception;
 
-	
-	public List<PublicHouseComplainModel> selectListByAllWithPage(@Param("start")int start,@Param("end")int end) throws Exception;
+	public int selectCountByAllWithHouseAndComplainTypeWithPage(@Param("status") String complainstatus,
+			@Param("hoodno") int hoodno, @Param("hname") String housename, @Param("tname") String typename)
+			throws Exception;
+
+	public List<PublicHouseComplainModel> selectListByConditionWithHouseAndComplainTypeWithPage(
+			@Param("status") String complainstatus, @Param("hoodno") int hoodno, @Param("hname") String housename,
+			@Param("tname") String typename, @Param("start") int start, @Param("end") int end) throws Exception;
+
+	public PublicHouseComplainModel selectByNoWithHouseAndComplainType(int complainno) throws Exception;
+
+	public List<PublicHouseComplainModel> selectListByAllWithPage(@Param("start") int start, @Param("end") int end);
+
 }

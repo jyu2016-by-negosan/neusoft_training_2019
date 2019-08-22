@@ -25,4 +25,10 @@ $.validator.addMethod("isInteger", function(value, element) {
 
 
 
+$.validator.addMethod("isFloatGteZero", function(value, element) { 
+         value=parseFloat(value);      
+         return this.optional(element) || value>=0;       
+ }, "必须大于或等于0");
+
+
 

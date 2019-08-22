@@ -20,9 +20,17 @@
 	<result property="recordstatus" column="RecordStatus"/>
   </resultMap>
   
+  <resultMap id="HomePayRecordWithHomeFeeAndPaymentTypeByResultMap" extends="HomePayRecordResultMap" type="HomeFeePayRecord">
+	<association property="homeFeeModel" resultMap="com.neusoft.ht.fee.mapper.IHomeFeeMapper.HomeFeeResultMap"/>
+	<association property="paymentTypeModel" resultMap="com.neusoft.ht.fee.mapper.IPaymentTypeMapper.PaymentTypeResultMap"/>
+  </resultMap>
+  
+ 
+ 
+
   <insert id="insert" keyProperty="recordno" keyColumn="RecordNo" useGeneratedKeys="true">
-  	insert into ht_homefeepayrecord (recordno,payamount,paydate,checkcode,payperson,invoicecode,paydesc,recordstatus)
-  	values(#{recordno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc},#{recordstatus})
+  	insert into ht_homefeepayrecord (recordno,feeno,paymenttypeno,payamount,paydate,checkcode,payperson,invoicecode,paydesc,recordstatus)
+  	values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc},#{recordstatus})
   </insert>
   
   <delete id="delete">
@@ -47,6 +55,10 @@
  	select * from ht_homefeepayrecord where recordNo=#{recordno}
  </select>
  
+ <select id="selectByIdWithFeeno" resultType="int">
+ 	select feeno from ht_homefeepayrecord where recordno = #{recordno}
+ </select>
+ 
  <select id="selectAllByList" resultMap="HomePayRecordResultMap">
  	select * from ht_homefeepayrecord
  </select>
@@ -59,5 +71,9 @@
  	select  IFNULL(count(recordno),0) from ht_homefeepayrecord
  </select>
  
+
+ 
+ 
+
 
 </mapper>

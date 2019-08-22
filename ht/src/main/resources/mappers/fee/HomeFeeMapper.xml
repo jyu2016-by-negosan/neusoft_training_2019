@@ -20,17 +20,23 @@
 		<association property="home" resultMap="com.neusoft.ht.fee.mapper.IHomeMapper.HomeResultMapWithNeighbourHoodAndHouseType"/>
 		<association property="heatingprice" resultMap="com.neusoft.ht.fee.mapper.IHeatingPriceMapper.HeatingPriceRusultMap"/>
 	</resultMap>
+	
 
-	<insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
+
+   <insert id="insert"  parameterType="HomeFee" keyProperty="feeno"  keyColumn="FEENO" useGeneratedKeys="true" flushCache="true" >
 		insert into HT_HOMEFEE
-		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC)
+		(HOMENO,HEATINGYEAR,AGREEFEE,ACTUALFEE,DEBTFEE,FEEDESC,FEESTATUS)
 		values 
-		(#{homeno},#{heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc})
+		(#{home.homeno},#{heatingprice.heatingyear},#{agreefee},#{actualfee},#{debtfee},#{feedesc},#{feestatus})
   	</insert>
 
 	<update id="update" flushCache="true">
 		update HT_HOMEFEE 
-		set HOMENO=#{homeno},HEATINGYEAR=#{heatingyear},AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
+		<set> 
+		<if test="home.homeno!=0">HOMENO=#{home.homeno},</if>
+		<if test="heatingprice.heatingyear!=null and heatingprice.heatingyear!=''">HEATINGYEAR=#{heatingprice.heatingyear},</if>	
+		AGREEFEE=#{agreefee},ACTUALFEE=#{actualfee},DEBTFEE=#{debtfee},FEEDESC=#{feedesc},FEESTATUS=#{feestatus}
+		</set>
 		where FEENO=#{feeno}
 	</update>
   
@@ -84,6 +90,7 @@
 	  </where>
 	    limit #{start},#{rows}
 	</select>
+	
 	<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   	<select id="selectCountByAllWithHomeAndHeatingPriceWithPage" resultType="int" >
    		select IFNULL(count(e.FEENO), 0) 

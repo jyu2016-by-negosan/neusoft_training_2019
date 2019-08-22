@@ -19,11 +19,18 @@
     <result property="recordstatus" column="recordstatus"/>
   </resultMap>
   
+  <resultMap id="selectByIdWithHomeFee" type="HomeFeeReturnRecord" extends="HomeFeeReturnRecordResultMap">
+  	<association property="homeFeeModel" resultMap="com.neusoft.ht.fee.mapper.IHomeFeeMapper.HomeFeeResultMap">
+  	</association>
+  </resultMap>
+  
   <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
-  		insert into HT_HomeFeeReturnRecord (recordno,amount,returndate,person,
-  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{amount},#{returndate},
+  		insert into HT_HomeFeeReturnRecord (recordno,feeno,paymentTypeno,amount,returndate,person,
+  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{amount},#{returndate},
   		#{person},#{checkcode},#{invoicecode},#{recorddesc},#{recordstatus})
   </insert>
+  
+  
   
   <delete id="delete">
   		delete from HT_HomeFeeReturnRecord where recordno=#{recordno}
@@ -55,6 +62,11 @@
 	select * from HT_HomeFeeReturnRecord limit #{start},#{rows}
    </select>
   
+  <select id="selectByIdWithHomeFee" resultMap="selectByIdWithHomeFee">
+  	select a.*,b.* from HT_HomeFeeReturnRecord a 
+  	inner join HT_HomeFee b on a.feeno=b.feeno
+  	where recordno = #{recordno}
+  </select>
   
   
 </mapper>

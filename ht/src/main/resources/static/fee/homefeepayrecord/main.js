@@ -11,6 +11,7 @@ $(function(){
 	var pageCount=0;  //缴费总页数
 	var no =-1;
 	var recordno =-1;
+	var feeno =0;
 	var host = "http://127.0.0.1:8080"
 	var amount = 0;
 	function getListInfo(){
@@ -29,7 +30,7 @@ $(function(){
 					}else{
 						recordstatus="失败";
 					}
-					var tr="<tr data-amount='"+data.list[i].payamount+"' id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
+					var tr="<tr data-feeno='"+data.list[i].homeFeeModel.feeno+"' data-amount='"+data.list[i].payamount+"' id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
 							+"</td><td>"+data.list[i].homeFeeModel.feeno+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
 									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+recordstatus+"</td></tr>";
 									
@@ -39,6 +40,7 @@ $(function(){
 				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
 					amount = $(this).data("amount");
+					feeno = $(this).data("feeno");
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#d6d0d08c");
 				});
@@ -183,7 +185,14 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no,payamount:amount},function(result){
+					$.ajax({
+						type:"post",
+						url:'http://127.0.0.1:8080/fee/housepayrecord/delete',
+						data:{recordno:no,
+							homeFeeModel:homeFeeModel.feeno,
+							payamount:amount},
+						success:function(result){
+					
 						if(result.status=="OK"){
 							getListInfo(); 
 						}
@@ -191,12 +200,10 @@ $(function(){
 							title: '记录操作信息',
 							message:result.message
 						});
+						}
 					});
 				}
-			});
-				
-	
-			
+			});	
 		}
 		
 	});

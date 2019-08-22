@@ -141,11 +141,13 @@ public class HomeStopRecordController {
 			return new ResultMessage<HomeStopRecordModel>("ERROR", "分页参数不能为空！");
 		}
 		try {
+			int count = homeStopRecordService.getAllCount();
+			int pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
 			list = homeStopRecordService.getAllByListWithPages(rows, page);
+			return new ResultMessage<HomeStopRecordModel>(count, pageCount,list, "OK", "查找居民报停记录成功！");
 		} catch (Exception e) {
 			return new ResultMessage<HomeStopRecordModel>("ERROR", "查找居民报停记录失败！");
 		}
 
-		return new ResultMessage<HomeStopRecordModel>(list, "OK", "查找居民报停记录成功！");
 	}
 }

@@ -47,7 +47,6 @@ $(function(){
 					stopstatus = $("tr#stopstatus").val();
 
 					status = $(this).data("status");
-					console.log("status:"+status);
 					 $.getJSON(host+"/fee/homestoprecord/getByIdWithHomeFee",{recordno:no},function(data){
 							feeno = data.model.homeFeeModel.feeno;
 							//alert(feeNo);
@@ -130,7 +129,7 @@ $(function(){
 				$("form#ChangeHeatingStatusForm").ajaxForm(function(result){			
 					if(result.status=="OK"){
 						var val = $('input[name="heatingstatus"]:checked').val(); 
-						console.log("val:"+val);
+
 						if(val=="正常"){
 							val = "Y";
 						}else{
@@ -138,8 +137,11 @@ $(function(){
 						}
 						
 						 //修改此页面的stopstatus状态
-						$.getJSON(host+"/fee/homestoprecord/modify",{recordno:no,stopstatus:val});
-						getListInfo();
+							
+						$.getJSON(host+"/fee/homestoprecord/modify",{recordno:no,stopstatus:val},function(){
+							getListInfo();
+						});
+						
 					}
 					BootstrapDialog.show({
 			            title: '供热状态操作信息',

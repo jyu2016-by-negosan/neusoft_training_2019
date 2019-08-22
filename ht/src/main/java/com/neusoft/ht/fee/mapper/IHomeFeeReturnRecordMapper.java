@@ -35,4 +35,6 @@ public interface IHomeFeeReturnRecordMapper {
 	//分页查找居民退费记录
 	public List<HomeFeeReturnRecordModel> selectAllByListWithPages(@Param("start")int start,@Param("rows")int rows);
 	
+	//查找退费记录总条数
+	public int selectAllCount();
 }

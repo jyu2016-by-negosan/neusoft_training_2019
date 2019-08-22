@@ -68,5 +68,9 @@
   	where recordno = #{recordno}
   </select>
   
+  <select id="selectAllCount" resultType="int">
+  	select IFNULL(count(recordno),0) from HT_HomeFeeReturnRecord
+  </select>
+  
   
 </mapper>

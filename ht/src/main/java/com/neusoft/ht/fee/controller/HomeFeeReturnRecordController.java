@@ -149,12 +149,15 @@ public class HomeFeeReturnRecordController {
 			return new ResultMessage<HomeFeeReturnRecordModel>("ERROR", "分页参数不能为空！");
 		}
 		try {
+			int count = homeFeeReturnRecordService.getAllCount();
+			int pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
 			list = homeFeeReturnRecordService.getAllByListWithPages(rows, page);
+			return new ResultMessage<HomeFeeReturnRecordModel>(count, pageCount,list, "OK", "查找居民退费记录成功！");
+
 		} catch (Exception e) {
 			return new ResultMessage<HomeFeeReturnRecordModel>("ERROR", "查找居民退费记录失败！");
 		}
 
-		return new ResultMessage<HomeFeeReturnRecordModel>(list, "OK", "查找居民退费记录成功！");
 	}
 
 }

@@ -66,5 +66,8 @@
   	select * from HT_HomeStopRecord limit #{start},#{rows}
   </select>
   
+   <select id="selectAllCount" resultType="int">
+  	select IFNULL(count(recordno),0) from HT_HomeStopRecord
+  </select>
   
 </mapper>

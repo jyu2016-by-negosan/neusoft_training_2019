@@ -6,7 +6,7 @@ import com.neusoft.ht.fee.model.PublicHouseFeePayRecordModel;
 
 /**
  * 模块：供热缴费管理
- * 用途：公建供热记录管理的Service接口
+ * 用途：公建供热缴费记录管理的Service接口
  * 
  * @author 张晓龙
  * */

@@ -24,7 +24,7 @@ $(function(){
 				//显示列表
 				$("table#HomeFeeReturnRecordTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
-					if(data.list[i].recordstatus="N"){
+					if(data.list[i].recordstatus="N"){//
 						recordstatus="正常";
 					}else{
 						recordstatus="失败";

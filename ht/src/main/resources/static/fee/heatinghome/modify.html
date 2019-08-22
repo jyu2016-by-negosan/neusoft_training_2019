@@ -1,0 +1,101 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box-body">
+        <!-- 修改-->
+       	    <form id="HeatingHomeModifyForm" role="form" action="http://127.0.0.1:8080/fee/home/modify" method="post">
+				<div class="box-body">
+				<div class="rows">
+                	<div class="col-md-6">
+						<div class="form-group">
+							<label>选择小区</label>
+							<select name="neighbourhood.hoodno" class="form-control" id="NeighbourHoodSelection" style="height: 33px;" >
+								<option value="0">请选择</option>
+							</select>
+		                </div>
+						<div class="form-group">
+		                  <label >选择房型</label>
+		                  <select name="housetype.typeno" class="form-control" id="HousetTypeSelection" style="height: 33px;" >
+							  <option value="0">请选择</option>
+		                  </select>
+		                </div>
+						<div class="form-group">
+						  <label >供热编码</label>
+						  <input type="text" class="form-control" name="heatingcode"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >建筑面积</label>
+						  <input type="text" class="form-control" name="homearea"  placeholder="">
+						</div>
+		                <div class="form-group">
+		                  <label >实际供热面积</label>
+		                  <input type="text" class="form-control" name="heatingarea"  placeholder="">
+		                </div>
+		                <div class="form-group">
+		                  <label >姓名</label>
+		                  <input type="text" class="form-control" name="homename"  placeholder="">
+		                </div>
+		                <div class="form-group">
+		                  <label >电话</label>
+		                  <input type="text" class="form-control" name="tel"  placeholder="">
+		                </div>
+						<div class="form-group">
+						  <label >手机</label>
+						  <input type="text" class="form-control" name="mobile"  placeholder="">
+						</div>
+			
+                	</div>
+					<div class="col-md-6">
+						<div class="form-group">
+						  <label >邮箱</label>
+						  <input type="text" class="form-control" name="mail"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >QQ</label>
+						  <input type="text" class="form-control" name="qq"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >楼号</label>
+						  <input type="text" class="form-control" name="buildingcode"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >单元</label>
+						  <input type="text" class="form-control" name="departmentcode"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >楼层</label>
+						  <input type="text" class="form-control" name="floorcode"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >门牌号</label>
+						  <input type="text" class="form-control" name="housecode"  placeholder="">
+						</div>
+						<div class="form-group">
+						  <label >朝向</label>
+						  <input type="radio"  name="direction" value="南向" />南向
+						  <input type="radio"  name="direction" value="北向" />北向
+						  <input type="radio"  name="direction" value="东向" />东向
+						  <input type="radio"  name="direction" value="西向" />西向
+						</div>
+						 <div class="form-group" id="RoleListFor">
+							<label >供热状态</label>
+							<input type="radio" name="heatingstatus" value="正常" />正常
+							<input type="radio" name="heatingstatus" value="停供" />停供
+						</div>
+					</div>
+				</div>
+			  </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <input type="submit" class="btn btn-info" value="提交" />
+                <input type="button" class="btn btn-info" value="取消">
+				<input type="hidden" name="homeno" readonly  />
+		
+              </div>
+            </form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    
+    
+ </div>

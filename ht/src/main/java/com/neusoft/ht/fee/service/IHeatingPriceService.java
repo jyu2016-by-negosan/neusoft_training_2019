@@ -19,11 +19,14 @@ public interface IHeatingPriceService {
 	public HeatingPriceModel getByYear(String heatingyear) throws Exception;
 	//取得所有对象
 	public List<HeatingPriceModel> getListByAllWithPriceAndDay() throws Exception;
-
 	//取得所有对象列表,分页模式
 	public List<HeatingPriceModel> getListByAllWithPage(int rows,int page) throws Exception;
 	//取得对象的个数
 	public int getCountByAll() throws Exception;
 	//取得对象页数
 	public int getPagaCountByAll(int rows) throws Exception;
+	//检查年份是否已经存在
+	public int getCountByYear(String heatingyear) throws Exception;
+	//修改实际供热天数
+	public void ChangeHeatingdays(String heatingyear,int heatingdays) throws Exception;
 }

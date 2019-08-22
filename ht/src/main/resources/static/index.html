@@ -26,8 +26,9 @@
 		<link rel="stylesheet" href="dist/bootstrap/css/bootstrap.min.css">
 		<!-- 引入Bootstrap3-dialog -->
 		<link rel="stylesheet" href="dist/bootstrap3-dialog/css/bootstrap-dialog.min.css">
-
-    </head>
+		<!-- jqgrid -->
+		<link rel="stylesheet" type="text/css" media="screen" href="dist/jqgrid/css/ui.jqgrid-bootstrap.css" />
+	</head>
 
     <body>
 
@@ -45,16 +46,17 @@
                         <li class="treeview"><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i>  供热收费管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                             <ul>
                                 <li><a href="fee/neighbourhood/main.html">小区管理</a></li>
-                                <li><a href="fee/housetype/main.html">房型管理</a></li>
+                                <li><a href="fee/housetype/main.html">户型管理</a></li>
                                 <li><a href="fee/paymenttype/main.html">付款类型管理</a></li>
-                                <li><a href="fee/heatingprice/main.html">年份供热价格管理</a></li>
+                                <li><a href="fee/heatingprice/main.html">年度供热价格管理</a></li>
                                 <li><a href="fee/heatinghome/main.html">供热居民管理</a></li>
                                 <li><a href="fee/homefee/main.html">住宅供热记录管理</a></li>
                                 <li><a href="fee/homefeepayrecord/main.html">住宅缴费记录管理</a></li>
 								<li><a href="fee/homefeereturnrecord/main.html">住宅供热退费管理</a></li>
 								<li><a href="fee/homestoprecord/main.html">住宅停供记录管理</a></li>
+								<li><a href="fee/publichouse/main.html">公建供热管理</a></li>
 								<li><a href="#"></a></li>
-								<li><a href="#"></a></li>
+								<li><a href="fee/publichousefee/main.html">公建供热记录</a></li>
 								<li><a href="#"></a></li>
 								<li><a href="#"></a></li>
 								<li><a href="#"></a></li>
@@ -64,9 +66,9 @@
                         </li>
                         <li class="treeview"><a class="sidebar-sub-toggle"><i class="ti-calendar"></i> 客户服务 <span class="sidebar-collapse-icon ti-angle-down"></span> </a>
 							<ul>
-								<li><a href="#"><i class="ti-email"></i> 通知管理</a></li>
-								<li><a href="#"><i class="ti-file"></i> 文件管理</a></li>
-								<li><a href="#"><i class="ti-user"></i> 投诉管理</a></li>	
+								<li><a href="complain/complaintype/main.html"><i class="ti-user"></i> 投诉类型管理</a></li>	
+								<li><a href="complain/homecomplain/main.html"><i class="ti-user"></i> 居民投诉类型管理</a></li>
+								<li><a href="complain/publichousecomplain/main.html"><i class="ti-user"></i> 公建投诉类型管理</a></li>
 							</ul>
 						</li>
                         <li class="treeview"><a class="sidebar-sub-toggle"><i class="ti-panel"></i> 系统安全 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
@@ -205,8 +207,7 @@
                             <div class="page-header">
                                 <div class="page-title">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">当前模块</a></li>
-                                        <li class="breadcrumb-item active">当前页面</li>
+										
                                     </ol>
                                 </div>
                             </div>
@@ -215,8 +216,11 @@
                     </div>
                     <!-- /# row -->
 					
-                    <section id="main-content">						
-
+                    <section id="main-content">	
+						<h1> 系统主页</h1>
+						<div style="background-image:url('assets/images/login.jpg'); background-repeat:no-repeat;">
+							<img src="assets/images/home.gif" height="400" width="600"/>	
+						</div>
                     </section>	
                 </div>	
             </div>
@@ -237,6 +241,17 @@
 	<script type="text/javascript" src="dist/bootstrap3-dialog/js/bootstrap-dialog.min.js"></script>
 	<!-- JQuery Form Plugin -->
 	<script type="text/javascript" src="dist/jqueryform/jquery.form.min.js"></script>
-	<script type="text/javascript" src ="dist/jqueryui2/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>		
+	<!-- jqGrid-->
+	<script type="text/javascript" src="dist/jqgrid/js/i18n/grid.locale-cn.js"></script>
+	<script type="text/javascript" src="dist/jqgrid/js/jquery.jqGrid.min.js"></script>
+	<!-- jqueryui -->
+	<script type="text/javascript" src ="dist/jqueryui2/jquery-ui.min.js"></script>			
+	<!-- jQuery validate验证框架 -->
+	<script type="text/javascript" src="dist/jquery-validate/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="dist/jquery-validate/additional-methods.min.js"></script>
+	<script type="text/javascript" src="dist/jquery-validate/localization/messages_zh.min.js"></script>
+	<!-- 引入自己定义的验证规则 -->
+	<script type="text/javascript" src="js/customer_validation.js"></script>
+	
+	<script type="text/javascript" src="js/index.js"></script>
 </html>

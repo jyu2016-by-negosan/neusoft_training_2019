@@ -1,8 +1,13 @@
 package com.neusoft.ht.complain.model;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
+
+
 
 /**
  * 
@@ -12,9 +17,10 @@ import lombok.Data;
  *
  */
 @Alias("ComplainType")
+@Component
 @Data
-public class ComplainTypeModel {
-	private Long typeno;
+public class ComplainTypeModel implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int typeno;
 	private String typename;
-
 }

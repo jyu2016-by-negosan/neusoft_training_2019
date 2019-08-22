@@ -27,14 +27,49 @@ public class ResultMessage<T> implements Serializable {
 	public ResultMessage() {
 		
 	}
+	
 	public ResultMessage(String status,String message) {
 		this.status=status;
 		this.message=message;
 	}
 	
+
 	public ResultMessage(List<T>list,String status,String message) {
 		this.list = list;
 		this.status=status;
 		this.message=message;
 	}
+	
+	public ResultMessage(T model,String status,String message) {
+		this.model = model;
+		this.status=status;
+		this.message=message;
+	}
+	
+	public ResultMessage(int count,String status,String message) {
+		this.count = count;
+		this.status=status;
+		this.message=message;
+	}
+	
+	public ResultMessage(List<T>list,int rows,int page,int count,int pageCount,String status,String message) {
+		this.list = list;
+		this.rows = rows;
+		this.page = page;
+		this.count = count;
+		this.pageCount = pageCount;
+		this.status = status;
+		this.message = message;
+	}
+
+	public ResultMessage(int count,int pageCount,List<T> list,String status,String message) {
+		this.pageCount = pageCount;
+		this.list = list;
+		this.count = count;
+		this.status=status;
+		this.message=message;
+	}
+	
+	
+
 }

@@ -50,8 +50,22 @@
    limit #{start},#{rows}
   </select>
 
-<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
    select IFNULL(count(HeatingYear), 0) from HT_HeatingPrice
   </select>
+  
+  <!-- 检查年份是否已经存在 -->
+  <select id="selectCountByYear" resultType="int">
+   select IFNULL(count(HeatingYear), 0) from HT_HeatingPrice
+   where HeatingYear=#{heatingyear}
+  </select>
+  
+  <!-- 修改实际供热天数 -->
+  <update id="ChangeHeatingdays" flushCache="true">
+   update HT_HeatingPrice 
+   set heatingdays=#{heatingdays}
+   where HeatingYear=#{heatingyear}
+  </update>
+
 </mapper>

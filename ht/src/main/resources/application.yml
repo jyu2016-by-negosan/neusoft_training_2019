@@ -1,5 +1,8 @@
 
 spring:
+   profiles:
+    active:
+      - dev
       #数据库配置
    datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -38,19 +41,34 @@ mybatis:
   mapper-locations:
   #- classpath*:/mappers/**/*Mapper.xml
   - classpath*:/mappers/fee/*Mapper.xml
+<<<<<<< HEAD
  
+=======
+  - classpath*:/mappers/complain/*Mapper.xml
+>>>>>>> branch 'master' of https://github.com/jyu2016-by-negosan/neusoft_training_2019.git
   type-aliases-package:
     #com.neusoft.ht.*.model
     com.neusoft.ht.fee.model
+<<<<<<< HEAD
    
+=======
+    com.neusoft.ht.complain.model
+>>>>>>> branch 'master' of https://github.com/jyu2016-by-negosan/neusoft_training_2019.git
 
   
 #showSql
 logging:
   level:
+<<<<<<< HEAD
     com.neusoft.ht.fee.mapper: debug
    
    
+=======
+    com.neusoft.ht.fee.mapper: debug
+    com.neusoft.ht.complain.mapper: debug
+
+
+>>>>>>> branch 'master' of https://github.com/jyu2016-by-negosan/neusoft_training_2019.git
 
 
 

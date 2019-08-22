@@ -1,22 +1,28 @@
-<script type="text/javascript" src=""></script>
+<script type="text/javascript" src="fee/paymenttype/main.js"></script>
 <!-- Main row -->
 <div class="row">
-    <div class="col-lg-10 p-r-0 title-margin-right">
+    <div class="col-lg-10 p-r-0 title-margin-right " >
 		<div class="box">
 			<div class="box-header">
 				<div class="row">
-					<div class="col-md-6"> <h4 class="box-title">付款类型列表</h4></div>
+					<div class="col-md-6"> <h4>付款类型列表</h4></div>
 					<div class="col-md-6 text-right">
-						<a href="#" class="btn btn-info">增加</a> 
-						<a href="#" class="btn btn-info">修改</a> 
-						<a href="#" class="btn btn-info">删除</a>
-						<a href="#" class="btn btn-info">查看</a>
+						<a href="#" id="PaymentTypeAddLink" class="btn btn-info">增加</a> 
+						<a href="#" id="PaymentTypeModifyLink" class="btn btn-info">修改</a> 
+						<a href="#" id="PaymentTypeDeleteLink" class="btn btn-info">删除</a>
+						<a href="#" id="PaymentTypeDetailLink" class="btn btn-info">查看</a>
 					</div>
 				</div>
 			</div>
-			<div class="box-body" id="paymenttypecontent">
-				
+		<div class="box-body ">
+			<table id="PaymentTypeGrid" >
+			</table>
+			<div id="PaymentTypeGridPager">  
 			</div>
+		</div>
 		</div>   	
-      </div>
-    </div>   	
+    </div>
+</div>  
+ <div  class="col-md-6 " id="PaymentTypeDialogArea">
+ 			    
+ </div>	

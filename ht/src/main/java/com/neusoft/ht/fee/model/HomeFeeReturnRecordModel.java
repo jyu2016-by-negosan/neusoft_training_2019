@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -15,15 +16,16 @@ import lombok.Data;
 @Data
 public class HomeFeeReturnRecordModel implements Serializable {
 	
-	private int recordnno = 0;
+	private int recordno = 0;
 	private HomeFeeModel homeFeeModel = null;	
 	private PaymentTypeModel paymentTypeModel = null;
 	private float amount = 0;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date returndate = null;
 	private String person = null;
 	private String checkcode = null;
 	private String invoicecode = null;
 	private String recorddesc = null;
-	private String recordestatus = null;
+	private String recordstatus = null;
 	
 }

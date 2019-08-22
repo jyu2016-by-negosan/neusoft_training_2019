@@ -1,0 +1,46 @@
+
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+     
+      <div class="box-body">
+        <!-- 增加 -->
+       	 <!-- form start -->
+            <form id="HeatingPriceAddForm" role="form" action="http://127.0.0.1:8080/fee/heatingprice/add" method="post">
+				<div class="box-body">
+					<div class="form-group">
+					  <label >供热年份</label>
+					  <input type="text" class="form-control" name="heatingyear"  placeholder="">
+					</div>
+					<div class="form-group">
+					  <label >供热天数</label>
+					  <input type="text" class="form-control" name="heatingdays"  placeholder="">
+					</div>
+					<div class="form-group">
+					  <label >居民价格</label>
+					  <input type="text" class="form-control" name="homeprice"  placeholder="">
+					</div>
+					<div class="form-group">
+					  <label>公建价格</label>
+					  <input type="text" class="form-control" name="publichouseprice"  placeholder="">
+					</div>
+					<div class="form-group">
+					  <label >备注</label>
+					  <input type="text" class="form-control" name="heatingmemo"  placeholder="">
+					</div>
+				</div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <input type="submit" class="btn btn-info" value="提交" />
+                <input type="button" class="btn btn-info" value="取消">
+              </div>
+            </form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->

@@ -1,1 +1,55 @@
-<h1>住宅供热退费管理主页</h1>
+<script type="text/javascript" src="fee/homefeereturnrecord/main.js"></script>
+
+  
+<!-- Main row -->
+<div id="homefee">
+</div>
+<div class="row">
+    <div class="col-lg-10 p-r-0 title-margin-right">
+		<div class="box">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-md-6"><h4 class="box-title">居民退费列表</h4></div>
+					<div class="col-md-6 text-right">
+						<a href="#" id="ReturnRecordAddLink" class="btn btn-info">增加</a> 
+					<!-- <a href="#" id="ReturnReturnRecordModifyLink" class="btn btn-info">修改</a>  -->	
+						<a href="#" id="ReturnRecordDeleteLink" class="btn btn-info">删除</a>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<table id="HomeFeeReturnRecordTable" class="table table-bordered table-striped table-hover">
+				          <thead>
+				          <tr>
+				            <th>序号</th>
+				            <th>退款金额</th>
+				            <th>退费日期</th>
+				            <th>退费人</th>
+				            <th>退款编号</th>
+				            <th>退费备注</th>
+				            <th>记录状态</th>
+				          </tr>
+				          </thead>
+				          <tbody>
+				          </tbody>
+				          <tfoot>
+				          </tfoot>
+				</table>
+				<div class="row">
+				   <div class="col-md-6 text-left">
+				    退费记录总数:<span id="count"></span> 	页数:<span id="pagecount"></span>
+				   </div>
+				   <div class="col-md-6 text-right" id="page_nav">
+				   <a href="top" class="btn btn-info">首页</a> 
+				   <a href="pre" class="btn btn-info">上页</a>
+				   <a href="next" class="btn btn-info">下页</a>
+				   <a href="last" class="btn btn-info">末页</a>
+				   </div>
+				</div>
+			</div>
+		</div>
+     </div>
+</div>  
+<div  class="col-md-6 " id="ReturnRecordDialogArea">
+			    
+</div>

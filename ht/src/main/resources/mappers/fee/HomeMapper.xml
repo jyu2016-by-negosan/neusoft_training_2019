@@ -16,7 +16,7 @@
   	<result property="floorcode" column="FloorCode" />
   	<result property="housecode" column="HouseCode" />
   	<result property="homearea" column="HomeArea" />
-  	<result property="direaction" column="Direction" />
+  	<result property="direction" column="Direction" />
   	<result property="tel" column="Tel" />
   	<result property="mobile" column="Mobile" />
   	<result property="mail" column="Mail" />
@@ -26,45 +26,95 @@
   </resultMap>
 
   <!-- 使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
-  <resultMap id="HomeResultMapWithHoodAndType" type="Home" extends="HomeResultMap">
-  	<association property="neighbourhood" resultMap="com.neusoft.ht.fee.mapper.INeighbourHoodMapper"/>
-  	<association property="housetype" resultMap="com.neusoft.ht.fee.mapper.IHouseTypeMapper"/>
+  <resultMap id="HomeResultMapWithNeighbourHoodAndHouseType" type="Home" extends="HomeResultMap">
+  	<association property="neighbourhood" resultMap="com.neusoft.ht.fee.mapper.INeighbourHoodMapper.NeighbourHoodResultMap"/>
+  	<association property="housetype" resultMap="com.neusoft.ht.fee.mapper.IHouseTypeMapper.HouseTypeResultMap"/>
   </resultMap>
 
   
   <insert id="insert"  parameterType="Home" keyProperty="homeno"  keyColumn="HOMENO" useGeneratedKeys="true" flushCache="true" >
-   insert into HT_HOME (HeatingCode,HOODNO,HOUSETYPENO,HomeName,BuildingCODE,DepartmentCode,FloorCode,HouseCode,HomeArea,Direction,Tel,Mobile,QQ,HeatingStatus,HeatingArea) 
-   values (#{heatingcode},#{neibourhood.hoodno},#{housetype.typeno},#{homename},#{buildingcode},#{departmentcode},#{floorcode},#{housecode},#{homearea},#{direaction},#{tel},#{mobile},#{mail},#{qq},#{heatingstatus},#{heatingarea})
+   insert into HT_HOME 
+   (HeatingCode,HOODNO,HOUSETYPENO,HomeName,
+   BuildingCODE,DepartmentCode,FloorCode,
+   HouseCode,HomeArea,Direction,Tel,Mobile,Mail,
+   QQ,HeatingStatus,HeatingArea) 
+   values 
+   (#{heatingcode},#{neighbourhood.hoodno},#{housetype.typeno},
+   #{homename},#{buildingcode},#{departmentcode},#{floorcode},
+   #{housecode},#{homearea},#{direction},#{tel},#{mobile},
+   #{mail},#{qq},#{heatingstatus},#{heatingarea})
   </insert>
  
   
   <update id="update" flushCache="true">
    update HT_HOME 
-   set HeatingCode={heatingcode},HOODNO=#{neibourhood.hoodno},HOUSETYPENO=#{housetype.typeno},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode={housecode},
-   HomeArea=#{homearea},Direction=#{direction},Tel={tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea}
-   where HOME=#{homeno}
+   <set>
+   HeatingCode=#{heatingcode},HomeName=#{homename},BuildingCODE=#{buildingcode},DepartmentCode=#{departmentcode},FloorCode=#{floorcode},HouseCode=#{housecode},
+   HomeArea=#{homearea},Direction=#{direction},Tel=#{tel},Mobile=#{mobile},QQ=#{qq},HeatingStatus=#{heatingstatus},HeatingArea=#{heatingarea},
+   <if test="neighbourhood.hoodno!=0">
+   	HOODNO=#{neighbourhood.hoodno},
+   </if>
+   <if test="housetype.typeno!=0">
+    HOUSETYPENO=#{housetype.typeno}
+   </if >
+   </set>
+   where HOMENO=#{homeno}
   </update>
   
   <delete id="delete" flushCache="true">
-   delete from HT_HOME where HOME=#{homeno}
+   delete from HT_HOME where HOMENO=#{homeno}
   </delete>
   
-  <select id="selectListByAll" resultMap="HomeResultMapWithHoodAndType">
+  <select id="selectListByAll" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from HT_HOME 
   </select>
 
-  <select id="selectByNo" resultMap="HomeResultMapWithHoodAndType">
-   select * from HT_HOME  
-   where  HOME=#{homeno}
+  <select id="selectByNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
+   select a.*,b.*,c.* from HT_HOME  a
+   inner join HT_NEIGHBOURHOOD b on a.HOODNO=b.HOODNO
+   inner join HT_HOUSETYPE c on a.HOUSETYPENO=c.TYPENO
+   where  HOMENO=#{homeno}
   </select>
   
-  <select id="selectListByAllWithPage" resultMap="HomeResultMapWithHoodAndType">
+   <!-- 取关联小区和户型的特定居民 -->
+  <select id="selectByNoWithHoodNoAndHouseTypeNo" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
+  select a.*,b.HOODNAME,c.TYPENAME from HT_HOME a 
+  inner join HT_NEIGHBOURHOOD b on a.HOODNO=b.HOODNO
+  inner join HT_HOUSETYPE c on a.HOUSETYPENO=c.TYPENO
+  where HOMENO=#{homeno}
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
    select * from  HT_HOME  
    limit #{start},#{rows}
   </select>
 
 <!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
   <select id="selectCountByAll" resultType="int">
-   select IFNULL(count(HOEMNO), 0) from HT_HOME
+   select IFNULL(count(HOMENO), 0) from HT_HOME
   </select>
+  
+  <!-- 根据综合检索条件取得居民列表，取得关联 的小区和户型，分页模式 -->
+  <select id="selectListByConditionWithHoodNoAndHouseTypeNoWithPage" resultMap="HomeResultMapWithNeighbourHoodAndHouseType">
+  select a.*,b.HOODNAME,c.TYPENAME from HT_HOME a 
+  inner join HT_NEIGHBOURHOOD b on a.HOODNO=b.HOODNO
+  inner join HT_HOUSETYPE c on a.HOUSETYPENO=c.TYPENO
+  <where>
+     <if test="hoodno!=0">
+      and a.HOODNO=#{hoodno}
+     </if>
+     <if test="housetypeno!=0">
+     and a.HOUSETYPENO=#{housetypeno}
+     </if> 
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <!-- 修改供热状态 -->
+  <update id="ChangeHeatingStatus" flushCache="true">
+   update HT_HOME 
+   set HeatingStatus=#{heatingstatus}
+   where HOMENO=#{homeno}
+  </update>
+  
 </mapper>

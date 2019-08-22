@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.ht.fee.model.HeatingPriceModel;
-import com.neusoft.ht.fee.model.HouseTypeModel;
 import com.neusoft.ht.fee.service.IHeatingPriceService;
 import com.neusoft.ht.message.ResultMessage;
 
@@ -78,5 +77,23 @@ public class HeatingPriceController {
 	@GetMapping(value="/list/all")
 	public List<HeatingPriceModel> getListByAllWithPriceAndDay() throws Exception{
 		return heatingPriceService.getListByAllWithPriceAndDay();
+	}
+	
+	//检查年份是否已存在
+	@GetMapping(value="/checkyear")
+	public boolean CheckYear(String heatingyear) throws Exception{
+		boolean result = true;
+		if(heatingPriceService.getCountByYear(heatingyear)==1) {
+			result = false;
+		}
+		return result;
+	}
+	
+	//修改供热天数
+	@PostMapping(value="/changeheatingdays")
+	public ResultMessage<HeatingPriceModel> ChangeHeatingdays(String heatingyear,int heatingdays) throws Exception{
+		ResultMessage<HeatingPriceModel> result=new ResultMessage<HeatingPriceModel>("OK","修改供热天数成功");
+		heatingPriceService.ChangeHeatingdays(heatingyear,heatingdays);
+		return result;
 	}
 }

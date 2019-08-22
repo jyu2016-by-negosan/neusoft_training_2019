@@ -1,0 +1,53 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-body">
+            <!-- 增加 -->
+            <!-- form start -->
+            <form id="PublicHouseFeeAddForm" role="form" action="http://127.0.0.1:8080/fee/publichousefee/add" method="POST">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>公建供热序号</label>
+                        <input type="text" class="form-control" name="feeno" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>公建编号</label>
+                        <input type="text" class="form-control" name="houseno" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>年份</label>
+                        <input type="text" class="form-control" name="heatingyear" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>应缴费</label>
+                        <input type="text" class="form-control" name="agreefee" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>实缴费</label>
+                        <input type="text" class="form-control" name="actualfee" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>欠缴费</label>
+                        <input type="text" class="form-control" name="debtfee" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>备注</label>
+                        <input type="text" class="form-control" name="feedesc" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>缴费状态(供热/报停)</label>
+                        <input type="text" class="form-control" name="feestatus" placeholder=""/>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <input type="submit" class="btn btn-info" value="提交"/>
+                    <input type="button" class="btn btn-info" value="取消"/>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->

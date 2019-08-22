@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 系统功能Mapper接口Mapping映射 -->
+<mapper namespace="com.neusoft.ht.security.mapper.ISystemFunctionMapper">
+	<!-- 启用此映射的全局缓存 -->
+	<cache />
+	<!-- 无关联属性的结果映射 -->
+	<resultMap id="SystemFunctionResultMap" type="SystemFunction">
+		<id property="funno" column="FUNNO" />
+		<result property="funname" column="FUNNAME" />
+		<result property="funurl" column="FUNURL" />
+		<result property="levelno" column="LevelNo" />
+	</resultMap>
+
+
+	<insert id="insert" keyProperty="funno" keyColumn="FUNNO" useGeneratedKeys="true" flushCache="true" >
+		insert into HT_SYSTEMFUNCTION (FUNNAME, FUNURL, LevelNo)
+		values (#{funname}, #{funurl}, #{levelno})
+	</insert>
+	
+	<update id="update" flushCache="true">
+		update HT_SYSTEMFUNCTION set FUNNAME=#{funname}, FUNURL=#{funurl}, LevelNo=#{levelno}
+		where FUNNO=#{funno}
+	</update>
+	
+	<delete id="delete" flushCache="true">
+		delete from HT_SYSTEMFUNCTION
+		where FUNNO=#{funno}
+	</delete>
+	
+	<select id="selectByAll" resultMap="SystemFunctionResultMap">
+		select * from HT_SYSTEMFUNCTION
+	</select>
+	
+	<select id="selectListByAllWithPage" resultMap="SystemFunctionResultMap">
+		select * from HT_SYSTEMFUNCTION
+		limit #{start}, #{rows}
+	</select>
+	
+	<select id="selectByNo" resultMap="SystemFunctionResultMap">
+		select * from HT_SYSTEMFUNCTION
+		where FUNNO=#{funno}
+	</select>
+	
+	<!-- 使用IFNULL函数判断count函数的结果是否为null，若为null则返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select IFNULL(count(FUNNO), 0) from HT_SYSTEMFUNCTION
+	</select>
+</mapper>

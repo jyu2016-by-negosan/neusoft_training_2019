@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 房屋类型Mapper接口Mapping映射 -->   
+<mapper namespace="com.neusoft.ht.fee.mapper.IHouseTypeMapper">
+  <!-- 启用此映射的全局缓存 -->
+  <cache/>
+  <!-- 无关联属性的结果映射 -->
+  <resultMap id="HouseTypeResultMap" type="HouseType" >
+  	<id property="typeno" column="TYPENO" />
+  	<result property="typename" column="TYPENAME" />
+  </resultMap>
+
+  
+  <insert id="insert"  keyProperty="typeno"   keyColumn="TYPENO" useGeneratedKeys="true" flushCache="true" >
+   insert into HT_HOUSETYPE (TYPENAME) values (#{typename})
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update  HT_HOUSETYPE set TYPENAME=#{typename} where TYPENO=#{typeno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from HT_HOUSETYPE where TYPENO=#{typeno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="HouseTypeResultMap">
+   select * from HT_HOUSETYPE
+  </select>
+
+  <select id="selectByNo" resultMap="HouseTypeResultMap">
+   select * from HT_HOUSETYPE  where  TYPENO=#{typeno}
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="HouseTypeResultMap">
+   select * from  HT_HOUSETYPE  limit #{start},#{rows}
+  </select>
+
+<!-- 使用IFNULL函数判断count函数结果是否为null, 为null返回0 -->
+  <select id="selectCountByAll" resultType="int">
+   select IFNULL(count(TYPENO), 0) from HT_HOUSETYPE 
+  </select>
+</mapper>

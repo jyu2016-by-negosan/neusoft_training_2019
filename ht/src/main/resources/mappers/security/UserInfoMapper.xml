@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 系统管理员辅助信息Mapper接口Mapping映射 -->
+<mapper namespace="com.neusoft.ht.security.mapper.IUserInfoMapper">
+	<!-- 启用此映射的全局缓存 -->
+	<cache />
+	<!-- 无关联属性的结果映射 -->
+	<resultMap id="UserInfoResultMap" type="UserInfo">
+		<id property="uuserid" column="UUSERID" />
+		<result property="sex" column="Sex" />
+		<result property="age" column="AGE" />
+		<result property="photo" column="PHOTO" />
+		<result property="photofilename" column="PHOTOFileName" />
+		<result property="photocontenttype" column="PhotoContentType" />
+		<result property="tel" column="Tel" />
+		<result property="mobile" column="Mobile" />
+	</resultMap>
+	
+	<!-- 使用内嵌式ResultMap实现方式的关联属性的结果映射 -->
+	<resultMap id="UserInfoResultMapWithSystemUser" type="UserInfo" extends="UserInfoResultMap">
+		<association property="systemuser" resultMap="com.neusoft.ht.security.mapper.ISystemUserMapper" />
+	</resultMap>
+	
+	<insert id="insert"  flushCache="true" >
+		insert into HT_USERINFO values (#{uuserid}, #{sex}, #{age}, #{photo}, #{photofilename}, #{photocontenttype}, #{tel}, #{mobile})
+	</insert>
+	
+	<update id="update" flushCache="true">
+		update HT_USERINFO set Sex=#{sex}, AGE=#{age}, PHOTO=#{photo}, PHOTOFileName=#{photofilename}, PhotoContentType=#{photocontenttype}, Tel=#{tel}, Mobile=#{mobile}
+		where UUSERID=#{uuserid}
+	</update>
+	
+	<delete id="delete" flushCache="true">
+		delete from HT_USERINFO
+		where UUSERID=#{uuserid}
+	</delete>
+	
+	<select id="selectListByAll" resultMap="UserInfoResultMapWithSystemUser">
+		select * from HT_USERINFO
+	</select>
+	
+	<select id="selectListByAllWithPage" resultMap="UserInfoResultMapWithSystemUser">
+		select * from HT_USERINFO
+		limit #{start}, #{rows}
+	</select>
+	
+	<select id="selectById" resultMap="UserInfoResultMapWithSystemUser">
+		select * from HT_USERINFO
+		where UUSERID=#{uuserid}
+	</select>
+	
+	<!-- 使用IFNULL函数判断count函数的结果是否为null，若为null则返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select IFNULL(count(UUSERID), 0) from HT_SYSTEMUSER
+	</select>	
+</mapper>

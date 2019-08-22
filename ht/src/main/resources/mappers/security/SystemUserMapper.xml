@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 操作员Mapper接口Mapping映射 -->
+<mapper namespace="com.neusoft.ht.security.mapper.ISystemUserMapper">
+	<!-- 启用此映射的全局缓存 -->
+	<cache />
+	<!-- 无关联属性的结果映射 -->
+	<resultMap id="SystemUserResultMap" type="SystemUser">
+		<id property="uuserid" column="UUSERID" />
+		<result property="upassword" column="UPASSWORD" />
+		<result property="uname" column="UName" />
+	</resultMap>
+	
+	
+	<insert id="insert"  flushCache="true" >
+		insert into HT_SYSTEMUSER values (#{uuserid}, #{upassword}, #{uname})
+	</insert>
+	
+	<update id="update" flushCache="true">
+		update HT_SYSTEMUSER set UPASSWORD=#{upassword}, UName=#{uname}
+		where UUSERID=#{uuserid}
+	</update>
+	
+	<delete id="delete" flushCache="true">
+		delete from HT_SYSTEMUSER
+		where UUSERID=#{uuserid}
+	</delete>
+	
+	<select id="selectByAll" resultMap="SystemUserResultMap">
+		select * from HT_SYSTEMUSER
+	</select>
+	
+	<select id="selectListByAllWithPage" resultMap="SystemUserResultMap">
+		select * from HT_SYSTEMUSER
+		limit #{start}, #{rows}
+	</select>
+	
+	<select id="selectById" resultMap="SystemUserResultMap">
+		select * from HT_SYSTEMUSER
+		where UUSERID=#{uuserid}
+	</select>
+	
+	<select id="selectByIdWithoutOther" resultMap="SystemUserResultMap">
+		select * from HT_SYSTEMUSER
+		where UUSERID=#{uuserid}
+	</select>
+	
+	<!-- 使用IFNULL函数判断count函数的结果是否为null，若为null则返回0 -->
+	<select id="selectCountByAll" resultType="int">
+		select IFNULL(count(UUSERID), 0) from HT_SYSTEMUSER
+	</select>
+	
+</mapper>

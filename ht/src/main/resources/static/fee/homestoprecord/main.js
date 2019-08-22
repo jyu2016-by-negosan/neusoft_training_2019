@@ -43,9 +43,7 @@ $(function(){
 				//定义表格行的点击时间，取得选择的退费记录ID
 				$("table#HomeFeeStopRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
-
 					stopstatus = $("tr#stopstatus").val();
-
 					status = $(this).data("status");
 					 $.getJSON(host+"/fee/homestoprecord/getByIdWithHomeFee",{recordno:no},function(data){
 							feeno = data.model.homeFeeModel.feeno;

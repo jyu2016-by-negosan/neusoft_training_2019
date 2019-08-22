@@ -58,9 +58,15 @@ public class HomeFeeController {
 	
 	//取得特定居民供热记录，取关联的居民表和年度供热价格表
 	@GetMapping("/get")
-	public ResultMessage<HomeFeeModel> getByNoWithHomeAndHeatingPrice(int feeno) throws Exception {
+	public ResultMessage<HomeFeeModel> getByNoWithHomeAndHeatingPrice(int feeno){
 		ResultMessage<HomeFeeModel> result=new ResultMessage<HomeFeeModel>("OK","取得特定居民供热记录成功");
-		result.setModel(homeFeeService.getByNoWithHomeAndHeatingPrice(feeno));
+		try {
+			result.setModel(homeFeeService.getByNoWithHomeAndHeatingPrice(feeno));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return result;
 
 	}

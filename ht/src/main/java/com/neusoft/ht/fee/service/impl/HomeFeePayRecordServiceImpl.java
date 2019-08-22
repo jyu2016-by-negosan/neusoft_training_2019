@@ -49,10 +49,10 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
 
 	// 删除住宅缴费记录
 	public void delete(HomeFeePayRecordModel payRecordModel) throws Exception {
+		int feeno = houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
 		float payAmount = payRecordModel.getPayamount();
-
 		HomeFeeModel homeFeeModel = homeFeeMapper
-				.selectByNoWithHomeAndHeatingPrice(payRecordModel.getHomeFeeModel().getFeeno());
+				.selectByNoWithHomeAndHeatingPrice(feeno);
 		homeFeeModel.setActualfee(homeFeeModel.getActualfee() - payAmount);
 		if (homeFeeModel.getDebtfee() == 0) {
 			homeFeeModel.setFeestatus("Y");

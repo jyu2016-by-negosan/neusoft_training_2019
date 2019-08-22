@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,10 +62,11 @@ public class HomeFeePayRecordController {
 	}
 
 	// 删除住宅缴费记录
-	@RequestMapping("/delete")
+	@RequestMapping(value= {"/delete"},method= {RequestMethod.POST,RequestMethod.GET})
 	public ResultMessage<HomeFeePayRecordModel> deletePayRecord(HomeFeePayRecordModel payRecordModel) {
 		if (payRecordModel != null) {
 			try {
+			
 				housePayRecordService.delete(payRecordModel);
 			} catch (Exception e) {
 				e.printStackTrace();

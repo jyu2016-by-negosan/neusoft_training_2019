@@ -80,4 +80,9 @@ public class HomeFeeReturnRecordServiceImpl implements IHomeFeeReturnRecordServi
 		return homeFeeReturnRecordMapper.selectByIdWithHomeFee(recordno);
 	}
 
+	@Override
+	public int getAllCount() throws Exception {
+		return homeFeeReturnRecordMapper.selectAllCount();
+	}
+
 }

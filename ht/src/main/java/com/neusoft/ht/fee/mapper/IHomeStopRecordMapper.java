@@ -33,6 +33,9 @@ public interface IHomeStopRecordMapper {
 
 	// 查找所有居民退费记录
 	public List<HomeStopRecordModel> selectAllByList();
+	
+	//查找停供记录总条数
+	public int selectAllCount();
 
 	// 分页查找居民退费记录
 	public List<HomeStopRecordModel> selectAllByListWithPages(@Param("start") int start, @Param("rows") int rows);

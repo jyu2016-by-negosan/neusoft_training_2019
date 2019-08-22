@@ -27,6 +27,9 @@ public interface IHomeStopRecordService {
 	
 	//查找关联HomeFee
 	public HomeStopRecordModel getByIdWithHomeFee(int recordno);
+	
+	//查找停供记录总条数
+	public int getAllCount() throws Exception;
 
 	// 查找所有居民退费记录
 	public List<HomeStopRecordModel> getAllByList()throws Exception;

@@ -68,4 +68,9 @@ public class HomeStopRecordServiceImpl implements IHomeStopRecordService{
 		return homeStopRecordMapper.selectByIdWithHomeFee(recordno);
 	}
 
+	@Override
+	public int getAllCount() throws Exception {
+		return homeStopRecordMapper.selectAllCount();
+	}
+
 }

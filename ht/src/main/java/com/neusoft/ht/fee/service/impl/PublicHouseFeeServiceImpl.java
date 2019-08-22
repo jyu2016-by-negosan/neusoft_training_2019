@@ -14,7 +14,7 @@ import com.neusoft.ht.fee.service.IPublicHouseFeeService;
 public class PublicHouseFeeServiceImpl implements IPublicHouseFeeService {
 	
 	@Autowired
-	private IPublicHouseFeeMapper publichousefeemapper;
+	private IPublicHouseFeeMapper publichousefeemapper = null;
 
 	@Override
 	public void add(PublicHouseFeeModel publicHouseFeeModel) throws Exception {

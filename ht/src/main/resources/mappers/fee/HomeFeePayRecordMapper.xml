@@ -25,6 +25,8 @@
 	<association property="paymentTypeModel" resultMap="com.neusoft.ht.fee.mapper.IPaymentTypeMapper.PaymentTypeResultMap"/>
   </resultMap>
   
+  
+  
  
  
 
@@ -63,8 +65,9 @@
  	select * from ht_homefeepayrecord
  </select>
  
- <select id="selectAllByListWithPage" resultMap="HomePayRecordResultMap">
- 	select * from ht_homefeepayrecord limit #{start},#{rows}
+ <select id="selectAllByListWithPage" resultMap="HomePayRecordWithHomeFeeAndPaymentTypeByResultMap">
+ 	select a.*,b.feeno from ht_homefeepayrecord a inner join ht_homefee b on a.feeno = b.feeno
+ 	limit #{start},#{rows}
  </select>
  
  <select id="selectAllCount" resultType="int">

@@ -12,7 +12,7 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080"
-
+	var amount = 0;
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getAllByListWithPage",{page:page,rows:rows},function(data){
@@ -29,8 +29,8 @@ $(function(){
 					}else{
 						recordstatus="失败";
 					}
-					var tr="<tr id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
-							+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
+					var tr="<tr data-amount='"+data.list[i].payamount+"' id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
+							+"</td><td>"+data.list[i].homeFeeModel.feeno+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
 									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+recordstatus+"</td></tr>";
 									
 					$("table#HomeFeePayRecordTable tbody").append(tr);
@@ -38,6 +38,7 @@ $(function(){
 				//定义表格行的点击时间，取得选择的缴费记录ID
 				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
+					amount = $(this).data("amount");
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#d6d0d08c");
 				});
@@ -129,6 +130,7 @@ $(function(){
 						$("input[name='invoicecode']").val(data.model.invoicecode);
 						$("input[name='paydesc']").val(data.model.paydesc);
 						$("input[name='recordstatus']").val(data.model.recordstatus);
+						
 					}
 				});
 				
@@ -181,7 +183,7 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no},function(result){
+					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no,payamount:amount},function(result){
 						if(result.status=="OK"){
 							getListInfo(); 
 						}

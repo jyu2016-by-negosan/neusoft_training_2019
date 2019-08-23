@@ -90,12 +90,15 @@ $(function(){
 						$("#payType").append("<option value='"+payType.typeno+"'>"+payType.typename+"</option>");
 					})
 				}
+				$("div#PayRecordDialogArea" ).dialog({
+					title:"增加居民缴费记录",
+					width:300
+				});
 			})
+
 			
-			$("div#PayRecordDialogArea" ).dialog({
-				title:"增加居民缴费记录",
-				width:300
-			});
+			
+			
 			$("form#HomeFeePayRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					getListInfo(); 

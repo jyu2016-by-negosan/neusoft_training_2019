@@ -59,8 +59,17 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
 		if (homeFeeModel.getDebtfee() == 0 && payAmount!=0) {
 			homeFeeModel.setFeestatus("N");
 		}
-		
-		homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+payAmount);
+		if(homeFeeModel.getActualfee()>homeFeeModel.getAgreefee()) {
+			float yichu= homeFeeModel.getActualfee()-homeFeeModel.getAgreefee();
+			if(yichu>=payAmount) {
+				homeFeeModel.setDebtfee(0);
+			}else {
+				homeFeeModel.setDebtfee(payAmount-yichu);
+			}
+			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+payAmount);
+		}else {
+			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+payAmount);
+		}
 		homeFeeModel.setActualfee(homeFeeModel.getActualfee() - payAmount);
 		homeFeeMapper.update(homeFeeModel);
 

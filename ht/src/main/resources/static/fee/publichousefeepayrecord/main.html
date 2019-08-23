@@ -1,0 +1,50 @@
+<script type="text/javascript" src="fee/publichousefeepayrecord/main.js"></script>
+<!-- Main row -->
+<div class="row">
+    <div class="col-lg-7 p-r-0 title-margin-right">
+        <div class="box">
+            <div class="box-header">
+                <div class="row">
+            		<div class="col-md-2">
+            			<div class="form-group">
+            				<span>小区选择 </span>
+            				<select id="NeighbourHoodSelection" class="form-control" style="height: 33px;">
+            					<option value="0">所有</option>
+            				</select>
+            			</div>
+            		</div>
+            		<div class="col-md-2">
+            			<div class="form-group">
+            				<span>供热年度 </span>
+            				<select id="HeatingYearSelection" class="form-control" style="height: 33px;">
+            					<option value="">所有</option>
+            				</select>
+            			</div>
+            		</div>
+            		<div class="col-md-4">	
+            			<div class="form-group">
+            				<span>住宅选择：</span>&nbsp;
+            				<input type="radio" name="feestatus" value="" checked />所有
+            				&nbsp;&nbsp;
+            				<input type="radio" name="feestatus" value="N" />欠费
+            				&nbsp;&nbsp;&nbsp;&nbsp;
+            				<a href="#" class="btn btn-info" id="HomeFeeSearchButton">检索</a>
+            			</div>
+            			
+            		</div>
+            		<div class="col-md-4">
+                        <a href="#" id="PublicHouseFeePayRecordAddLink" class="btn btn-info">增加</a>
+                        <a href="#" id="PublicHouseFeePayRecordModifyLink" class="btn btn-info">修改</a>
+                        <a href="#" id="PublicHouseFeePayRecordDeleteLink" class="btn btn-info">删除</a>
+                        <a href="#" id="PublicHouseFeePayRecordDetailLink" class="btn btn-info">查看</a>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="PublicHouseFeePayRecordGrid"></table>
+                <div id="PublicHouseFeePayRecordGridPager"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6" id="PublicHouseFeePayRecordDialogArea"></div>

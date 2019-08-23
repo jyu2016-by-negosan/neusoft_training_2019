@@ -24,7 +24,7 @@ import com.neusoft.ht.message.ResultMessage;
 public class PublicHouseFeeController {
 
 	@Autowired
-	private IPublicHouseFeeService publicHouseFeeService;
+	private IPublicHouseFeeService publicHouseFeeService = null;
 	
 	//增加
 	@PostMapping("/add")

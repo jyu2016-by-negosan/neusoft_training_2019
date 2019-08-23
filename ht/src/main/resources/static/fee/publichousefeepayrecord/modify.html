@@ -1,0 +1,59 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-body">
+            <!-- 修改 -->
+            <!-- form start -->
+            <form id="PublicHouseFeeModifyForm" role="form" action="http://127.0.0.1:8080/fee/publichousefee/modify" method="post">
+                <div class="form-group">
+                    <label>缴费序号</label>
+                    <input type="text" name="recordno" class="form-group" readonly />
+                </div>
+                <div class="form-group">
+                   <label>公建供热序号</label>
+                   <input type="text" name="publicHouseFeeModel.feeno" class="form-group" placeholder="" />
+                </div>
+				<div class="form-group">
+					<label>交款方式编号</label>
+					<input type="text" name="paymentTypeModel.typeno" class="form-group" placeholder="" />
+				</div>
+                <div class="form-group">
+                    <label>缴费金额</label>
+                    <input type="text" class="form-control" name="payamount" placeholder=""/>
+                </div>
+                <div class="form-group">
+                    <label>缴费日期</label>
+                    <input type="date" class="form-control" name="paydate" placeholder=""/>
+                </div>
+                <div class="form-group">
+                    <label>缴费人</label>
+                    <input type="text" class="form-control" name="payperson" placeholder=""/>
+                </div>
+                <div class="form-group">
+                    <label>支票编号</label>
+                    <input type="text" class="form-control" name="checkcode" placeholder=""/>
+                </div>
+				<div class="form-group">
+					<label>发票编号</label>
+					<input type="text" class="form-control" name="invoicecode" placeholder=""/>
+				</div>
+                <div class="form-group">
+                    <label>缴费备注</label>
+                    <input type="text" class="form-control" name="paydesc" placeholder=""/>
+                </div>
+                <div class="form-group">
+                    <label>记录处理状态</label>
+                    <input type="text" class="form-control" name="recordstatus" placeholder=""/>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <input type="submit" class="btn btn-info" value="提交"/>
+                    <input type="button" class="btn btn-info" value="取消"/>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->

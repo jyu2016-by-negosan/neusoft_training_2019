@@ -40,7 +40,7 @@ $(function(){
 				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
 					amount = $(this).data("amount");
-					feeno = $(this).data("feeno");
+					feeno = $(this).data("feeno");	
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
 					$(this).css("background-color","#d6d0d08c");
 				});
@@ -138,7 +138,7 @@ $(function(){
 				
 				$("div#PayRecordDialogArea" ).dialog({
 					title:"居民缴费记录修改",
-					width:600
+					width:300
 				});
 				//拦截表单提交
 				$("form#HomeFeePayRecordModifyForm").ajaxForm(function(result){
@@ -189,7 +189,6 @@ $(function(){
 						type:"post",
 						url:'http://127.0.0.1:8080/fee/housepayrecord/delete',
 						data:{recordno:no,
-							homeFeeModel:homeFeeModel.feeno,
 							payamount:amount},
 						success:function(result){
 					

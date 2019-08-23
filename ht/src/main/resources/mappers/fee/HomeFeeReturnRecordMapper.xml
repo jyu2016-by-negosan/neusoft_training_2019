@@ -26,8 +26,8 @@
   
   <insert id="insert" keyProperty="recordno" keyColumn="recordno" useGeneratedKeys="true">
   		insert into HT_HomeFeeReturnRecord (recordno,feeno,paymentTypeno,amount,returndate,person,
-  		checkcode,invoicecode,recorddesc,recordstatus) values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{amount},#{returndate},
-  		#{person},#{checkcode},#{invoicecode},#{recorddesc},#{recordstatus})
+  		checkcode,invoicecode,recorddesc) values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{amount},#{returndate},
+  		#{person},#{checkcode},#{invoicecode},#{recorddesc})
   </insert>
   
   

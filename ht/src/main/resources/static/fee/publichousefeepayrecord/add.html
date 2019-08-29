@@ -6,15 +6,15 @@
 			<form id="PublicHouseFeePayRecordAddForm" action="http://127.0.0.1:8080/fee/publichousefeepayrecord/add" method="post">
 				<div class="box-body">
 					<div class="form-group">
-						<label>缴费序号</label>
+						<label>缴费序号</label><br />
 						<input type="text" name="recordno" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>公建供热序号</label>
+						<label>公建供热序号</label><br />
 						<input type="text" name="publicHouseFeeModel.feeno" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>交款方式编号</label>
+						<label>交款方式编号</label><br />
 						<select id="payType" name="paymentTypeModel.typeno"
 							class="form-control" style="height: 33px;">
 							<option value="0">请选择</option>
@@ -22,7 +22,7 @@
 						<br />
 					</div>
 					<div class="form-group">
-						<label>缴费金额</label>
+						<label>缴费金额</label><br />
 						<input type="text" name="payamount" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
@@ -34,25 +34,26 @@
 						<input type="text" name="payperson" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>支票编号</label>
+						<label>支票编号</label><br />
 						<input type="text" name="checkcode" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>发票编号</label>
+						<label>发票编号</label><br />
 						<input type="text" name="invoicecode" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>缴费备注</label>
+						<label>缴费备注</label><br />
 						<input type="text" name="paydesc" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>记录处理状态</label>
+						<label>记录处理状态</label><br />
 						<input type="text" name="recordstatus" class="form-group" placeholder="" />
 					</div>
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer">
 				    <input type="submit" class="btn btn-info" value="提交"/>
+					<input type="button" class="btn btn-info" value="取消"/>
 				</div>
 			</form>
 		</div>

@@ -3,46 +3,50 @@
 	<div class="col-xs-12">
 		<div class="box-body">
 			<!-- 增加 -->
-		<form id="PublicHouseFeeReturnRecordAddLink" action="http://127.0.0.1:8080/fee/publichousereturnrecord/add" method="post">
+		<form id="PublicHouseFeeReturnRecordAddForm" action="http://127.0.0.1:8080/fee/publichousefeereturnrecord/add" method="post">
 				<div class="box-body">
 					<div class="form-group">
-						<label>退费序号</label>
+						<label>退费序号</label><br />
 						<input type="text" name="recordno" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>公建供热序号</label>
+						<label>公建供热序号</label><br />
 						<input type="text" name="publicHouseFeeModel.feeno" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>交款方式编号</label>
-						<input type="text" name="paymentTypeModel.typeno" class="form-group" placeholder="" />
+						<label>交款方式编号</label><br />
+						<select id="payType" name="paymentTypeModel.typeno"
+							class="form-control" style="height: 33px;">
+							<option value="0">请选择</option>
+						</select>
+						<br />
 					</div>
 					<div class="form-group">
-						<label>退费金额</label>
+						<label>退费金额</label><br />
 						<input type="text" name="amount" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>退费日期</label>
+						<label>退费日期</label><br />
 						<input type="date" name="returndate" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>收款人</label>
+						<label>收款人</label><br />
 						<input type="text" name="person" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>退费单编号</label>
+						<label>退费单编号</label><br />
 						<input type="text" name="checkcode" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>发票编号</label>
+						<label>发票编号</label><br />
 						<input type="text" name="invoicecode" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>退费备注</label>
+						<label>退费备注</label><br />
 						<input type="text" name="recorddesc" class="form-group" placeholder="" />
 					</div>
 					<div class="form-group">
-						<label>记录处理状态</label>
+						<label>记录处理状态</label><br />
 						<input type="text" name="recordstatus" class="form-group" placeholder="" />
 					</div>
 				</div>

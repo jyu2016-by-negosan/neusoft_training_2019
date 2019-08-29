@@ -6,6 +6,8 @@
 	//关联取
 	var feeno = 0;
 	var typeno = 0;
+	var hoodno = 0;
+	var heatingyear = null;
 	//本表查询
 	var recordno = 0;
 	var amount = 0;
@@ -66,7 +68,7 @@
 	
 	function reloadList()
 	{
-		$("table#HomeFeeGrid").jqGrid('setGridParam',
+		$("table#PublicHouseFeeReturnRecordGrid").jqGrid('setGridParam',
 		{
 			postData:{				
 				hoodno:hoodno,
@@ -84,4 +86,83 @@
 		reloadList();
 	});
 	
+	$("a#PublicHouseFeeReturnRecordAddLink").off().on("click", function(event){
+	    $("div#PublicHouseFeeReturnRecordDialogArea").load("fee/publichousefeereturnrecord/add.html", function(){
+	        $("div#PublicHouseFeeReturnRecordDialogArea").dialog({
+				title: "增加公建供热缴费信息",
+				width: 600
+			});
+			$("form#PublicHouseFeeReturnRecordAddForm").ajaxForm(function(result){
+				if(result.status == "OK"){
+					reloadList();
+				}
+				BootstrapDialog.show({
+					title: '缴费操作信息',
+					message: result.message
+				});
+				$("div#PublicHouseFeeReturnRecordDialogArea" ).dialog( "close" );
+				$("div#PublicHouseFeeReturnRecordDialogArea" ).dialog( "destroy" );
+				$("div#PublicHouseFeeReturnRecordDialogArea").html("");
+			});
+			$("input[value='取消']").on("click", function(){
+			    $("div#PublicHouseFeeReturnRecordDialogArea").dialog("close");
+			    $("div#PublicHouseFeeReturnRecordDialogArea").dialog("destroy");
+			    $("div#PublicHouseFeeReturnRecordDialogArea").html("");
+			});
+		});
+	});
+	
+	$("a#PublicHouseFeeReturnRecordModifyLink").off().on("click", function(){
+		$("table#PublicHouseFeeReturnRecordGrid tbody tr").on("click", function(){
+			recordno = $(this).attr("id");
+		});
+		if (recordno == 0) {
+			BootstrapDialog.show({
+				title: '公建缴费记录操作信息',
+				message: "请选择要修改的记录"
+			});
+		} else{
+			
+		}
+	});
+	
+	$("a#PublicHouseFeeReturnRecordDeleteLink").off().on("click", function(){
+		$("table#PublicHouseFeeReturnRecordGrid tbody tr").on("click", function(){
+			recordno = $(this).attr("id");
+		});
+		if (recordno == 0) {
+			BootstrapDialog.show({
+				title: '公建缴费记录操作信息',
+				message: "请选择要删除的记录"
+			});
+		} else{
+			BootstrapDialog.confirm('确认删除该记录吗？', function(result){
+			    if(result){
+			        $.post(host+"fee/publichousefeereturnrecord/delete", {recordno:recordno}, function(result){
+			            if(result.status == "OK"){
+			                reloadList();
+			            }
+			            BootstrapDialog.show({
+			               title: '供热缴费记录操作信息',
+			               message: result.message 
+			            });
+			        });
+			    }
+			});
+		}
+	});
+	
+	$("a#PublicHouseFeeReturnRecordDetailLink").off().on("click", function(){
+		$("table#PublicHouseFeeReturnRecordGrid tbody tr").on("click", function(){
+			recordno = $(this).attr("id");
+		});
+		if (recordno == 0) {
+			BootstrapDialog.show({
+				title: '公建缴费记录操作信息',
+				message: "请选择要查看的记录"
+			});
+		} else{
+			
+		}
+	});
  });

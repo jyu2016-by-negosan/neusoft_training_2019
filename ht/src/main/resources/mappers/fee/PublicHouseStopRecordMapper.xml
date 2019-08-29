@@ -28,7 +28,7 @@
 		<result property = "stopstatus" column = "stopstatus"/>
 	</resultMap>
 	
-	<insert id = "insert" keyProperty = "recordno" keyColumn = "recordno" useGeneratedKeys = "true" flushCache = "true">
+	<insert id = "create" keyProperty = "recordno" keyColumn = "recordno" useGeneratedKeys = "true" flushCache = "true">
 		insert into HT_PublicHouseStopRecord (
 			recordno, stoparea, stopdate, stopreason, stopperson, stopdesc, stopstatus
 		) value (

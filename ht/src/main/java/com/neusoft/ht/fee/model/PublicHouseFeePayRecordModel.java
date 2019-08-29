@@ -20,7 +20,7 @@ public class PublicHouseFeePayRecordModel implements Serializable {
 	private PublicHouseFeeModel publicHouseFeeModel = null;
 	private PaymentTypeModel paymentTypeModel = null;
 	private float payamount = 0;
-	private Date paydate = null;
+	private String paydate = null;
 	private String payperson = null;
 	private String checkcode = null;
 	private String invoicecode = null;

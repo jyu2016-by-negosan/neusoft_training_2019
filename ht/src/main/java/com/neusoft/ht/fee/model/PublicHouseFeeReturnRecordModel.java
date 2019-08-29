@@ -19,10 +19,10 @@ public class PublicHouseFeeReturnRecordModel implements Serializable {
 	private PublicHouseFeeModel publicHouseFeeModel = null;	
 	private PaymentTypeModel paymentTypeModel = null;
 	private float amount = 0;
-	private Date returndate = null;
+	private String returndate = null;
 	private String person = null;
 	private String checkcode = null;
 	private String invoicecode = null;
 	private String recorddesc = null;
-	private String recordestatus = null;
+	private String recordstatus = null;
 }

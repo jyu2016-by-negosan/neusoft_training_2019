@@ -1,0 +1,60 @@
+<!-- Main row -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box-body">
+			<!-- 增加 -->
+			<form id="PublicHouseFeePayRecordAddForm" action="http://127.0.0.1:8080/fee/publichousefeepayrecord/add" method="post">
+				<div class="box-body">
+					<div class="form-group">
+						<label>缴费序号</label>
+						<input type="text" name="recordno" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>公建供热序号</label>
+						<input type="text" name="publicHouseFeeModel.feeno" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>交款方式编号</label>
+						<select id="payType" name="paymentTypeModel.typeno"
+							class="form-control" style="height: 33px;">
+							<option value="0">请选择</option>
+						</select>
+						<br />
+					</div>
+					<div class="form-group">
+						<label>缴费金额</label>
+						<input type="text" name="payamount" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>缴费日期</label><br />
+						<input type="date" name="paydate" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>缴费人</label><br />
+						<input type="text" name="payperson" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>支票编号</label>
+						<input type="text" name="checkcode" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>发票编号</label>
+						<input type="text" name="invoicecode" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>缴费备注</label>
+						<input type="text" name="paydesc" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>记录处理状态</label>
+						<input type="text" name="recordstatus" class="form-group" placeholder="" />
+					</div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+				    <input type="submit" class="btn btn-info" value="提交"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

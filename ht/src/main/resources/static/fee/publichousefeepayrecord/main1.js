@@ -3,29 +3,34 @@
  * 作者：张晓龙
  */
 $(function(){
-    var feeno=0;
-    var houseno=0;
-    var heatingyear=null;
-    var agreefee=0;
-    var actualfee=0;
-    var debtfee=0;
-    var feedesc=null;
-    var feestatus=null;
+	//关联取
+	var feeno = 0;
+	var typeno = 0;
+	//本表查询
+	var recordno = 0;
+	var payamount = 0;
+	var paydate = null;
+	var payperson = null;
+	var checkcode = 0;
+	var invoicecode = 0;
+	var paydesc = null;
+	var recordstatus = null;
     //设置系统页面标题
     $("ol.breadcrumb").html("<li class='breadcrumb-item'><span id='mainpagetitle'>供热缴费模块</span></li>"
-    +"<li class='breadcrumb-item'><span id='mainpagetitle'>公建供热记录</span></li>");
+    +"<li class='breadcrumb-item'><span id='mainpagetitle'>公建缴费记录</span></li>");
 
     //显示列表
     $("table#PublicHouseFeeGrid").jqGrid({
         url: host+ 'fee/publichousefee/getListByAllWithPage',
         datatype: "json",
         colModel: [
-            { label: '公建供热序号', name: 'feeno' },
-            { label: '公建编号', name: 'houseno' },
-            { label: '应缴费', name: 'agreefee' },
-            { label: '实缴费', name: 'actualfee' },
-            { label: '欠缴费', name: 'debtfee' },
-            { label: '缴费状态(供热/报停)', name: 'feestatus' }
+			{ label: '缴费序号', name: 'recordno' },
+			{ label: '交款方式编号', name: 'typeno' },
+			{ label: '缴费日期', name: 'paydate' },
+			{ label: '缴费金额', name: 'payamount' },
+			{ label: '缴费人', name: 'payperson' },
+			{ label: '支票编号', name: 'checkcode' },
+			{ label: '记录处理状态', name: 'recordstatus' }
         ],
         viewrecords: true,
         autowidth: true,
@@ -46,80 +51,73 @@ $(function(){
     function reloadList() {
         $("table#PublicHouseFeeGrid").jqGrid('setGridParam', {
             postData: {
-                feeno: feeno,
-                houseno: houseno,
-                heatingyear: heatingyear,
-                agreefee: agreefee,
-                actualfee: actualfee,
-                debtfee: debtfee,
-                feedesc: feedesc,
-                feestatus: feestatus
+                recordno: recordno,
+                typeno: typeno,
+                paydate: paydate,
+                payamount: payamount,
+                payperson: payperson,
+                checkcode: checkcode,
+                recordstatus: recordstatus,
             }
         }).trigger("reloadGrid");
     }
 
     //点击增加链接处理，嵌入add.html
-    $("a#PublicHouseFeeAddLink").off().on("click", function(event){
-        $("div#PublicHouseFeeDialogArea").load("fee/publichousefee/add.html", function(){
-            $("div#PublicHouseFeeDialogArea").dialog({
-                title: "增加公建供热记录",
+    $("a#PublicHouseFeePayRecordAddLink").off().on("click", function(event){
+        $("div#PublicHouseFeePayRecordDialogArea").load("fee/publichousefeepayrecord/add.html", function(){
+            $("div#PublicHouseFeePayRecordDialogArea").dialog({
+                title: "增加公建缴费记录",
                 width: 650
             });
-            $("form#PublicHouseFeeAddForm").validate({
+            $("form#PublicHouseFeePayRecordAddForm").validate({
                 rules: {
-                    feeno: {
+                    recordno: {
                         required: true,
                     },
-                    houseno: {
+                    typeno: {
                         required: true,
                     },
-                    heatingyear: {
+                    payamount: {
                         required: true,
                     },
-                    agreefee: {
+                    paydate: {
                         required: true,
                     },
-                    actualfee: {
+                    payperson: {
                         required: true,
                     },
-                    debtfee: {
+                    checkcode: {
                         required: true,
                     },
-                    feedesc: {
+                    recordstatus: {
                         required: true,
                     },
-                    feestatus: {
-                        required: true,
-                    }
                 },
                 messages: {
                     feeno: {
-                        required: "公建供热序号不能为空！",
+                        required: "序号不能为空！",
                     },
                     houseno: {
-                        required: "公建编号不能为空！",
+                        required: "交款方式不能为空！",
                     },
                     heatingyear: {
-                        required: "年份不能为空！",
+                        required: "交款金额不能为空！",
                     },
                     agreefee: {
-                        required: "应缴费不能为空！",
+                        required: "交款日期不能为空！",
                     },
                     actualfee: {
-                        required: "实缴费不能为空！",
+                        required: "交款人不能为空！",
                     },
                     debtfee: {
-                        required: "欠缴费不能为空！",
+                        required: "支票编号不能为空！",
                     },
                     feedesc: {
-                        required: "备注信息不能为空！",
-                    },
-                    feestatus: {
-                        required: "缴费状态不能为空！",
+                        required: "记录处理信息不能为空！",
                     }
                 }
             });
-            $("form#PublicHouseFeeAddForm").ajaxForm(function(result){
+            $("form#PublicHouseFeePayRecordAddForm").ajaxForm(function(result){
                 if(result.status == "OK"){
                     reloadList();
                 }
@@ -127,14 +125,14 @@ $(function(){
                     title: '公建供热记录操作信息',
                     message: result.message
                 });
-                $("div#PublicHouseFeeDialogArea").dialog("close");
-                $("div#PublicHouseFeeDialogArea").dialog("destroy");
-                $("div#PublicHouseFeeDialogArea").html("");
+                $("div#PublicHouseFeePayRecordDialogArea").dialog("close");
+                $("div#PublicHouseFeePayRecordDialogArea").dialog("destroy");
+                $("div#PublicHouseFeePayRecordDialogArea").html("");
             });
             $("input[value='取消']").on("click", function(){
-                $("div#PublicHouseFeeDialogArea").dialog("close");
-                $("div#PublicHouseFeeDialogArea").dialog("destroy");
-                $("div#PublicHouseFeeDialogArea").html("");
+                $("div#PublicHouseFeePayRecordDialogArea").dialog("close");
+                $("div#PublicHouseFeePayRecordDialogArea").dialog("destroy");
+                $("div#PublicHouseFeePayRecordDialogArea").html("");
             });
         });
     });

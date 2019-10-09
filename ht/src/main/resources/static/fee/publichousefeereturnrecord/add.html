@@ -1,0 +1,57 @@
+<!-- Main row -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box-body">
+			<!-- 增加 -->
+		<form id="PublicHouseFeeReturnRecordAddLink" action="http://127.0.0.1:8080/fee/publichousereturnrecord/add" method="post">
+				<div class="box-body">
+					<div class="form-group">
+						<label>退费序号</label>
+						<input type="text" name="recordno" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>公建供热序号</label>
+						<input type="text" name="publicHouseFeeModel.feeno" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>交款方式编号</label>
+						<input type="text" name="paymentTypeModel.typeno" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>退费金额</label>
+						<input type="text" name="amount" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>退费日期</label>
+						<input type="date" name="returndate" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>收款人</label>
+						<input type="text" name="person" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>退费单编号</label>
+						<input type="text" name="checkcode" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>发票编号</label>
+						<input type="text" name="invoicecode" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>退费备注</label>
+						<input type="text" name="recorddesc" class="form-group" placeholder="" />
+					</div>
+					<div class="form-group">
+						<label>记录处理状态</label>
+						<input type="text" name="recordstatus" class="form-group" placeholder="" />
+					</div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+				    <input type="submit" class="btn btn-info" value="提交"/>
+				    <input type="button" class="btn btn-info" value="取消"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

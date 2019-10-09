@@ -155,14 +155,15 @@ $(function(){
 	
 	// 点击增加链接处理，嵌入add.html
 	$("a#PublicHouseAddLink").off().on("click",function(event){
+		$.getJSON(host+"/fee/neighbourhood/list/all",function(neighbourHoodModelList){
+			if(neighbourHoodModelList){
+				$.each(neighbourHoodModelList,function(index,neighbourHoodModel){
+					$("#NeighbourHoodSelection").append("<option value='"+neighbourHoodModel.hoodno+"'>"+neighbourHoodModel.hoodname+"</option>");
+				})
+			}
+		});
 		$("div#PublicHouseDialogArea").load("fee/publichouse/add.html",function(){
-			$.getJSON(host+"/fee/neighbourhood/list/all",function(neighbourHoodModelList){
-				if(neighbourHoodModelList){
-					$.each(neighbourHoodModelList,function(index,neighbourHoodModel){
-						$("#NeighbourHoodSelection").append("<option value='"+neighbourHoodModel.hoodno+"'>"+neighbourHoodModel.hoodname+"</option>");
-					})
-				}
-			});
+			
 			$("div#PublicHouseDialogArea" ).dialog({
 				title:"增加公建管理记录",
 				width:600

@@ -11,8 +11,9 @@ $(function(){
 	var pageCount=0;  //缴费总页数
 	var no =-1;
 	var recordno =-1;
+	var feeno =0;
 	var host = "http://127.0.0.1:8080"
-
+	var amount = 0;
 	function getListInfo(){
 		//取得列表，分页模式
 		$.getJSON("http://127.0.0.1:8080/fee/housepayrecord/getAllByListWithPage",{page:page,rows:rows},function(data){
@@ -29,8 +30,8 @@ $(function(){
 					}else{
 						recordstatus="失败";
 					}
-					var tr="<tr id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
-							+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
+					var tr="<tr data-feeno='"+data.list[i].homeFeeModel.feeno+"' data-amount='"+data.list[i].payamount+"' id='"+data.list[i].recordno+"'><td>"+data.list[i].recordno
+							+"</td><td>"+data.list[i].homeFeeModel.feeno+"</td><td>"+data.list[i].payamount+"</td><td>"+data.list[i].paydate+"</td><td>" +data.list[i].payperson+"</td><td>"
 									+data.list[i].invoicecode+"</td><td>" +data.list[i].paydesc+"</td><td>"+recordstatus+"</td></tr>";
 									
 					$("table#HomeFeePayRecordTable tbody").append(tr);
@@ -38,8 +39,10 @@ $(function(){
 				//定义表格行的点击时间，取得选择的缴费记录ID
 				$("table#HomeFeePayRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
+					amount = $(this).data("amount");
+					feeno = $(this).data("feeno");	
 					$("table#HomeFeePayRecordTable tbody tr").css("background-color","#FFFFFF");
-					$(this).css("background-color","#6495ED");
+					$(this).css("background-color","#d6d0d08c");
 				});
 		 });
 			
@@ -80,17 +83,22 @@ $(function(){
 	//点击增加链接处理，嵌入add.html
 	$("a#PayRecordAddLink").off().on("click",function(event){
 		$("div#PayRecordDialogArea").load("fee/homefeepayrecord/add.html",function(){
-			$("div#PayRecordDialogArea" ).dialog({
-				title:"增加居民缴费记录",
-				width:400
-			});
+			
 			$.getJSON(host+"/fee/paymenttype/list/all",function(PayTypeList){
 				if(PayTypeList){
 					$.each(PayTypeList,function(index,payType){
 						$("#payType").append("<option value='"+payType.typeno+"'>"+payType.typename+"</option>");
 					})
 				}
+				$("div#PayRecordDialogArea" ).dialog({
+					title:"增加居民缴费记录",
+					width:300
+				});
 			})
+
+			
+			
+			
 			$("form#HomeFeePayRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
 					getListInfo(); 
@@ -127,12 +135,13 @@ $(function(){
 						$("input[name='invoicecode']").val(data.model.invoicecode);
 						$("input[name='paydesc']").val(data.model.paydesc);
 						$("input[name='recordstatus']").val(data.model.recordstatus);
+						
 					}
 				});
 				
 				$("div#PayRecordDialogArea" ).dialog({
 					title:"居民缴费记录修改",
-					width:600
+					width:300
 				});
 				//拦截表单提交
 				$("form#HomeFeePayRecordModifyForm").ajaxForm(function(result){
@@ -179,7 +188,13 @@ $(function(){
 		
 			BootstrapDialog.confirm('确认删除此条缴费记录么?', function(result){
 				if(result) {
-					$.post("http://127.0.0.1:8080/fee/housepayrecord/delete",{recordno:no},function(result){
+					$.ajax({
+						type:"post",
+						url:'http://127.0.0.1:8080/fee/housepayrecord/delete',
+						data:{recordno:no,
+							payamount:amount},
+						success:function(result){
+					
 						if(result.status=="OK"){
 							getListInfo(); 
 						}
@@ -187,12 +202,10 @@ $(function(){
 							title: '记录操作信息',
 							message:result.message
 						});
+						}
 					});
 				}
-			});
-				
-	
-			
+			});	
 		}
 		
 	});

@@ -22,16 +22,14 @@ $(function(){
         colModel: [
             { label: '公建供热序号', name: 'feeno' },
             { label: '公建编号', name: 'houseno' },
-            { label: '年份', name: 'heatingyear' },
             { label: '应缴费', name: 'agreefee' },
             { label: '实缴费', name: 'actualfee' },
             { label: '欠缴费', name: 'debtfee' },
-            { label: '备注', name: 'feedesc' },
             { label: '缴费状态(供热/报停)', name: 'feestatus' }
         ],
         viewrecords: true,
-        autowith: true,
-        height: 190,
+        autowidth: true,
+        height: 200,
         rowNum: 5,
 
         jsonReader: {
@@ -65,7 +63,7 @@ $(function(){
         $("div#PublicHouseFeeDialogArea").load("fee/publichousefee/add.html", function(){
             $("div#PublicHouseFeeDialogArea").dialog({
                 title: "增加公建供热记录",
-                width: 600
+                width: 650
             });
             $("form#PublicHouseFeeAddForm").validate({
                 rules: {

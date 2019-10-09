@@ -29,7 +29,7 @@
 		<result property="recordstatus" column="recordstatus"/>
 	</resultMap>
 	
-	<insert id = "insert" keyProperty = "recordno" keyColumn = "recordno" flushCache = "true" useGeneratedKeys = "true">
+	<insert id = "create" keyProperty = "recordno" keyColumn = "recordno" flushCache = "true" useGeneratedKeys = "true">
 		insert into HT_PublicHouseFeeReturnRecord (
 			recordno, amount, returndate, person, checkcode, invoicecode, recorddesc, recordstatus
 		) value (

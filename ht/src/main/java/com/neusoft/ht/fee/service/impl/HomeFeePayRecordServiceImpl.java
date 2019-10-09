@@ -11,68 +11,101 @@ import com.neusoft.ht.fee.mapper.IHomeFeePayRecordMapper;
 import com.neusoft.ht.fee.model.HomeFeeModel;
 import com.neusoft.ht.fee.model.HomeFeePayRecordModel;
 import com.neusoft.ht.fee.service.IHomeFeePayRecordService;
-/**模块：供热缴费管理
- * 住宅供热缴费记录--ServiceImpl
+
+/**
+ * 模块：供热缴费管理 住宅供热缴费记录--ServiceImpl
+ * 
  * @author 罗妙忠
  *
  */
 @Service
 @Transactional
-public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
-	
+public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService {
+
 	@Autowired
 	private IHomeFeePayRecordMapper houseFeePayRecordMapper;
-	
+
 	@Autowired
 	private IHomeFeeMapper homeFeeMapper;
-	
-	//增加住宅缴费记录
-	public void add(HomeFeePayRecordModel payRecordModel)throws Exception {
+
+	//N欠费，Y不欠费
+	// 增加住宅缴费记录
+	public void add(HomeFeePayRecordModel payRecordModel) throws Exception {
 		houseFeePayRecordMapper.insert(payRecordModel);
 
 		float payAmount = payRecordModel.getPayamount();
-		HomeFeeModel homeFeeModel = homeFeeMapper.selectByNoWithHomeAndHeatingPrice(payRecordModel.getHomeFeeModel().getFeeno());
-		homeFeeModel.setActualfee(homeFeeModel.getActualfee()+payAmount);	
-		if(homeFeeModel.getDebtfee()-payAmount>0) {
-			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()-payAmount);
-		}else {
+		HomeFeeModel homeFeeModel = homeFeeMapper
+				.selectByNoWithHomeAndHeatingPrice(payRecordModel.getHomeFeeModel().getFeeno());
+		homeFeeModel.setActualfee(homeFeeModel.getActualfee() + payAmount);
+		if (homeFeeModel.getDebtfee() - payAmount > 0) {
+			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee() - payAmount);
+			homeFeeModel.setFeestatus("N");
+		} else {
 			homeFeeModel.setDebtfee(0);
 			homeFeeModel.setFeestatus("Y");
-			System.out.println("feestatus:"+homeFeeModel.getFeestatus());
+			System.out.println("feestatus:" + homeFeeModel.getFeestatus());
 
 		}
 		homeFeeMapper.update(homeFeeModel);
 	}
-			
-	//删除住宅缴费记录
-	public void delete(HomeFeePayRecordModel payRecordModel) throws Exception{
-		 houseFeePayRecordMapper.delete(payRecordModel);
-	}
-			
-	//更改缴费记录
-	public void modify(HomeFeePayRecordModel payRecordModel)throws Exception {
-		HomeFeePayRecordModel homeFeePayRecordModel = houseFeePayRecordMapper.selectById(payRecordModel.getRecordno());
-		float payamount = homeFeePayRecordModel.getPayamount();
-		float actualpayamount =payRecordModel.getPayamount();
-		if(actualpayamount!=payamount){
-			if(payamount>actualpayamount) {
-				
-				float error = payamount-actualpayamount;
-				int feeno =  houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
-				HomeFeeModel homeFeeModel = homeFeeMapper.selectByNoWithHomeAndHeatingPrice(feeno);
-				homeFeeModel.setActualfee(homeFeeModel.getActualfee()-error);		
-				homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+error);
-				homeFeeMapper.update(homeFeeModel);
+
+	// 删除住宅缴费记录
+	public void delete(HomeFeePayRecordModel payRecordModel) throws Exception {
+		int feeno = houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
+		float payAmount = payRecordModel.getPayamount();
+		HomeFeeModel homeFeeModel = homeFeeMapper
+				.selectByNoWithHomeAndHeatingPrice(feeno);
+		System.out.println("homeFeeModel:"+homeFeeModel);
+		if (homeFeeModel.getDebtfee() == 0 && payAmount!=0) {
+			homeFeeModel.setFeestatus("N");
+		}
+		if(homeFeeModel.getActualfee()>homeFeeModel.getAgreefee()) {
+			float yichu= homeFeeModel.getActualfee()-homeFeeModel.getAgreefee();
+			if(yichu>=payAmount) {
+				homeFeeModel.setDebtfee(0);
 			}else {
+				homeFeeModel.setDebtfee(payAmount-yichu);
+			}
+			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+payAmount);
+		}else {
+			homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()+payAmount);
+		}
+		homeFeeModel.setActualfee(homeFeeModel.getActualfee() - payAmount);
+		homeFeeMapper.update(homeFeeModel);
+
+		houseFeePayRecordMapper.delete(payRecordModel);
+	}
+
+	// 更改缴费记录
+	public void modify(HomeFeePayRecordModel payRecordModel) throws Exception {
+		HomeFeePayRecordModel homeFeePayRecordModel = houseFeePayRecordMapper.selectById(payRecordModel.getRecordno());
+		//pay--之前
+		float payamount = homeFeePayRecordModel.getPayamount();
+		//act修改后
+		float actualpayamount = payRecordModel.getPayamount();
+		
+		if (actualpayamount != payamount) {
+			if (payamount > actualpayamount) {
 				
-				float error = actualpayamount-payamount;
-				int feeno =  houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
+				float error = payamount - actualpayamount;
+				int feeno = houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
 				HomeFeeModel homeFeeModel = homeFeeMapper.selectByNoWithHomeAndHeatingPrice(feeno);
-				homeFeeModel.setActualfee(homeFeeModel.getActualfee()+error);	
-				if(homeFeeModel.getDebtfee()-error>0) {
-					homeFeeModel.setDebtfee(homeFeeModel.getDebtfee()-error);
+				if(homeFeeModel.getDebtfee()==0) {
+					homeFeeModel.setFeestatus("N");
 				}
-				else {
+				homeFeeModel.setActualfee(homeFeeModel.getActualfee() - error);
+				homeFeeModel.setDebtfee(homeFeeModel.getDebtfee() + error);
+				homeFeeMapper.update(homeFeeModel);
+			} else {
+
+				float error = actualpayamount - payamount;
+				int feeno = houseFeePayRecordMapper.selectByIdWithFeeno(payRecordModel);
+				HomeFeeModel homeFeeModel = homeFeeMapper.selectByNoWithHomeAndHeatingPrice(feeno);
+				homeFeeModel.setActualfee(homeFeeModel.getActualfee() + error);
+				if (homeFeeModel.getDebtfee() - error > 0) {
+					homeFeeModel.setDebtfee(homeFeeModel.getDebtfee() - error);
+					homeFeeModel.setFeestatus("N");
+				} else {
 					homeFeeModel.setDebtfee(0);
 					homeFeeModel.setFeestatus("Y");
 					System.out.println(homeFeeModel.getFeestatus());
@@ -80,38 +113,36 @@ public class HomeFeePayRecordServiceImpl implements IHomeFeePayRecordService{
 				homeFeeMapper.update(homeFeeModel);
 			}
 		}
-		
-		houseFeePayRecordMapper.update(payRecordModel);	
+
+		houseFeePayRecordMapper.update(payRecordModel);
 	}
-			
-	//根据居民缴费序号查找缴费记录
-	public HomeFeePayRecordModel getById(int recordNo)throws Exception {
+
+	// 根据居民缴费序号查找缴费记录
+	public HomeFeePayRecordModel getById(int recordNo) throws Exception {
 		return houseFeePayRecordMapper.selectById(recordNo);
-		
+
 	}
-			
-	
-	//查找所有住宅缴费记录（分页）
-	public List<HomeFeePayRecordModel> getAllByListWithPage(int page,int rows)throws Exception{
-		return houseFeePayRecordMapper.selectAllByListWithPage((page-1)*rows, rows);
-		
+
+	// 查找所有住宅缴费记录（分页）
+	public List<HomeFeePayRecordModel> getAllByListWithPage(int page, int rows) throws Exception {
+		return houseFeePayRecordMapper.selectAllByListWithPage((page - 1) * rows, rows);
+
 	}
 
 	@Override
-	public List<HomeFeePayRecordModel> getAllByList()throws Exception {
-		return  houseFeePayRecordMapper.selectAllByList();
-		
+	public List<HomeFeePayRecordModel> getAllByList() throws Exception {
+		return houseFeePayRecordMapper.selectAllByList();
+
 	}
 
 	@Override
-	public int getAllCount()throws Exception {
+	public int getAllCount() throws Exception {
 		return houseFeePayRecordMapper.selectAllCount();
 	}
 
 	@Override
-	public HomeFeePayRecordModel getByIdWithHomeFee(int recordno)throws Exception {
+	public HomeFeePayRecordModel getByIdWithHomeFee(int recordno) throws Exception {
 		return houseFeePayRecordMapper.selectByIdWithHomeFee(recordno);
 	}
 
-	
 }

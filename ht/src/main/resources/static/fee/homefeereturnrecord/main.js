@@ -12,7 +12,7 @@ $(function(){
 	var no =-1;
 	var recordno =-1;
 	var host = "http://127.0.0.1:8080"
-	
+	var recordstatus = "";
 
 	function getListInfo(){
 		//取得列表，分页模式
@@ -24,8 +24,7 @@ $(function(){
 				//显示列表
 				$("table#HomeFeeReturnRecordTable tbody").html("");
 				for(var i=0;i<data.list.length;i++){
-					var recordstatus = "";
-					if(data.list[i].recordstatus=="Y"){
+					if(data.list[i].recordstatus=="N"){//
 						recordstatus="正常";
 					}else{
 						recordstatus="失败";
@@ -40,7 +39,7 @@ $(function(){
 				$("table#HomeFeeReturnRecordTable tbody tr").off().on("click",function(){
 					no=$(this).attr("id");
 					$("table#HomeFeeReturnRecordTable tbody tr").css("background-color","#FFFFFF");
-					$(this).css("background-color","#6495ED");
+					$(this).css("background-color","#d6d0d08c");
 				});
 		 });
 			
@@ -81,10 +80,6 @@ $(function(){
 	//点击增加链接处理，嵌入add.html
 	$("a#ReturnRecordAddLink").off().on("click",function(event){
 		$("div#ReturnRecordDialogArea").load("fee/homefeereturnrecord/add.html",function(){
-			$("div#ReturnRecordDialogArea" ).dialog({
-				title:"增加居民退款记录",
-				width:400
-			});
 			$.getJSON(host+"/fee/paymenttype/list/all",function(PayTypeList){
 				if(PayTypeList){
 					$.each(PayTypeList,function(index,payType){
@@ -92,6 +87,12 @@ $(function(){
 					})
 				}
 			})
+			
+			$("div#ReturnRecordDialogArea" ).dialog({
+				title:"增加居民退款记录",
+				width:300
+			});
+			
 
 			$("form#HomeFeeReturnRecordAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){

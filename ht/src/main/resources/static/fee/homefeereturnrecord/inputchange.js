@@ -3,7 +3,6 @@
 var feeNo = $("#feeno").val();
 $("#feeno").on("change", function(event) {
 	var feeNo = $("#feeno").val();
-	console.log("feeno: " + feeNo);
 	if (feeNo) {
 		$.getJSON("http://127.0.0.1:8080/fee/homefeereturnrecord/getReturnAmount", {
 			feeno : feeNo

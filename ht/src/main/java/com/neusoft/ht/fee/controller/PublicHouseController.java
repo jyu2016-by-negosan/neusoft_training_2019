@@ -3,6 +3,7 @@ package com.neusoft.ht.fee.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,13 +16,13 @@ import com.neusoft.ht.message.ResultMessage;
  *
  */
 @RestController
-@RequestMapping("/fee/publicHouse")
+@RequestMapping("/fee/publichouse")
 public class PublicHouseController {
 	
 	@Autowired
 	private IPublicHouseService publicHouseService;
 	
-	@RequestMapping("/addPublicHouse")
+	@PostMapping("/add")
 	public ResultMessage<PublicHouseModel> addPublicHouse(PublicHouseModel publicHouseModel){
 		if(publicHouseModel!=null) {
 			try {
@@ -36,7 +37,7 @@ public class PublicHouseController {
 		return new ResultMessage<PublicHouseModel>("OK","添加公建表成功！");
 	}
 	
-	@RequestMapping("/modifyPublicHouse")
+	@PostMapping("/modify")
 	public ResultMessage<PublicHouseModel> modifyPublicHouse(PublicHouseModel publicHouseModel){
 		if(publicHouseModel!=null) {
 			try {
@@ -51,7 +52,7 @@ public class PublicHouseController {
 		return new ResultMessage<PublicHouseModel>("OK","修改公建表成功！");
 	}
 	
-	@RequestMapping("/deletePublicHouse")
+	@RequestMapping("/delete")
 	public ResultMessage<PublicHouseModel> deletePublicHouse(PublicHouseModel publicHouseModel){
 		if(publicHouseModel!=null) {
 			try {
@@ -66,7 +67,7 @@ public class PublicHouseController {
 		return new ResultMessage<PublicHouseModel>("OK","删除公建表成功！");
 	}
 	
-	@RequestMapping("/getPublicHouseByNo")
+	@RequestMapping("/getByNo")
 	public ResultMessage<PublicHouseModel> getPublicHouseByNo(int houseno){
 		PublicHouseModel publicHouseModel=null;
 			try {
@@ -78,7 +79,7 @@ public class PublicHouseController {
 		return new ResultMessage<PublicHouseModel>(publicHouseModel,"OK","查找公建表成功！");
 	}
 	
-	@RequestMapping("/getAllPublicHouse")
+	@RequestMapping("/getAllByList")
 	public ResultMessage<PublicHouseModel> getAllPublicHouse(){
 			List<PublicHouseModel> list=null;
 			try {
@@ -90,19 +91,23 @@ public class PublicHouseController {
 		return new ResultMessage<PublicHouseModel>(list,"OK","查找公建表成功！");
 	}
 	
-	@RequestMapping("/getAllPublicHouseWithPages")
+	@RequestMapping("/getAllByListWithPages")
 	public ResultMessage<PublicHouseModel> getAllPublicHouseWithPages(int rows,int page){
 		List<PublicHouseModel> list=null;
 			try {
+				int count = publicHouseService.getCountByAll();
+				int pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
 				list=publicHouseService.getListByAllWithPage(rows, page);
+				return new ResultMessage<PublicHouseModel>(count,pageCount,list,"OK","查找公建表分页成功！");
 			}catch(Exception e) {
+				e.printStackTrace();
 				return new ResultMessage<PublicHouseModel>("ERROR","查找公建表分页失败！");
 			}
 		
-		return new ResultMessage<PublicHouseModel>(list,"OK","查找公建表分页成功！");
+		
 	}
 	
-	@RequestMapping("/getPublicHouseCount")
+	@RequestMapping("/getCount")
 	public ResultMessage<PublicHouseModel> getPublicHouseCount(){
 			int count = 0;
 			try {

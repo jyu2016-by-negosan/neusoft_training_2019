@@ -25,12 +25,14 @@
 	<association property="paymentTypeModel" resultMap="com.neusoft.ht.fee.mapper.IPaymentTypeMapper.PaymentTypeResultMap"/>
   </resultMap>
   
+  
+  
  
  
 
   <insert id="insert" keyProperty="recordno" keyColumn="RecordNo" useGeneratedKeys="true">
-  	insert into ht_homefeepayrecord (recordno,feeno,paymenttypeno,payamount,paydate,checkcode,payperson,invoicecode,paydesc,recordstatus)
-  	values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc},#{recordstatus})
+  	insert into ht_homefeepayrecord (recordno,feeno,paymenttypeno,payamount,paydate,checkcode,payperson,invoicecode,paydesc)
+  	values(#{recordno},#{homeFeeModel.feeno},#{paymentTypeModel.typeno},#{payamount},#{paydate},#{checkcode},#{payperson},#{invoicecode},#{paydesc})
   </insert>
   
   <delete id="delete">
@@ -63,8 +65,9 @@
  	select * from ht_homefeepayrecord
  </select>
  
- <select id="selectAllByListWithPage" resultMap="HomePayRecordResultMap">
- 	select * from ht_homefeepayrecord limit #{start},#{rows}
+ <select id="selectAllByListWithPage" resultMap="HomePayRecordWithHomeFeeAndPaymentTypeByResultMap">
+ 	select a.*,b.feeno from ht_homefeepayrecord a inner join ht_homefee b on a.feeno = b.feeno
+ 	limit #{start},#{rows}
  </select>
  
  <select id="selectAllCount" resultType="int">

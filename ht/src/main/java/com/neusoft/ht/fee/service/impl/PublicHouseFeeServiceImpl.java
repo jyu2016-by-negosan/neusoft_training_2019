@@ -10,11 +10,17 @@ import com.neusoft.ht.fee.mapper.IPublicHouseFeeMapper;
 import com.neusoft.ht.fee.model.PublicHouseFeeModel;
 import com.neusoft.ht.fee.service.IPublicHouseFeeService;
 
+/**
+ * 模块：供热缴费管理
+ * 功能：公建供热记录
+ * 
+ * @author 张晓龙
+ * */
 @Service
 public class PublicHouseFeeServiceImpl implements IPublicHouseFeeService {
 	
 	@Autowired
-	private IPublicHouseFeeMapper publichousefeemapper;
+	private IPublicHouseFeeMapper publichousefeemapper = null;
 
 	@Override
 	public void add(PublicHouseFeeModel publicHouseFeeModel) throws Exception {

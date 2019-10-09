@@ -44,8 +44,9 @@
    		select * from ht_publichouse
    </select>
    
-   <select id="selectListByAllWithPage" resultMap="PublicHouseResultMap">
-   		select * from ht_publichouse limit #{start},#{rows}
+   <select id="selectListByAllWithPage" resultMap="PublicHouseResultMapWithNeighbourhood">
+   		select a.*,b.hoodname from ht_publichouse a inner join ht_neighbourhood b on a.hoodno = b.hoodno
+   		limit #{start},#{rows}
    </select>
    
      <select id="selectCountByAll" resultType="int">
@@ -53,9 +54,9 @@
     </select>
 
   <insert id="insert" keyProperty="houseno" keyColumn="houseno" useGeneratedKeys="true">
-  		insert into ht_publichouse (HOUSENO,HeatingECODE,HouseName,HOUSECODE,Building,HouseArea,
+  		insert into ht_publichouse (HOUSENO,HoodNo,HeatingECODE,HouseName,HOUSECODE,Building,HouseArea,
 		Address,POSTCODE,ContactName,Tel,Mobile,Mail,QQ,HeatingStatus,DepartmentCode,FloorCode,HeatingArea) values
-		(#{houseno},#{heatingecode},#{housename},#{housecode},#{building},#{housearea},#{address},
+		(#{houseno},#{neighbourHoodModel.hoodno},#{heatingecode},#{housename},#{housecode},#{building},#{housearea},#{address},
 		#{postcode},#{contactname},#{tel},#{mobile},#{mail},#{qq},#{heatingstatus},#{departmentcode},#{floorcode},#{heatingarea})
   </insert>
   
@@ -67,6 +68,7 @@
   	update 
   	ht_publichouse <set>
   	 	<if test="heatingecode!=null">heatingecode=#{heatingecode},</if>
+  	 	<if test="neighbourHoodModel!=null">hoodno=#{neighbourHoodModel.hoodno},</if>
   	 	<if test="housename!=null">housename=#{housename},</if>
   	 	<if test="building!=null">building=#{building},</if>
   	 	<if test="housearea!=null">housearea=#{housearea},</if>

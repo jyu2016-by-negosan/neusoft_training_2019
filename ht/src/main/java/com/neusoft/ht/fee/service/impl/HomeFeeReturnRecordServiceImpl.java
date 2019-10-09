@@ -40,12 +40,13 @@ public class HomeFeeReturnRecordServiceImpl implements IHomeFeeReturnRecordServi
 
 	@Override
 	public void delete(HomeFeeReturnRecordModel homeFeeReturnRecordModel) throws Exception{
+		
 		 HomeFeeReturnRecordModel  selectByIdmodel = homeFeeReturnRecordMapper.selectByIdWithHomeFee(homeFeeReturnRecordModel.getRecordno());
 		 float amount =selectByIdmodel.getAmount();
-		 HomeFeeModel homeFeeModel = selectByIdmodel.getHomeFeeModel();
+		 HomeFeeModel homeFeeModel = selectByIdmodel.getHomeFeeModel(); 
 		 float actualfee = homeFeeModel.getActualfee();
 		 actualfee = actualfee+amount;
-		 homeFeeModel.setActualfee(actualfee);
+		 homeFeeModel.setActualfee(actualfee);	 
 		 homeFeeMapper.update(homeFeeModel);
 		 homeFeeReturnRecordMapper.delete(homeFeeReturnRecordModel);
 		

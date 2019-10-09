@@ -18,7 +18,7 @@ public class PublicHouseStopRecordModel implements Serializable {
 	private int recordno = 0;
     private PublicHouseFeeModel publicHouseFeeModel = null;
     private float stoparea = 0;
-    private Date stopdate =null;
+    private String stopdate =null;
     private String stopreason = null;
     private String stopperson = null;
     private String stopdesc = null;

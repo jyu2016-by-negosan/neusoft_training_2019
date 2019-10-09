@@ -71,4 +71,18 @@ public class PublicHouseStopRecordController {
 		
 		return new ResultMessage<PublicHouseStopRecordModel>(count, "OK", "查找成功！");
 	}
+
+	@GetMapping("/getListByAllWithPage")
+	public ResultMessage<PublicHouseStopRecordModel> getLIstByAllWithPage(int rows, int page) throws Exception {
+		int  count = 0;
+		int pageCount = 0;
+		List<PublicHouseStopRecordModel> list = null;
+		
+		count = publicHouseStopRecordService.getCountByAll();
+
+		pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
+
+		list = publicHouseStopRecordService.getListByAllWithPage(rows, page);
+		return new ResultMessage<PublicHouseStopRecordModel>(count, pageCount, list, "OK", "查找成功！");
+	}
 }

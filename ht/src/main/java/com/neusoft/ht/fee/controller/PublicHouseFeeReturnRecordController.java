@@ -73,4 +73,18 @@ public class PublicHouseFeeReturnRecordController {
 		
 		return new ResultMessage<PublicHouseFeeReturnRecordModel>(publicHouseFeeReturnRecordModel, "OK", "查找成功！");
 	}
+
+	@GetMapping("/getListByAllWithPage")
+	public ResultMessage<PublicHouseFeeReturnRecordModel> getLIstByAllWithPage(int rows, int page) throws Exception {
+		int  count = 0;
+		int pageCount = 0;
+		List<PublicHouseFeeReturnRecordModel> list = null;
+		
+		count = publicHouseFeeReturnRecordService.getCountByAll();
+
+		pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
+
+		list = publicHouseFeeReturnRecordService.getListByAllWithPage(rows, page);
+		return new ResultMessage<PublicHouseFeeReturnRecordModel>(count, pageCount, list, "OK", "查找成功！");
+	}
 }

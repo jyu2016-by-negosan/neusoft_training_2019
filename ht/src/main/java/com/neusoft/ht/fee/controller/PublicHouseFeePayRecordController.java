@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neusoft.ht.fee.model.PublicHouseFeePayRecordModel;
@@ -67,17 +68,15 @@ public class PublicHouseFeePayRecordController {
 	}
 	
 	@GetMapping("/getListByAllWithPage")
-	public ResultMessage<PublicHouseFeePayRecordModel> getLIstByAllWithPage(int rows, int page) throws Exception {
-		int  count = 0;
-		int pageCount = 0;
-		List<PublicHouseFeePayRecordModel> list = null;
+	public ResultMessage<PublicHouseFeePayRecordModel> getListByAllWithPage(@RequestParam(required = false, defaultValue = "4") int rows, @RequestParam(required = false, defaultValue = "1") int page) throws Exception {
+		ResultMessage<PublicHouseFeePayRecordModel> resultMessage = new ResultMessage<PublicHouseFeePayRecordModel>("OK", "取得公建缴费信息分页模式成功");
+		resultMessage.setCount(publicHouseFeePayRecordService.getCountByAll());
+		resultMessage.setPageCount(publicHouseFeePayRecordService.getCountPageByAll(rows));
+		resultMessage.setList(publicHouseFeePayRecordService.getListByAllWithPage(rows, page));
+		resultMessage.setPage(page);
+		resultMessage.setRows(rows);
 		
-		count = publicHouseFeePayRecordService.getCountByAll();
-
-		pageCount = count % rows == 0 ? (count / rows) : (count / rows) + 1;
-
-		list = publicHouseFeePayRecordService.getListByAllWithPage(rows, page);
-		return new ResultMessage<PublicHouseFeePayRecordModel>(count, pageCount, list, "OK", "查找成功！");
+		return resultMessage;
 	}
 	
 	@GetMapping("/getCountByAll")

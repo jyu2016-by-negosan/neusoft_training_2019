@@ -29,4 +29,7 @@ public interface IUserInfoMapper {
 	public UserInfoModel selectById(String uuserid) throws Exception;
 	//取得对象的个数
 	public int selectCountByAll() throws Exception;
+	//检查系统管理员登陆账号是否已经存在
+	public int selectCountById(String uuserid) throws Exception;
+	
 }

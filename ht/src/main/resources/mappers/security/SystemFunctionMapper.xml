@@ -16,12 +16,12 @@
 
 
 	<insert id="insert" keyProperty="funno" keyColumn="FUNNO" useGeneratedKeys="true" flushCache="true" >
-		insert into HT_SYSTEMFUNCTION (FUNNAME, FUNURL, LevelNo)
-		values (#{funname}, #{funurl}, #{levelno})
+		insert into HT_SYSTEMFUNCTION (FUNNO, FUNNAME, FUNURL, LevelNo)
+		values (#{funno}, #{funname}, #{funurl}, #{levelno})
 	</insert>
 	
 	<update id="update" flushCache="true">
-		update HT_SYSTEMFUNCTION set FUNNAME=#{funname}, FUNURL=#{funurl}, LevelNo=#{levelno}
+		update HT_SYSTEMFUNCTION set FUNNO=#{funno}, FUNNAME=#{funname}, FUNURL=#{funurl}, LevelNo=#{levelno}
 		where FUNNO=#{funno}
 	</update>
 	
@@ -47,5 +47,11 @@
 	<!-- 使用IFNULL函数判断count函数的结果是否为null，若为null则返回0 -->
 	<select id="selectCountByAll" resultType="int">
 		select IFNULL(count(FUNNO), 0) from HT_SYSTEMFUNCTION
+	</select>
+	
+	<!-- 检查功能编号是否已经存在 -->
+	<select id="selectCountByNo" resultType="int">
+		select IFNULL(count(FUNNO),0) from HT_SYSTEMFUNCTION
+		where FUNNO=#{funno}
 	</select>
 </mapper>

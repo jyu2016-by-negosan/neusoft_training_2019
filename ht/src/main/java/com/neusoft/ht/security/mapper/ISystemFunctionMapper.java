@@ -29,4 +29,7 @@ public interface ISystemFunctionMapper {
 	public SystemFunctionModel selectByNo(int funno) throws Exception;
 	//取得对象的个数
 	public int selectCountByAll() throws Exception;
+	//检查功能编号是否已经存在
+	public int selectCountByNo(int funno) throws Exception;
+	
 }

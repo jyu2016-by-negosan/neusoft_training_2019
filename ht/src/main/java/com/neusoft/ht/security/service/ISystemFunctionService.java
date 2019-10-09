@@ -2,6 +2,8 @@ package com.neusoft.ht.security.service;
 
 import java.util.List;
 
+import javax.transaction.xa.XAException;
+
 import com.neusoft.ht.security.model.SystemFunctionModel;
 
 /**模块：系统安全模块
@@ -27,5 +29,7 @@ public interface ISystemFunctionService {
 	public int getCountByAll() throws Exception;
 	//取得对象的页数
 	public int getPageCountByAll(int rows) throws Exception; 
+	//检查功能编号是否已经存在
+	public int getCountByNo(int funno) throws Exception;
 
 }

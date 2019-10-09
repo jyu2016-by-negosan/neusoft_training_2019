@@ -27,5 +27,7 @@ public interface IUserInfoService {
 	public int getCountByAll() throws Exception;
 	//取得对象的页数
 	public int getPageCountByAll(int rows) throws Exception; 
+	//检查管理员登陆账号是否已经存在
+	public int getCountById(String uuserid) throws Exception;
 
 }

@@ -23,12 +23,13 @@
 		<association property="systemuser" resultMap="com.neusoft.ht.security.mapper.ISystemUserMapper" />
 	</resultMap>
 	
-	<insert id="insert"  flushCache="true" >
-		insert into HT_USERINFO values (#{uuserid}, #{sex}, #{age}, #{photo}, #{photofilename}, #{photocontenttype}, #{tel}, #{mobile})
+	<insert id="insert" keyProperty="uuserid"   keyColumn="UUSERID" useGeneratedKeys="true"  flushCache="true" >
+		insert into HT_USERINFO (UUSERID, Sex, AGE, PHOTOFileName, PhotoContentType)
+		values (#{uuserid}, #{sex}, #{age}, #{photofilename}, #{photocontenttype})
 	</insert>
 	
 	<update id="update" flushCache="true">
-		update HT_USERINFO set Sex=#{sex}, AGE=#{age}, PHOTO=#{photo}, PHOTOFileName=#{photofilename}, PhotoContentType=#{photocontenttype}, Tel=#{tel}, Mobile=#{mobile}
+		update HT_USERINFO set Sex=#{sex}, AGE=#{age}, PHOTOFileName=#{photofilename}, PhotoContentType=#{photocontenttype}
 		where UUSERID=#{uuserid}
 	</update>
 	
@@ -47,12 +48,18 @@
 	</select>
 	
 	<select id="selectById" resultMap="UserInfoResultMapWithSystemUser">
-		select * from HT_USERINFO
+		select UUSERID, Sex, AGE, PHOTOFileName, PhotoContentType from HT_USERINFO
 		where UUSERID=#{uuserid}
 	</select>
 	
 	<!-- 使用IFNULL函数判断count函数的结果是否为null，若为null则返回0 -->
 	<select id="selectCountByAll" resultType="int">
-		select IFNULL(count(UUSERID), 0) from HT_SYSTEMUSER
+		select IFNULL(count(UUSERID), 0) from HT_USERINFO
+	</select>
+	
+	<!-- 检查系统管理员登陆账号是否已经存在 -->
+	<select id="selectCountById" resultType="int">
+		select IFNULL(count(uuserid),0) from HT_USERINFO
+		where UUSERID=#{uuserid}
 	</select>	
 </mapper>

@@ -79,5 +79,11 @@ public class SystemFunctionServiceImpl implements ISystemFunctionService{
 		}
 		return pageCount;
 	}
+	
+	@Override
+	public int getCountByNo(int funno) throws Exception{
+		
+		return systemFunctionMapper.selectCountByNo(funno);
+	}
 
 }

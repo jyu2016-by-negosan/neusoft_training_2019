@@ -19,7 +19,7 @@ import com.neusoft.ht.security.service.ISystemFunctionService;
  *
  */
 @RestController
-@RequestMapping(value="/security/systemfuncyion")
+@RequestMapping(value="/security/systemfunction")
 public class SystemFunctionController {
 	
 	@Autowired
@@ -28,26 +28,35 @@ public class SystemFunctionController {
 	//增加系统功能
 	@PostMapping("/add")
 	public ResultMessage<SystemFunctionModel> add(SystemFunctionModel systemFunctionModel) throws Exception{
+		if (systemFunctionModel != null) {
+			systemFunctionService.add(systemFunctionModel);
+		}
+		else {
+			return new ResultMessage<SystemFunctionModel>("ERROR", "添加失败！");
+		}
+		return new ResultMessage<SystemFunctionModel>("OK", "添加成功！");
+		
+		/*
 		try {
 			systemFunctionService.add(systemFunctionModel);
 		} catch (Exception e) {
 			return new ResultMessage<SystemFunctionModel>("ERROR", systemFunctionModel.getFunno()+"系统功能已存在！");
 		}
-			return new ResultMessage<SystemFunctionModel>("Success!","增加系统功能成功");
+			return new ResultMessage<SystemFunctionModel>("Success!","增加系统功能成功");*/
 	}
 	
 	//修改系统功能
 	@PostMapping("/modify")
 	public ResultMessage<SystemFunctionModel> modify(SystemFunctionModel systemFunctionModel) throws Exception{
 		systemFunctionService.modify(systemFunctionModel);
-		return new ResultMessage<SystemFunctionModel>("Success!","修改系统功能信息成功！");
+		return new ResultMessage<SystemFunctionModel>("OK","修改系统功能信息成功！");
 	}
 	
 	//删除系统功能
 	@PostMapping("/delete")
 	public ResultMessage<SystemFunctionModel> delete(SystemFunctionModel systemFunctionModel) throws Exception{
 		systemFunctionService.delete(systemFunctionModel);
-		return new ResultMessage<SystemFunctionModel>("Success!","删除系统功能信息成功！");
+		return new ResultMessage<SystemFunctionModel>("OK","删除系统功能信息成功！");
 	}
 	
 	//取得系统功能所有列表，无分页
@@ -59,7 +68,7 @@ public class SystemFunctionController {
 	//取得系统功能所有列表，有分页
 	@GetMapping(value = "/list/all/page")
 	public ResultMessage<SystemFunctionModel> getListByAllWithPage(@RequestParam(required = false, defaultValue = "4") int rows, @RequestParam(required = false, defaultValue = "1") int page) throws Exception{
-		ResultMessage<SystemFunctionModel> result = new ResultMessage<SystemFunctionModel>("Success!","取得系统功能列表分页模式成功！");
+		ResultMessage<SystemFunctionModel> result = new ResultMessage<SystemFunctionModel>("OK","取得系统功能列表分页模式成功！");
 		result.setCount(systemFunctionService.getCountByAll());
 		result.setPageCount(systemFunctionService.getPageCountByAll(rows));
 		result.setList(systemFunctionService.getListByAllWithPage(rows, page));
@@ -72,8 +81,22 @@ public class SystemFunctionController {
 	//取得指定功能编号的功能信息
 	@GetMapping("/getSystemFunctionByNo")
 	public ResultMessage<SystemFunctionModel> getByNo(int funno) throws Exception{
-		ResultMessage<SystemFunctionModel> result = new ResultMessage<SystemFunctionModel>("Success!","取得指定功能编号的功能信息成功！");
+		ResultMessage<SystemFunctionModel> result = new ResultMessage<SystemFunctionModel>("OK","取得指定功能编号的功能信息成功！");
 		result.setModel(systemFunctionService.getByNo(funno));
+		//return result;
+		
+		SystemFunctionModel systemFunctionModel = null;
+		systemFunctionModel = systemFunctionService.getByNo(funno);
+		return new ResultMessage<SystemFunctionModel>(systemFunctionModel, "OK", "查找成功");
+	}
+	
+	//检查功能编号是否已经存在
+	@GetMapping(value = "/checkno")
+	public boolean CheckNo(int funno) throws Exception{
+		boolean result = true;
+		if (systemFunctionService.getCountByNo(funno)==1) {
+			result = false;
+		}
 		return result;
 	}
 

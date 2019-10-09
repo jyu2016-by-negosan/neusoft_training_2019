@@ -79,5 +79,10 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		}
 		return pageCount;
 	}
+	
+	@Override
+	public int getCountById(String uuserid) throws Exception{
+		return userInfoMapper.selectCountById(uuserid);
+	}
 
 }

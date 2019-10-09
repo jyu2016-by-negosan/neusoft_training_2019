@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Base64.Encoder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,28 +41,28 @@ public class SystemUserController {
 		} catch (Exception e) {
 			return new ResultMessage<SystemUserModel>("ERROR", systemUserModel.getUuserid()+"操作员已存在！");
 		}
-			return new ResultMessage<SystemUserModel>("Success!","增加操作员成功");
+			return new ResultMessage<SystemUserModel>("OK","增加操作员成功");
 	}
 	
 	//修改系统功能
 	@PostMapping("/modify")
 	public ResultMessage<SystemUserModel> modify(SystemUserModel systemUserModel) throws Exception{
 		systemUserService.modify(systemUserModel);
-		return new ResultMessage<SystemUserModel>("Success!","修改操作员信息成功！");
+		return new ResultMessage<SystemUserModel>("OK","修改操作员信息成功！");
 	}
 	
 	//删除系统功能
 	@PostMapping("/delete")
 	public ResultMessage<SystemUserModel> delete(SystemUserModel systemUserModel) throws Exception{
 		systemUserService.delete(systemUserModel);
-		return new ResultMessage<SystemUserModel>("Success!","删除操作员成功！");
+		return new ResultMessage<SystemUserModel>("OK","删除操作员成功！");
 	}
 	
 	//登录
 	@PostMapping("/login")
-	public ResultMessage<SystemUserModel> login(String uuserid, String upassword, HttpSession httpSession) throws Exception{
+	public void login(String uuserid, String upassword, HttpServletResponse response) throws Exception{
 		System.out.println("login");
-		System.out.println(httpSession);
+		//System.out.println(response);
 		
 		boolean validate = false;
 		SystemUserModel systemUserModel = systemUserService.getById(uuserid);
@@ -74,7 +75,9 @@ public class SystemUserController {
 		String ukey = uuserid+"-"+encoder.encodeToString(upassword.getBytes("UTF-8"));
 		String encode_ukey = encoder.encodeToString(ukey.getBytes("UTF-8"));
 		
-		return new ResultMessage<SystemUserModel>("OK", encode_ukey);
+		//return new ResultMessage<SystemUserModel>("OK", encode_ukey);
+		//return "index.html";
+		response.sendRedirect("../index.html");
 	}
 	
 	// 用户退出
@@ -94,7 +97,7 @@ public class SystemUserController {
 	//取得系统功能所有列表，有分页
 	@GetMapping(value = "/list/all/page")
 	public ResultMessage<SystemUserModel> getListByAllWithPage(@RequestParam(required = false, defaultValue = "4") int rows, @RequestParam(required = false, defaultValue = "1") int page) throws Exception{
-		ResultMessage<SystemUserModel> result = new ResultMessage<SystemUserModel>("Success!","取得操作员列表分页模式成功！");
+		ResultMessage<SystemUserModel> result = new ResultMessage<SystemUserModel>("OK","取得操作员列表分页模式成功！");
 		result.setCount(systemUserService.getCountByAll());
 		result.setPageCount(systemUserService.getPageCountByAll(rows));
 		result.setList(systemUserService.getListByAllWithPage(rows, page));
@@ -107,7 +110,7 @@ public class SystemUserController {
 	//取得指定功能编号的功能信息
 	@GetMapping("/getSystemUserById")
 	public ResultMessage<SystemUserModel> getById(String uuserid) throws Exception{
-		ResultMessage<SystemUserModel> result = new ResultMessage<SystemUserModel>("Success!","取得指定ID的操作员信息成功！");
+		ResultMessage<SystemUserModel> result = new ResultMessage<SystemUserModel>("OK","取得指定ID的操作员信息成功！");
 		result.setModel(systemUserService.getById(uuserid));
 		return result;
 	}
